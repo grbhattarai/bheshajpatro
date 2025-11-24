@@ -20,3 +20,4 @@ It uses:
 
 If you use this project or parts of it, you must comply with the AGPL-3.0 and
 with the Swiss Ephemeris license (AGPL or a commercial Professional License).
+
