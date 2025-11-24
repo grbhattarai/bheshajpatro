@@ -16,7 +16,7 @@ It uses:
 
 - Sunrise/sunset calculations implemented in `noaa_sunrise.py`, based on
   public-domain NOAA / Meeus solar formulas. This implementation is
-  © YOUR NAME and released under AGPL-3.0 as part of this project.
+  © Gandhi Bhattarai and released under AGPL-3.0 as part of this project.
 
 If you use this project or parts of it, you must comply with the AGPL-3.0 and
 with the Swiss Ephemeris license (AGPL or a commercial Professional License).
