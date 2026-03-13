@@ -7,8 +7,10 @@ This project is licensed under the GNU Affero General Public License v3.0 (AGPL-
 The astronomical calculations in this project are implemented in Python by Gandhi Bhattarai and include:
 
 • Planetary position calculations based on the public-domain Moshier ephemeris algorithms.
-• Classical astronomical and calendrical calculations based on traditional Indian astronomical texts (including Surya Siddhanta and Ketaki methods), implemented independently in Python.
-• Sunrise and sunset calculations implemented in noaa_sunrise.py using public-domain NOAA / Meeus solar formulas.
+• Classical astronomical and calendrical calculations based on traditional Indian astronomical
+  texts (including Surya Siddhanta and Ketaki methods), implemented independently in Python.
+• Sunrise and sunset calculations implemented in noaa_sunrise.py using public-domain NOAA
+  / Meeus solar formulas.
 
 All original code in this repository is © Gandhi Bhattarai and released under AGPL-3.0.
 
