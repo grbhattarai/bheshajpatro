@@ -2,22 +2,16 @@
 
 ## Licensing
 
-This project is licensed under the **GNU Affero General Public License v3.0**.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
 
-It uses:
+The astronomical calculations in this project are implemented in Python by Gandhi Bhattarai and include:
 
-- **Swiss Ephemeris** (© Astrodienst AG), via the `pyswisseph` Python bindings.
-  Swiss Ephemeris itself is provided under a dual licensing model:
-  AGPL or the Swiss Ephemeris Professional License.
-  See the official documentation for details.
+• Planetary position calculations based on the public-domain Moshier ephemeris algorithms.
+• Classical astronomical and calendrical calculations based on traditional Indian astronomical
+  texts (including Surya Siddhanta and Ketaki methods), implemented independently in Python.
+• Sunrise and sunset calculations implemented in noaa_sunrise.py using public-domain NOAA
+  / Meeus solar formulas.
 
-- **Ephemeris data files** (`sepl_18.se1`, `semo_18.se1`, etc.) which are part of
-  the Swiss Ephemeris distribution and remain under Astrodienst’s terms.
+All original code in this repository is © Gandhi Bhattarai and released under AGPL-3.0.
 
-- Sunrise/sunset calculations implemented in `noaa_sunrise.py`, based on
-  public-domain NOAA / Meeus solar formulas. This implementation is
-  © Gandhi Bhattarai and released under AGPL-3.0 as part of this project.
-
-If you use this project or parts of it, you must comply with the AGPL-3.0 and
-with the Swiss Ephemeris license (AGPL or a commercial Professional License).
-
+If you use or modify this project, you must comply with the terms of the GNU Affero General Public License v3.0.
