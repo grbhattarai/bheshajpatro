@@ -1,20 +1,35 @@
 # Copyright (c) 2025 Gandhi Bhattarai
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# #
+#
 # Engine-agnostic MONTHLY Panchanga builder.
 #
 # You pass in a daily engine runner (e.g. Drik calc_pday.run),
 # and this module:
 #   1) calls the engine for each civil day of the month
-#   2) runs pa2_daypanchanga.run() on the session
+#   2) runs daypanchanga.run() on the session
 #   3) collects session["astro"]["panchanga_result"] rows
 
 from __future__ import annotations
 
+# =============================================================================
+# DEV OVERRIDE (REMOVE AFTER TESTING)
+# -----------------------------------------------------------------------------
+# Allows direct execution:
+#     python pbuilder/pa3_monthpanchanga.py
+# =============================================================================
+if __name__ == "__main__" and __package__ is None:
+    import sys
+    from pathlib import Path
+
+    PACKAGE_PARENT = Path(__file__).resolve().parents[2]
+    if str(PACKAGE_PARENT) not in sys.path:
+        sys.path.insert(0, str(PACKAGE_PARENT))
+# =============================================================================
+
 from datetime import date as _date, timedelta
 from typing import Any, Callable, Dict, List
 
-from bheshajpatro.pbuilder.pa2_daypanchanga import run as panchanga_day_run
+from bheshajpatro.pbuilder.daypanchanga import run as panchanga_day_run
 
 __all__ = [
     "month_boundaries",
@@ -29,7 +44,7 @@ __all__ = [
 
 def month_boundaries(d: _date) -> tuple[_date, _date]:
     """
-    Given a date, return (first_day, last_day) of that CIVIL month.
+    Given a date, return (first_day, last_day) of that civil month.
     """
     first = _date(d.year, d.month, 1)
     if d.month == 12:
@@ -41,7 +56,9 @@ def month_boundaries(d: _date) -> tuple[_date, _date]:
 
 
 def _iter_month_days(d: _date):
-    """Yield all dates in the civil month of the given date."""
+    """
+    Yield all dates in the civil month of the given date.
+    """
     start, end = month_boundaries(d)
     cur = start
     while cur <= end:
@@ -60,13 +77,13 @@ def build_month_panchanga_from_daily(
     standard_meridian_deg: float,
     tz_name: str | None,
     elevation_m: float | None,
-    ephe_dir: str | None,
     daily_engine_run: Callable[..., Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
     """
     Engine-agnostic MONTHLY Panchanga builder.
 
-    daily_engine_run must implement:
+    daily_engine_run must implement something equivalent to:
+
         run(
             d: date,
             latitude: float,
@@ -74,13 +91,15 @@ def build_month_panchanga_from_daily(
             std_meridian: float,
             tz_name: str | None = None,
             elevation: float | None = 0.0,
-            ephe_dir: str | None = None,
         ) -> dict[str, Any]
+
+    The returned dict must be an engine session compatible with
+    pbuilder.daypanchanga.run(session).
     """
     rows: List[Dict[str, Any]] = []
 
     for day in _iter_month_days(d):
-        # 1) ENGINE daily: pure astro core (STANDARD time only)
+        # 1) engine daily session
         session = daily_engine_run(
             day,
             latitude_deg,
@@ -88,10 +107,9 @@ def build_month_panchanga_from_daily(
             standard_meridian_deg,
             tz_name,
             elevation_m,
-            ephe_dir,
         )
 
-        # 2) Panchanga core: apply DST + bheshajpatro calculations
+        # 2) Panchanga builder
         session = panchanga_day_run(session)
 
         result = session["astro"]["panchanga_result"].copy()
@@ -129,7 +147,6 @@ def format_month_table(rows: List[Dict[str, Any]]) -> str:
 
     table_rows: List[str] = []
 
-    # Header
     table_rows.append(
         "{:<10} {:<9} {:>5} {:<16} {:>5} {:<16} {:>5} {:<16} {:>8} {:>8}".format(
             *headers
@@ -168,3 +185,55 @@ def format_month_table(rows: List[Dict[str, Any]]) -> str:
         table_rows.append(line)
 
     return "\n".join(table_rows)
+
+
+# ---------------------------------------------------------------------------
+# SIMPLE SELF-TESTS
+# ---------------------------------------------------------------------------
+
+def _run_self_tests() -> None:
+    print("Running pa3_monthpanchanga self-tests...")
+
+    from datetime import date as _d
+    from bheshajpatro.engines.drik.grahas.calc_pday import run as drik_day_run
+
+    d_test = _d(2025, 1, 15)
+
+    rows = build_month_panchanga_from_daily(
+        d=d_test,
+        latitude_deg=27.7172,
+        longitude_deg=85.3240,
+        standard_meridian_deg=86.25,
+        tz_name="Asia/Kathmandu",
+        elevation_m=1300.0,
+        daily_engine_run=drik_day_run,
+    )
+
+    print(f"\nMonth rows count: {len(rows)}")
+    assert len(rows) == 31
+
+    first = rows[0]
+    print("\nFirst row keys:", list(first.keys()))
+    print("First row date:", first.get("date_ce"))
+    print("First row day :", first.get("day_name"))
+    print("First row tithi:", first.get("tithi1"), first.get("tithi1_name"))
+    print("First row naksh:", first.get("nakshatra1"), first.get("nakshatra1_name"))
+    print("First row yoga :", first.get("yoga1"), first.get("yoga1_name"))
+
+    for row in rows:
+        assert "date_ce" in row
+        assert "day_name" in row
+        assert "tithi1" in row
+        assert "nakshatra1" in row
+        assert "yoga1" in row
+        assert "sunrise_hm" in row
+        assert "sunset_hm" in row
+
+    print("\n--- Month Table Preview ---")
+    print(format_month_table(rows[:5]))
+
+    print("\nAll monthpanchanga self-tests passed.")
+
+
+if __name__ == "__main__":
+    _run_self_tests()
