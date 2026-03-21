@@ -1,16 +1,16 @@
 
-from .cyoga import CYOGA, get_cyoga_name
-from .emonth import EMONTH, get_emonth_name
-from .graha import GRAHA, get_graha_name
-from .karana import KARANA, get_karana_name
-from .nakshatra import NAKSHATRA, get_nakshatra_name
-from .nmonth import NMONTH, get_nmonth_name
-from .nyoga import NYOGA, get_nyoga_name
-from .rashi import RASHI, get_rashi_name
-from .ritu import RITU, get_ritu_name
-from .samvatsara import SAMVATSARA, get_samvatsara_name
-from .tithi import TITHI, get_tithi_name
-from .weekdays import WEEKDAYS, get_weekday_name
+from .cyoganames import CYOGA, get_cyoga_name
+from .emonthnames import EMONTH, get_emonth_name
+from .grahanames import GRAHA, get_graha_name
+from .karananames import KARANA, get_karana_name
+from .nakshatranames import NAKSHATRA, get_nakshatra_name
+from .nmonthnames import NMONTH, get_nmonth_name
+from .nyoganames import NYOGA, get_nyoga_name
+from .rashinames import RASHI, get_rashi_name
+from .ritunames import RITU, get_ritu_name
+from .samvatsaranames import SAMVATSARA, get_samvatsara_name
+from .tithinames import TITHI, get_tithi_name
+from .weekdaynames import WEEKDAYS, get_weekday_name
 
 
 __all__ = [
