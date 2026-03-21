@@ -1,0 +1,296 @@
+country,state,city,latitude,longitude,standard,tz
+Afghanistan,,Kabul,34.5253,69.1783,67.5,Asia/Kabul
+Albania,,Tirana,41.3272,19.8186,15,Europe/Paris
+Algeria,,Algiers,36.7325,3.0872,15,Africa/Lagos
+Angola,,Luanda,-8.8383,13.2344,15,Africa/Lagos
+Argentina,,Buenos Aires,-34.6036,-58.3814,-45,America/Sao_Paulo
+Armenia,,Yerevan,40.1814,44.5144,60,Asia/Dubai
+Australia,,Canberra,-35.2931,149.1269,165,Australia/Sydney
+Australia,Northern,Darwin,-12.4381,130.8411,142.5,Australia/Darwin
+Australia,Queensland,Brisbane,-27.4678,153.0281,150,Australia/Brisbane
+Australia,South,Adelaide,-34.9275,138.6,157.5,Australia/Adelaide
+Australia,Victoria,Melbourne,-37.8142,144.9631,165,Australia/Sydney
+Australia,Wales,Sydney,-33.8667,151.2,165,Australia/Sydney
+Australia,Western,Perth,-31.9558,115.8597,120,Asia/Manila
+Austria,,Vienna,48.2083,16.3725,15,Europe/Paris
+Azerbaijan,,Baku,40.3667,49.8352,60,Asia/Dubai
+Bahamas,,Nassau,25.0442,-77.3503,-75,America/New_York
+Bahrain,,Manama,26.2233,50.5875,45,Europe/Moscow
+Bangladesh,,Dhaka,23.7289,90.3944,90,Asia/Dhaka
+Belarus,,Minsk,53.9006,27.5586,45,Europe/Moscow
+Belgium,,Brussels,50.8467,4.3525,15,Europe/Paris
+Benin,,Cotonou,6.3667,2.4333,15,Africa/Lagos
+Benin,,Porto-Novo,6.4972,2.605,15,Africa/Lagos
+Bolivia,,La Paz,-16.4958,-68.1333,-60,America/Caracas
+Bolivia,,Sucre,-19.0475,-65.26,-60,America/Caracas
+Bosnia,,Sarajevo,43.8564,18.4131,15,Europe/Paris
+Botswana,,Gaborone,-24.6569,25.9086,30,Africa/Johannesburg
+Brazil,,Brasilia,-15.7939,-47.8828,-45,America/Sao_Paulo
+Brazil,Amazonas,Manaus,-3.1189,-60.0217,-60,America/Caracas
+Brazil,Rio Grande,Porto Alegre,-30.0328,-51.23,-45,America/Sao_Paulo
+Brazil,Rio de Janeiro,Rio de Janeiro,-22.9111,-43.2056,-45,America/Sao_Paulo
+Brazil,Sao Paulo,Sao Paulo,-23.5504,-46.6339,-45,America/Sao_Paulo
+Bulgaria,,Sofia,42.6979,23.3217,30,Europe/Athens
+Burkina Faso,,Ouagadougou,12.3686,-1.5275,0,Africa/Abidjan
+Burma,,Nay Pyi Taw,19.7475,96.115,97.5,Asia/Yangon
+Burma,,Rangoon,16.795,96.16,97.5,Asia/Yangon
+Burundi,,Bujumbura,-3.3833,29.3667,30,Africa/Johannesburg
+Burundi,,Gitega,-3.4283,29.925,30,Africa/Johannesburg
+Cabo Verde,,Praia,14.9177,-23.5092,-15,Atlantic/Cape_Verde
+Cambodia,,Phnom Penh,11.5696,104.921,105,Asia/Jakarta
+Cameroon,,Yaounde,3.8667,11.5167,15,Africa/Lagos
+Canada,,Ottawa,45.4247,-75.695,-75,America/New_York
+Canada,Alberta,Calgary,51.05,-114.0667,-105,America/Denver
+Canada,BC,Vancouver,49.25,-123.1,-120,America/Los_Angeles
+Canada,Newfoundland,St. John's,47.4817,-52.7971,-52.5,America/St_Johns
+Canada,Ontario,Toronto,43.7417,-79.3733,-75,America/New_York
+Canada,Quebec,Montreal,45.5089,-73.5617,-75,America/New_York
+Central Africa,,Bangui,4.3733,18.5628,15,Africa/Lagos
+Chad,,N'Djamena,12.1053,15.0447,15,Africa/Lagos
+Chile,,Santiago,-33.4372,-70.6506,-45,America/Santiago
+China,,Beijing,39.9067,116.3975,120,Asia/Manila
+China,Guangdong,Guangzhou,23.13,113.26,120,Asia/Manila
+China,Heilongjiang,Harbin,45.7576,126.6409,120,Asia/Manila
+China,Shanghai,Shanghai,31.2286,121.4747,120,Asia/Manila
+China,Sichuan,Chengdu,30.66,104.0633,120,Asia/Manila
+China,Xinjiang,Urumqi,43.8225,87.6125,90,Asia/Dhaka
+Colombia,,Bogota,4.7111,-74.0722,-75,America/Lima
+Congo,,Kinshasa,-4.3219,15.3119,15,Africa/Lagos
+Costa Rica,,San Jose,9.9325,-84.08,-90,America/Mexico_City
+Cote dIvoire,,Abidjan,5.3364,-4.0267,0,Africa/Abidjan
+Croatia,,Zagreb,45.8131,15.9772,15,Europe/Paris
+Cuba,,Havana,23.1367,-82.3589,-75,America/Havana
+Cyprus,,Nicosia,35.1725,33.365,30,Europe/Athens
+Czechia,,Prague,50.0875,14.4214,15,Europe/Paris
+Denmark,,Copenhagen,55.6805,12.5615,15,Europe/Paris
+Djibouti,,Djibouti,11.5944,43.1481,45,Europe/Moscow
+Dominican Republic,,Santo Domingo,18.4764,-69.8933,-60,America/Caracas
+Ecuador,,Quito,-0.22,-78.5125,-75,America/Lima
+Egypt,,Cairo,30.0444,31.2358,30,Africa/Cairo
+El Salvador,,San Salvador,13.6989,-89.1914,-90,America/Mexico_City
+Equatorial Guinea,,Malabo,3.7456,8.7744,15,Africa/Lagos
+Eritrea,,Asmara,15.3358,38.9411,45,Europe/Moscow
+Estonia,,Tallinn,59.4372,24.7453,30,Europe/Athens
+Ethiopia,,Addis Ababa,9.03,38.74,45,Europe/Moscow
+Fiji,,Suva,-18.1333,178.4333,180,Pacific/Fiji
+Finland,,Helsinki,60.1708,24.9375,30,Europe/Athens
+France,,Paris,48.8567,2.3522,15,Europe/Paris
+Gabon,,Libreville,0.3901,9.4544,15,Africa/Lagos
+Gambia,,Banjul,13.4581,-16.5786,0,Africa/Abidjan
+Gaza Strip,,Gaza,31.5069,34.456,30,Asia/Gaza
+Georgia,,Tbilisi,41.7225,44.7925,60,Asia/Dubai
+Germany,,Berlin,52.52,13.405,15,Europe/Paris
+Ghana,,Accra,5.5461,-0.2067,0,Africa/Abidjan
+Greece,,Athens,37.9842,23.7281,30,Europe/Athens
+Guadeloupe,,Basse-Terre,16.0104,-61.7055,-60,America/Caracas
+Guatemala,,Guatemala City,14.6417,-90.5133,-90,America/Mexico_City
+Guinea,,Conakry,9.5092,-13.7122,0,Africa/Abidjan
+Guinea-Bissau,,Bissau,11.85,-15.5667,0,Africa/Abidjan
+Guyana,,Georgetown,6.8011,-58.155,-60,America/Caracas
+Haiti,,Port-au-Prince,18.5425,-72.3386,-75,America/New_York
+Honduras,,Tegucigalpa,14.1057,-87.204,-90,America/Mexico_City
+Hong Kong,,Hong Kong,22.3,114.2,120,Asia/Manila
+Hungary,,Budapest,47.4983,19.0408,15,Europe/Paris
+Iceland,,Reykjavik,64.1458,-21.9425,0,Africa/Abidjan
+India,AN Islands,Port Blair,11.6683,92.7378,82.5,Asia/Kolkata
+India,Andhra,Amaravati,16.5131,80.5165,82.5,Asia/Kolkata
+India,Arunachal,Itanagar,27.1,93.62,82.5,Asia/Kolkata
+India,Assam,Dispur,26.1397,91.7925,82.5,Asia/Kolkata
+India,Bihar,Patna,25.594,85.1376,82.5,Asia/Kolkata
+India,Chhattisgarh,Raipur,21.2444,81.6306,82.5,Asia/Kolkata
+India,Dadra,Daman,20.42,72.85,82.5,Asia/Kolkata
+India,Delhi,Delhi,28.61,77.23,82.5,Asia/Kolkata
+India,Delhi,New Delhi,28.6139,77.2089,82.5,Asia/Kolkata
+India,Goa,Panaji,15.4989,73.8278,82.5,Asia/Kolkata
+India,Gujarat,Ghandinagar,23.2231,72.65,82.5,Asia/Kolkata
+India,Himachal,Shimla,31.1033,77.1722,82.5,Asia/Kolkata
+India,Jammu and Kashmir,Srinagar,34.09,74.79,82.5,Asia/Kolkata
+India,Jharkhand,Ranchi,23.36,85.33,82.5,Asia/Kolkata
+India,Karnataka,Bangalore,12.9789,77.5917,82.5,Asia/Kolkata
+India,Kerala,Thiruvananthapuram,8.5241,76.9366,82.5,Asia/Kolkata
+India,Lakshadweep,Kavaratti,10.5626,72.6369,82.5,Asia/Kolkata
+India,Madhya,Bhopal,23.2599,77.4126,82.5,Asia/Kolkata
+India,Maharashtra,Mumbai,19.0761,72.8775,82.5,Asia/Kolkata
+India,Manipur,Imphal,24.8074,93.9384,82.5,Asia/Kolkata
+India,Meghalaya,Shillong,25.5822,91.8944,82.5,Asia/Kolkata
+India,Mizoram,Aizawl,23.7272,92.7178,82.5,Asia/Kolkata
+India,Nagaland,Kohima,25.67,94.1,82.5,Asia/Kolkata
+India,Odisha,Bhubaneshwar,20.27,85.84,82.5,Asia/Kolkata
+India,Puducherry,Puducherry,11.9167,79.8167,82.5,Asia/Kolkata
+India,Rajasthan,Jaipur,26.9,75.8,82.5,Asia/Kolkata
+India,Sikkim,Gangtok,27.33,88.62,82.5,Asia/Kolkata
+India,Tamil Nadu,Chennai,13.0825,80.275,82.5,Asia/Kolkata
+India,Telangana,Hyderabad,17.3617,78.4747,82.5,Asia/Kolkata
+India,Tripura,Agartala,23.8314,91.2869,82.5,Asia/Kolkata
+India,Uttar,Lucknow,26.85,80.95,82.5,Asia/Kolkata
+India,Uttarakhand,Dehra Dun,30.345,78.029,82.5,Asia/Kolkata
+India,West Bengal,Kolkata,22.5675,88.37,82.5,Asia/Kolkata
+Indonesia,,Jakarta,-6.175,106.8275,105,Asia/Jakarta
+Iran,,Tehran,35.6889,51.3897,52.5,Asia/Tehran
+Iraq,,Baghdad,33.3153,44.3661,45,Europe/Moscow
+Ireland,,Dublin,53.3497,-6.2603,0,Europe/Dublin
+Israel,,Jerusalem,31.7789,35.2256,30,Asia/Jerusalem
+Italy,,Rome,41.8931,12.4828,15,Europe/Paris
+Jamaica,,Kingston,17.9714,-76.7931,-75,America/Lima
+Japan,,Tokyo,35.687,139.7495,135,Asia/Tokyo
+Jordan,,Amman,31.9497,35.9328,45,Europe/Moscow
+Kazakhstan,,Astana,51.1472,71.4222,75,Asia/Karachi
+Kenya,,Nairobi,-1.2864,36.8172,45,Europe/Moscow
+Kosovo,,Pristina,42.6666,21.1724,15,Europe/Paris
+Kuwait,,Kuwait City,29.3697,47.9783,45,Europe/Moscow
+Kyrgyzstan,,Bishkek,42.8667,74.5667,90,Asia/Dhaka
+Laos,,Vientiane,17.98,102.63,105,Asia/Jakarta
+Latvia,,Riga,56.9475,24.1069,30,Europe/Athens
+Lebanon,,Beirut,33.8981,35.5058,30,Asia/Beirut
+Lesotho,,Maseru,-29.31,27.48,30,Africa/Johannesburg
+Liberia,,Monrovia,6.3133,-10.8014,0,Africa/Abidjan
+Libya,,Tripoli,32.8872,13.1914,30,Africa/Johannesburg
+Lithuania,,Vilnius,54.6872,25.28,30,Europe/Athens
+Madagascar,,Antananarivo,-18.91,47.525,45,Europe/Moscow
+Malawi,,Lilongwe,-13.9669,33.7873,30,Africa/Johannesburg
+Malaysia,,Kuala Lumpur,3.1686,101.698,120,Asia/Manila
+Malaysia,,Putrajaya,2.914,101.7019,120,Asia/Manila
+Mali,,Bamako,12.6458,-7.9922,0,Africa/Abidjan
+Malta,,Valletta,35.8983,14.5125,15,Europe/Paris
+Martinique,,Fort-de-France,14.6,-61.0667,-60,America/Caracas
+Mauritania,,Nouakchott,18.0858,-15.9785,0,Africa/Abidjan
+Mauritius,,Port Louis,-20.1644,57.5042,60,Asia/Dubai
+Mexico,,Mexico City,19.4333,-99.1333,-90,America/Mexico_City
+Mexico,Baja California,Tijuana,32.525,-117.0333,-120,America/Los_Angeles
+Mexico,Jalisco,Guadalajara,20.6767,-103.3475,-90,America/Mexico_City
+Mexico,Nuevo Leon,Monterrey,25.6844,-100.3181,-90,America/Mexico_City
+Mexico,Yucatan,Merida,20.9667,-89.6167,-90,America/Mexico_City
+Moldova,,Chisinau,47.0228,28.8353,30,Europe/Chisinau
+Mongolia,,Ulaanbaatar,47.9214,106.9055,120,Asia/Manila
+Montenegro,,Podgorica,42.4414,19.2628,15,Europe/Paris
+Morocco,,Rabat,34.0209,-6.8416,15,Africa/Casablanca
+Morocco,,Tifariti,26.158,-10.567,15,Africa/Casablanca
+Mozambique,,Maputo,-25.9153,32.5764,30,Africa/Johannesburg
+Namibia,,Windhoek,-22.57,17.0836,30,Africa/Johannesburg
+Nepal,,Kathmandu,27.71,85.32,86.25,Asia/Kathmandu
+Netherlands,,Amsterdam,52.3728,4.8936,15,Europe/Paris
+Netherlands,,The Hague,52.08,4.31,15,Europe/Paris
+New Caledonia,,Noumea,-22.2625,166.4443,165,Asia/Sakhalin
+New Zealand,,Wellington,-41.2889,174.7772,195,Pacific/Auckland
+Nicaragua,,Managua,12.1364,-86.2514,-90,America/Mexico_City
+Niger,,Niamey,13.515,2.1175,15,Africa/Lagos
+Nigeria,,Abuja,9.0667,7.4833,15,Africa/Lagos
+North Korea,,Pyongyang,39.0167,125.7475,135,Asia/Tokyo
+North Macedonia,,Skopje,41.9961,21.4317,15,Europe/Paris
+Norway,,Oslo,59.9133,10.7389,15,Europe/Paris
+Oman,,Muscat,23.6139,58.5922,60,Asia/Dubai
+Pakistan,,Islamabad,33.6931,73.0639,75,Asia/Karachi
+Panama,,Panama City,8.9711,-79.5347,-75,America/Lima
+Papua New Guinea,,Port Moresby,-9.4789,147.1494,150,Australia/Brisbane
+Paraguay,,Asuncion,-25.2945,-57.6435,-45,America/Sao_Paulo
+Peru,,Lima,-12.06,-77.0375,-75,America/Lima
+Philippines,,Manila,14.5958,120.9772,120,Asia/Manila
+Poland,,Warsaw,52.23,21.0111,15,Europe/Paris
+Portugal,,Lisbon,38.7122,-9.134,0,Europe/Lisbon
+Puerto Rico,,San Juan,18.3985,-66.061,-60,America/Caracas
+Qatar,,Doha,25.2867,51.5333,45,Europe/Moscow
+Reunion,,Saint-Denis,-20.8789,55.4481,60,Asia/Dubai
+Romania,,Bucharest,44.4325,26.1039,30,Europe/Athens
+Russia,,Moscow,55.7506,37.6175,45,Europe/Moscow
+Russia,Irkutskaya,Irkutsk,52.2892,104.28,120,Asia/Manila
+Russia,Kaliningradskaya,Kaliningrad,54.7003,20.4531,30,Africa/Johannesburg
+Russia,Kamchatskiy,Petropavlovsk-Kamchatskiy,53.0167,158.65,180,Pacific/Fiji
+Russia,Krasnoyarskiy,Krasnoyarsk,56.0089,92.8719,105,Asia/Jakarta
+Russia,Magadanskaya,Magadan,59.5667,150.8,165,Asia/Sakhalin
+Russia,Omskaya,Omsk,54.9833,73.3667,90,Asia/Dhaka
+Russia,Primorskiy,Vladivostok,43.115,131.8853,150,Australia/Brisbane
+Russia,Sakha,Yakutsk,62.03,129.73,135,Asia/Tokyo
+Russia,Samarskaya,Samara,53.2028,50.1408,60,Asia/Dubai
+Russia,Sverdlovskaya,Yekaterinburg,56.8356,60.6128,75,Asia/Karachi
+Rwanda,,Kigali,-1.9536,30.0606,30,Africa/Johannesburg
+Saudi Arabia,,Riyadh,24.65,46.71,45,Europe/Moscow
+Senegal,,Dakar,14.6726,-17.432,0,Africa/Abidjan
+Serbia,,Belgrade,44.8178,20.4569,15,Europe/Paris
+Sierra Leone,,Freetown,8.4833,-13.2331,0,Africa/Abidjan
+Singapore,,Singapore,1.3,103.8,120,Asia/Manila
+Slovakia,,Bratislava,48.1447,17.1128,15,Europe/Paris
+Slovenia,,Ljubljana,46.0514,14.5061,15,Europe/Paris
+Somalia,,Mogadishu,2.0392,45.3419,45,Europe/Moscow
+South Africa,,Bloemfontein,-29.1167,26.2167,30,Africa/Johannesburg
+South Africa,,Cape Town,-33.9253,18.4239,30,Africa/Johannesburg
+South Africa,,Pretoria,-25.7461,28.1881,30,Africa/Johannesburg
+South Korea,,Seoul,37.5667,126.9833,135,Asia/Tokyo
+South Sudan,,Juba,4.83,31.58,30,Africa/Johannesburg
+Spain,,Madrid,40.4169,-3.7033,15,Europe/Paris
+Sri Lanka,,Colombo,6.9167,79.8333,82.5,Asia/Kolkata
+Sudan,,Khartoum,15.6031,32.5265,30,Africa/Johannesburg
+Suriname,,Paramaribo,5.8522,-55.2039,-45,America/Sao_Paulo
+Sweden,,Stockholm,59.3275,18.0547,15,Europe/Paris
+Switzerland,,Bern,46.948,7.4474,15,Europe/Paris
+Syria,,Damascus,33.502,36.2981,45,Europe/Moscow
+Taiwan,,Taipei,25.0375,121.5625,120,Asia/Manila
+Tajikistan,,Dushanbe,38.5367,68.78,75,Asia/Karachi
+Tanzania,,Dodoma,-6.1731,35.7419,45,Europe/Moscow
+Thailand,,Bangkok,13.7525,100.4942,105,Asia/Jakarta
+Timor-Leste,,Dili,-8.5594,125.5795,135,Asia/Tokyo
+Togo,,Lome,6.1308,1.2153,0,Africa/Abidjan
+Trinidad,,Port of Spain,10.6667,-61.5167,-60,America/Caracas
+Tunisia,,Tunis,36.8064,10.1817,15,Africa/Lagos
+Turkey,,Ankara,39.93,32.85,45,Europe/Moscow
+Turkmenistan,,Ashgabat,37.9375,58.38,75,Asia/Karachi
+UAE,,Abu Dhabi,24.4667,54.3667,60,Asia/Dubai
+USA,AK,Juneau,58.4546,-134.1739,-135,America/Anchorage
+USA,AL,Montgomery,32.3482,-86.2668,-90,America/Chicago
+USA,AR,Little Rock,34.7256,-92.3577,-90,America/Chicago
+USA,AZ,Phoenix,33.5722,-112.0892,-105,America/Phoenix
+USA,CA,Sacramento,38.5677,-121.4685,-120,America/Los_Angeles
+USA,CO,Denver,39.762,-104.8758,-105,America/Denver
+USA,CT,Hartford,41.7661,-72.6834,-75,America/New_York
+USA,DC,Washington,38.9047,-77.0163,-75,America/New_York
+USA,DE,Dover,39.161,-75.5202,-75,America/New_York
+USA,FL,Tallahassee,30.4551,-84.2527,-75,America/New_York
+USA,GA,Atlanta,33.7628,-84.422,-75,America/New_York
+USA,HI,Honolulu,21.3294,-157.846,-150,Pacific/Honolulu
+USA,IA,Des Moines,41.5725,-93.6105,-90,America/Chicago
+USA,ID,Boise,43.6005,-116.2308,-105,America/Denver
+USA,IL,Springfield,42.1155,-72.5395,-75,America/New_York
+USA,IN,Indianapolis,39.7771,-86.1458,-75,America/New_York
+USA,KS,Topeka,39.0346,-95.6955,-90,America/Chicago
+USA,KY,Frankfort,38.1924,-84.8643,-75,America/New_York
+USA,LA,Baton Rouge,30.442,-91.1311,-90,America/Chicago
+USA,MA,Boston,42.3188,-71.0852,-75,America/New_York
+USA,MD,Annapolis,38.9706,-76.5047,-75,America/New_York
+USA,ME,Augusta,33.3645,-82.0708,-75,America/New_York
+USA,MI,Lansing,42.7142,-84.5601,-75,America/New_York
+USA,MO,Jefferson City,38.5676,-92.1759,-90,America/Chicago
+USA,MS,Jackson,32.3157,-90.2125,-90,America/Chicago
+USA,MT,Helena,46.5965,-112.0202,-105,America/Denver
+USA,NC,Raleigh,35.8324,-78.6429,-75,America/New_York
+USA,ND,Bismarck,46.8143,-100.7694,-90,America/Chicago
+USA,NE,Lincoln,40.8099,-96.6784,-90,America/Chicago
+USA,NH,Concord,37.9722,-122.0016,-120,America/Los_Angeles
+USA,NJ,Trenton,40.2237,-74.7641,-75,America/New_York
+USA,NM,Santa Fe,35.6619,-105.9819,-105,America/Denver
+USA,NV,Carson City,39.1511,-119.7476,-120,America/Los_Angeles
+USA,NY,Albany,42.6664,-73.7987,-75,America/New_York
+USA,OH,Columbus,39.9862,-82.9855,-75,America/New_York
+USA,OK,Oklahoma City,35.4676,-97.5136,-90,America/Chicago
+USA,OR,Salem,44.9233,-123.0244,-120,America/Los_Angeles
+USA,PA,Harrisburg,40.2752,-76.8843,-75,America/New_York
+USA,RI,Providence,41.823,-71.4187,-75,America/New_York
+USA,SC,Columbia,34.0378,-80.9036,-75,America/New_York
+USA,SD,Pierre,44.3748,-100.3205,-90,America/Chicago
+USA,TN,Nashville,36.1715,-86.7842,-90,America/Chicago
+USA,TX,Austin,30.3005,-97.7522,-90,America/Chicago
+USA,UT,Salt Lake City,40.7776,-111.9311,-105,America/Denver
+USA,VA,Richmond,37.5295,-77.4756,-75,America/New_York
+USA,VT,Montpelier,44.2659,-72.5717,-75,America/New_York
+USA,WA,Olympia,47.0417,-122.8959,-120,America/Los_Angeles
+USA,WI,Madison,43.0822,-89.393,-90,America/Chicago
+USA,WV,Charleston,32.8168,-79.9687,-75,America/New_York
+USA,WY,Cheyenne,41.135,-104.7902,-105,America/Denver
+Uganda,,Kampala,0.3136,32.5811,45,Europe/Moscow
+Ukraine,,Kyiv,50.45,30.5233,30,Europe/Athens
+United Kingdom,,London,51.5072,-0.1275,0,Europe/London
+Uruguay,,Montevideo,-34.9056,-56.1842,-45,America/Sao_Paulo
+Uzbekistan,,Tashkent,41.3111,69.2797,75,Asia/Karachi
+Venezuela,,Caracas,10.4806,-66.9036,-60,America/Caracas
+Vietnam,,Hanoi,21,105.85,105,Asia/Jakarta
+Yemen,,Sanaa,15.3483,44.2064,45,Europe/Moscow
+Zambia,,Lusaka,-15.4167,28.2833,30,Africa/Johannesburg
+Zimbabwe,,Harare,-17.8292,31.0522,30,Africa/Johannesburg
