@@ -5,17 +5,28 @@
 
 from __future__ import annotations
 
+# =============================================================================
+# DEV OVERRIDE (REMOVE AFTER TESTING)
+# -----------------------------------------------------------------------------
+# Allows direct execution:
+#     python engines/drik/grahas/calc_pmonth.py
+# =============================================================================
+if __name__ == "__main__" and __package__ is None:
+    import sys
+    from pathlib import Path
+
+    PACKAGE_PARENT = Path(__file__).resolve().parents[4]
+    if str(PACKAGE_PARENT) not in sys.path:
+        sys.path.insert(0, str(PACKAGE_PARENT))
+# =============================================================================
+
 from datetime import date as _date, timedelta
 from typing import Any, Dict, List
 
+from bheshajpatro.data.mapnames import get_emonth_name
 from bheshajpatro.engines.drik.grahas.calc_pday import run as day_run
 
 __all__ = ["month_bounds", "month_rows", "run", "format_month_table"]
-
-MONTH_NAMES = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
-]
 
 
 def month_bounds(d: _date) -> tuple[_date, _date]:
@@ -44,7 +55,6 @@ def month_rows(
     std_meridian: float,
     tz_name: str | None = None,
     elevation: float | None = 0.0,
-    ephe_dir: str | None = None,
 ) -> List[Dict[str, Any]]:
     """
     Build a list of per-day rows for the month containing date d.
@@ -58,9 +68,8 @@ def month_rows(
             "session": <full daily session from calc_pday.run>,
         }
 
-    We do NOT cherry-pick any astro fields here. Whatever calc_pday.run
-    provides (tithi, nakshatra, yoga, karanas, sunrise, sunset, etc.)
-    will all be available under row["session"].
+    We do not cherry-pick daily content here.
+    The full daily session remains available under row["session"].
     """
     rows: List[Dict[str, Any]] = []
 
@@ -72,7 +81,6 @@ def month_rows(
             std_meridian=std_meridian,
             tz_name=tz_name,
             elevation=elevation,
-            ephe_dir=ephe_dir,
         )
 
         rows.append(
@@ -81,7 +89,7 @@ def month_rows(
                 "year": day.year,
                 "month": day.month,
                 "day": day.day,
-                "session": session,  # full daily session (context + astro)
+                "session": session,
             }
         )
 
@@ -95,7 +103,6 @@ def run(
     std_meridian: float,
     tz_name: str | None = None,
     elevation: float | None = 0.0,
-    ephe_dir: str | None = None,
 ) -> List[Dict[str, Any]]:
     """Public entry point for monthly aggregation."""
     return month_rows(
@@ -105,7 +112,6 @@ def run(
         std_meridian=std_meridian,
         tz_name=tz_name,
         elevation=elevation,
-        ephe_dir=ephe_dir,
     )
 
 
@@ -113,8 +119,11 @@ def format_month_table(rows: List[Dict[str, Any]]) -> str:
     """
     Render a simple text table from monthly rows (diagnostic only).
 
-    For now, this uses a few fields from the daily session for preview.
-    This is *not* meant for final UI; just a quick console view.
+    Sunrise values are primary, so this preview uses:
+      - suryodaya_spashta
+      - suryodaya_gati
+
+    This is not meant for final UI.
     """
     if not rows:
         return "(no data)"
@@ -123,31 +132,28 @@ def format_month_table(rows: List[Dict[str, Any]]) -> str:
     lines.append(
         "Month      Day  Sunrise Sunset SuryaGati SuryaSpashta ChandraGati ChandraSpashta"
     )
-    lines.append("-" * 90)
+    lines.append("-" * 95)
 
     for r in rows:
-        mname = MONTH_NAMES[r["month"] - 1]
+        mname = get_emonth_name(r["month"], "en")
         day = r["day"]
         session = r["session"]
         astro = session["astro"]
 
-        # These are just for preview; the monthly/UI layer can use
-        # any other fields from session["astro"] later.
         sunrise_hours = astro.get("sunrise_hours")
         sunset_hours = astro.get("sunset_hours")
-        graha_gati = astro.get("graha_gati", {})
+        suryodaya_gati = astro.get("suryodaya_gati", {})
         suryodaya_spashta = astro.get("suryodaya_spashta", {})
 
-        # Fallbacks in case something is missing
         sr_h = float(sunrise_hours) if sunrise_hours is not None else 0.0
         ss_h = float(sunset_hours) if sunset_hours is not None else 0.0
 
         sunrise = f"{int(sr_h):02d}:{int((sr_h % 1) * 60):02d}"
         sunset = f"{int(ss_h):02d}:{int((ss_h % 1) * 60):02d}"
 
-        surya_gati = float(graha_gati.get("surya", 0.0))
+        surya_gati = float(suryodaya_gati.get("surya", 0.0))
         surya_spashta = float(suryodaya_spashta.get("surya", 0.0))
-        chandra_gati = float(graha_gati.get("chandra", 0.0))
+        chandra_gati = float(suryodaya_gati.get("chandra", 0.0))
         chandra_spashta = float(suryodaya_spashta.get("chandra", 0.0))
 
         lines.append(
@@ -161,11 +167,7 @@ def format_month_table(rows: List[Dict[str, Any]]) -> str:
 
 
 # ----------------------------------------------------------------------
-# SIMPLE SELF-TESTS (run: python -m bheshajpatro.engines.drik.grahas.calc_pmonth)
-# ----------------------------------------------------------------------
-
-# ----------------------------------------------------------------------
-# SIMPLE SELF-TESTS (run: python -m bheshajpatro.engines.drik.grahas.calc_pmonth)
+# SIMPLE SELF-TESTS
 # ----------------------------------------------------------------------
 
 def _run_self_tests() -> None:
@@ -173,7 +175,7 @@ def _run_self_tests() -> None:
 
     from datetime import date as _d
 
-    d_test = _d(2025, 1, 15)  # mid-month, January 2025
+    d_test = _d(2025, 1, 15)
     lat_ktm = 27.7172
     lon_ktm = 85.3240
     std_meridian_ktm = 86.25
@@ -185,14 +187,11 @@ def _run_self_tests() -> None:
         std_meridian=std_meridian_ktm,
         tz_name="Asia/Kathmandu",
         elevation=1300.0,
-        ephe_dir=None,
     )
 
-    # Basic month length sanity
     print(f"\nMonth rows count: {len(rows)}")
     assert len(rows) in (28, 29, 30, 31)
 
-    # Check a few generic structural properties on all rows
     for idx, r in enumerate(rows):
         assert "date" in r
         assert "year" in r
@@ -201,32 +200,27 @@ def _run_self_tests() -> None:
         assert "session" in r
 
         session = r["session"]
-        assert isinstance(session, dict), "session must be a dict"
-        assert "context" in session, "session missing 'context'"
-        assert "astro" in session, "session missing 'astro'"
+        assert isinstance(session, dict)
+        assert "context" in session
+        assert "astro" in session
 
         context = session["context"]
         astro = session["astro"]
-        assert isinstance(context, dict), "context must be a dict"
-        assert isinstance(astro, dict), "astro must be a dict"
+        assert isinstance(context, dict)
+        assert isinstance(astro, dict)
 
-        # Generic consistency: context.date should match row.date, if present
         ctx_date = context.get("date")
         if ctx_date is not None:
             assert ctx_date == r["date"], (
-                f"context.date ({ctx_date}) != row.date ({r['date']}) "
-                f"at index {idx}"
+                f"context.date ({ctx_date}) != row.date ({r['date']}) at index {idx}"
             )
 
-    # Print a small preview for visual inspection
-    # Log preview
     first = rows[0]
     print("\nFirst row keys:", list(first.keys()))
     print("First row date:", first["date"])
     print("First row session.context keys:", list(first["session"]["context"].keys()))
     print("First row session.astro keys  :", list(first["session"]["astro"].keys()))
 
-    # Generic astro preview
     print("\n--- Astro Values (First Row) ---")
     astro = first["session"]["astro"]
     for key, value in astro.items():
@@ -238,6 +232,9 @@ def _run_self_tests() -> None:
                 print(f"    {k2:12} -> {v2}")
         else:
             print(f"{key:20}: {value}")
+
+    print("\n--- Month Table Preview ---")
+    print(format_month_table(rows[:5]))
 
     print("\nAll calc_pmonth self-tests passed.")
 
