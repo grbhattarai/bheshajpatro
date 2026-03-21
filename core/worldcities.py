@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -18,51 +19,103 @@ __all__ = [
     "all_cities",
     "search_cities",
     "get_city",
+    "get_location_key",
+    "get_city_by_location_key",
 ]
 
 
-DEFAULT_WORLD_CITIES_PATH = input_data_path("worldcities.csv")
+WORLD_CITIES_CSV_NAME = "worldcities.csv"
+DEFAULT_WORLD_CITIES_PATH = Path(input_data_path(WORLD_CITIES_CSV_NAME))
 
 
-@dataclass
+# ---------------------------------------------------------------------
+# Normalization
+# ---------------------------------------------------------------------
+
+def _norm_text(value: str | None) -> str:
+    """
+    Normalize city names.
+
+    Examples:
+        "New York" -> "new_york"
+        "St. John's" -> "st_johns"
+    """
+    s = (value or "").strip().lower()
+    s = re.sub(r"[^\w\s-]", "", s)
+    s = re.sub(r"[-\s]+", "_", s)
+    return s.strip("_")
+
+
+def _norm_code(value: str | None) -> str:
+    """
+    Normalize country/state codes to lowercase.
+    """
+    return (value or "").strip().lower()
+
+
+# ---------------------------------------------------------------------
+# Location Key
+# ---------------------------------------------------------------------
+
+def build_location_key(
+    country_code: str,
+    city: str,
+    state_code: str = "",
+) -> str:
+    """
+    Canonical lowercase location key.
+
+    Format:
+        countrycode_statecode_city
+        OR
+        countrycode_city
+
+    Examples:
+        af_kabul
+        mx_jal_guadalajara
+        ca_bc_vancouver
+    """
+    cc = _norm_code(country_code)
+    sc = _norm_code(state_code)
+    city_part = _norm_text(city)
+
+    parts = [cc]
+    if sc:
+        parts.append(sc)
+    if city_part:
+        parts.append(city_part)
+
+    return "_".join(parts)
+
+
+# ---------------------------------------------------------------------
+# Data Model
+# ---------------------------------------------------------------------
+
+@dataclass(frozen=True)
 class City:
-    country: str   # as in CSV
+    country: str
     state: str
     city: str
     latitude: float
     longitude: float
     standard: float
     tz: str
-
-    @property
-    def label_city(self) -> str:
-        return self.city.strip().title()
-
-    @property
-    def label_state(self) -> str:
-        return self.state.strip().title()
-
-    @property
-    def label_country(self) -> str:
-        return self.country.strip().title()
+    country_code: str
+    state_code: str
+    country_code_iso3: str
+    location_key: str
 
     @property
     def label(self) -> str:
-        """
-        Full label for dropdown: "City, State, Country"
-        (State omitted if blank).
-        """
-        parts = [self.label_city]
+        parts = [self.city.title()]
         if self.state.strip():
-            parts.append(self.label_state)
-        parts.append(self.label_country)
+            parts.append(self.state.title())
+        parts.append(self.country.title())
         return ", ".join(parts)
 
     @property
     def canonical_place(self) -> dict[str, Any]:
-        """
-        Canonical lowercase place dict for the backend.
-        """
         return {
             "city": self.city.strip().lower(),
             "state": self.state.strip().lower(),
@@ -70,51 +123,97 @@ class City:
             "latitude": self.latitude,
             "longitude": self.longitude,
             "standard": self.standard,
-            "tz": self.tz.strip().lower(),
+            "tz": self.tz.strip(),
+            "country_code": self.country_code.strip().upper(),
+            "state_code": self.state_code.strip().upper(),
+            "country_code_iso3": self.country_code_iso3.strip().upper(),
+            "location_key": self.location_key,
         }
 
 
 # ---------------------------------------------------------------------
-# Loading and lookup
+# Loading
 # ---------------------------------------------------------------------
 
+@lru_cache(maxsize=4)
+def all_cities(csv_path: str | Path | None = None) -> tuple[City, ...]:
+    path = Path(csv_path) if csv_path else DEFAULT_WORLD_CITIES_PATH
 
-@lru_cache(maxsize=1)
-def all_cities(csv_path: str | Path | None = None) -> list[City]:
-    """
-    Load all cities from the CSV. Cached (single load per process).
-    """
-    path = Path(csv_path) if csv_path is not None else DEFAULT_WORLD_CITIES_PATH
-
-    with path.open("r", encoding="utf-8") as f:
+    cities: list[City] = []
+    with path.open("r", encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
-        return [
-            City(
-                country=row["country"],
-                state=row["state"],
-                city=row["city"],
-                latitude=float(row["latitude"]),
-                longitude=float(row["longitude"]),
-                standard=float(row["standard"]),
-                tz=row["tz"],
-            )
-            for row in reader
-        ]
 
+        for row in reader:
+            location_key = build_location_key(
+                country_code=row.get("country_code"),
+                state_code=row.get("state_code"),
+                city=row.get("city"),
+            )
+
+            cities.append(
+                City(
+                    country=(row.get("country") or "").strip(),
+                    state=(row.get("state") or "").strip(),
+                    city=(row.get("city") or "").strip(),
+                    latitude=float(row["latitude"]),
+                    longitude=float(row["longitude"]),
+                    standard=float(row["standard"]),
+                    tz=(row.get("tz") or "").strip(),
+                    country_code=(row.get("country_code") or "").strip(),
+                    state_code=(row.get("state_code") or "").strip(),
+                    country_code_iso3=(row.get("country_code_iso3") or "").strip(),
+                    location_key=location_key,
+                )
+            )
+
+    return tuple(cities)
+
+
+@lru_cache(maxsize=4)
+def _location_key_index(csv_path: str | Path | None = None) -> dict[str, City]:
+    index: dict[str, City] = {}
+
+    for c in all_cities(csv_path):
+        if c.location_key in index:
+            raise ValueError(f"duplicate location_key: {c.location_key}")
+        index[c.location_key] = c
+
+    return index
+
+
+# ---------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------
 
 def search_cities(query: str, limit: int = 15) -> list[City]:
-    """
-    Case-insensitive search over 'City, State, Country'.
-    """
     q = query.strip().lower()
     if not q:
         return []
 
-    def _match(c: City) -> bool:
-        return q in c.label.lower()
+    return [
+        c for c in all_cities()
+        if q in c.label.lower() or q in c.location_key
+    ][:limit]
 
-    results = [c for c in all_cities() if _match(c)]
-    return results[:limit]
+
+def get_location_key(
+    country_code: str,
+    city: str,
+    state_code: str | None = None,
+) -> str:
+    return build_location_key(
+        country_code=country_code,
+        state_code=state_code or "",
+        city=city,
+    )
+
+
+def get_city_by_location_key(location_key: str) -> City:
+    key = location_key.strip().lower()
+    try:
+        return _location_key_index()[key]
+    except KeyError as exc:
+        raise KeyError(f"location_key not found: {location_key!r}") from exc
 
 
 def get_city(
@@ -122,14 +221,6 @@ def get_city(
     country: str | None = None,
     state: str | None = None,
 ) -> City:
-    """
-    Convenience lookup for a single city.
-
-    Priority:
-      1) city + country + state
-      2) city + country
-      3) city only (first match)
-    """
     city_norm = city.strip().lower()
     country_norm = country.strip().lower() if country else None
     state_norm = state.strip().lower() if state else None
@@ -158,16 +249,3 @@ def get_city(
             return c
 
     raise KeyError(f"city not found: {city!r} country={country!r} state={state!r}")
-
-
-if __name__ == "__main__":
-    print(f"using csv: {DEFAULT_WORLD_CITIES_PATH}")
-    cities = all_cities()
-    print(f"loaded {len(cities)} cities\n")
-
-    for c in cities[:10]:
-        print(
-            f"{c.label:40s}  "
-            f"lat={c.latitude:8.4f}  lon={c.longitude:9.4f}  "
-            f"standard={c.standard:6.1f}  tz={c.tz}"
-        )
