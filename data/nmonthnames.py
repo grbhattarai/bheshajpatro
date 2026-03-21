@@ -1,0 +1,31 @@
+"""
+Lunar month constants.
+"""
+
+NMONTH = [
+    {"id": 1, "en": "Chaitra", "np": "चैत्र"},
+    {"id": 2, "en": "Vaishakha", "np": "वैशाख"},
+    {"id": 3, "en": "Jyeshtha", "np": "ज्येष्ठ"},
+    {"id": 4, "en": "Ashadha", "np": "आषाढ"},
+    {"id": 5, "en": "Shrawana", "np": "श्रावण"},
+    {"id": 6, "en": "Bhadrapada", "np": "भाद्रपद"},
+    {"id": 7, "en": "Ashwin", "np": "आश्विन"},
+    {"id": 8, "en": "Kartik", "np": "कार्तिक"},
+    {"id": 9, "en": "Mangsir", "np": "मार्गशीर्ष"},
+    {"id": 10, "en": "Poush", "np": "पौष"},
+    {"id": 11, "en": "Magha", "np": "माघ"},
+    {"id": 12, "en": "Phalguna", "np": "फाल्गुण"},
+]
+
+
+def get_nmonth_name(masa_id: int, lang: str = "en") -> str:
+    if 1 <= masa_id <= 12:
+        return NMONTH[masa_id - 1][lang]
+    raise ValueError("Masa id must be between 1 and 12")
+
+
+if __name__ == "__main__":
+    print("Masa List")
+    print("----------------")
+    for m in NMONTH:
+        print(f"{m['id']:2d}: {m['en']:<12} ({m['np']})")
