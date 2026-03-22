@@ -116,3 +116,25 @@ def api_panchanga_today(request: Request):
         return JSONResponse(payload.model_dump())
 
     return JSONResponse(payload.dict())
+
+
+
+from datetime import date, date as _date
+
+@app.get("/api/panchanga/day")
+def api_panchanga_day(request: Request, date: str):
+    try:
+        d = _date.fromisoformat(date)
+    except ValueError:
+        return JSONResponse({"error": "invalid date"}, status_code=400)
+
+    settings = load_user_settings(request)
+    payload = get_panchanga_result(
+        date_ce=d,
+        place=settings["place"],
+        engine=settings["engine"],
+    )
+
+    if hasattr(payload, "model_dump"):
+        return JSONResponse(payload.model_dump())
+    return JSONResponse(payload.dict())

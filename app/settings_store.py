@@ -7,13 +7,13 @@ from starlette.requests import Request
 DEFAULT_ENGINE = "drik"
 
 DEFAULT_PLACE: Dict[str, Any] = {
-    "key": "kathmandu_np",
-    "name": "Kathmandu, Nepal",
-    "latitude": 27.7172,
-    "longitude": 85.3240,
-    "standard": 86.25,
-    "tz": "Asia/Kathmandu",
-    "elevation": 1300.0,
+    "key": "raleigh_nc_us",
+    "name": "Raleigh, NC, USA",
+    "latitude": 35.7796,
+    "longitude": -78.6382,
+    "standard": -300.0,   # UTC-5 (EST) in minutes, or however you store offset
+    "tz": "America/New_York",
+    "elevation": 96.0,
 }
 
 

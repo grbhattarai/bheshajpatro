@@ -2,55 +2,1050 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>BheshajPatro</title>
+  <title>BheshajPatro — Panchanga</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:             #faf5ec;
+      --bg-card:        #f4ead8;
+      --bg-deep:        #ede0c8;
+      --accent:         #b85c2a;
+      --accent-dark:    #7a3a18;
+      --accent-light:   #e8a068;
+      --gold:           #c9922a;
+      --gold-light:     #e8c97a;
+      --text:           #271508;
+      --text-mid:       #5a3018;
+      --text-soft:      #8a6040;
+      --border:         #c9a870;
+      --border-light:   #e2cfa8;
+      --shukla-bg:      #f8f2e4;
+      --krishna-bg:     #2a1a0a;
+      --krishna-text:   #f0e0c0;
+      --divider:        #c9a870;
+      --shadow:         rgba(90, 40, 10, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── Texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--accent-dark);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 28px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      position: relative;
+      z-index: 10;
+    }
+    .topbar .site-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold-light);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+    }
+    .topbar-right { display: flex; align-items: center; gap: 18px; }
+    .topbar a { color: var(--gold-light); text-decoration: none; opacity: 0.85; transition: opacity 0.2s; }
+    .topbar a:hover { opacity: 1; }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 2px;
+    }
+    .lang-toggle button {
+      background: none;
+      border: none;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 18px;
+      opacity: 0.7;
+      transition: all 0.2s;
+    }
+    .lang-toggle button.active {
+      background: var(--gold);
+      color: var(--accent-dark);
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Ornamental divider ── */
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: 20px;
+      letter-spacing: 0.3em;
+      margin: 8px 0;
+      opacity: 0.7;
+    }
+    .rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
+    }
+    .rule-gold {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 10px 0;
+    }
+
+    /* ── Location bar ── */
+    .location-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .location-info {
+      font-size: 15px;
+      color: var(--text-mid);
+    }
+    .location-info strong { color: var(--text); }
+    .location-info a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    .location-info a:hover { text-decoration: underline; }
+
+    /* ── Main layout: sidebar + content ── */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Date navigation sidebar ── */
+    .date-nav {
+      position: sticky;
+      top: 20px;
+    }
+    .date-nav-header {
+      background: var(--accent-dark);
+      border-radius: 8px 8px 0 0;
+      padding: 14px 16px 10px;
+      text-align: center;
+    }
+    .date-nav-arrows {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .nav-arrow {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--gold-light);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .nav-arrow:hover { background: rgba(255,255,255,0.25); }
+    .date-display {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      text-align: center;
+    }
+    .date-display .ce-date { font-size: 14px; font-weight: 600; letter-spacing: 0.05em; }
+    .date-display .bs-date { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+
+    /* Mini Calendar */
+    .mini-cal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      padding: 12px;
+    }
+    .mini-cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .mini-cal-nav button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 15px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .mini-cal-nav button:hover { background: var(--bg-deep); }
+    .mini-cal-month {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-dark);
+      letter-spacing: 0.05em;
+    }
+    .mini-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .mini-cal-day-header {
+      text-align: center;
+      font-size: 10px;
+      font-family: 'Cinzel', serif;
+      color: var(--text-soft);
+      padding: 2px 0 4px;
+      letter-spacing: 0.05em;
+    }
+    .mini-cal-day {
+      text-align: center;
+      font-size: 12px;
+      padding: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      color: var(--text-mid);
+      transition: all 0.15s;
+    }
+    .mini-cal-day:hover { background: var(--bg-deep); color: var(--accent); }
+    .mini-cal-day.today { background: var(--accent-light); color: white; font-weight: 600; }
+    .mini-cal-day.selected { background: var(--accent-dark); color: var(--gold-light); font-weight: 600; }
+    .mini-cal-day.other-month { opacity: 0.35; }
+    .mini-cal-day.empty { cursor: default; }
+
+    /* Today button */
+    .btn-today {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 7px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-today:hover { background: var(--accent-dark); }
+
+    /* ── Panchanga content ── */
+    .panchanga-content { min-width: 0; }
+
+    /* Header date card */
+    .day-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px 14px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .day-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--accent-dark), var(--gold), var(--accent-dark));
+    }
+    .day-header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .day-name-large {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .date-ce-large {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.03em;
+    }
+    .date-bs-large {
+      font-size: 14px;
+      color: var(--text-mid);
+      margin-top: 2px;
+    }
+    .paksha-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .paksha-shukla {
+      background: var(--shukla-bg);
+      color: var(--accent-dark);
+      border: 1px solid var(--border);
+    }
+    .paksha-krishna {
+      background: var(--krishna-bg);
+      color: var(--krishna-text);
+    }
+
+    /* Sunrise/Sunset bar */
+    .sun-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 14px;
+      background: var(--bg-deep);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .sun-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+    }
+    .sun-item + .sun-item {
+      border-left: 1px solid var(--border-light);
+    }
+    .sun-icon { font-size: 18px; }
+    .sun-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.05em;
+    }
+    .sun-time {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+    .dinamana-item {
+      border-left: 1px solid var(--border-light);
+      padding: 8px 14px;
+      text-align: center;
+    }
+
+    /* ── Five Limbs ── */
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      margin: 22px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-light);
+    }
+
+    .limbs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .limb-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 12px 16px;
+      transition: border-color 0.2s;
+    }
+    .limb-card:hover { border-color: var(--border); }
+    .limb-card.full-width { grid-column: 1 / -1; }
+
+    .limb-label {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .limb-name {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .limb-name .sa { font-family: 'Noto Serif Devanagari', serif; }
+    .limb-until {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-top: 3px;
+    }
+    .limb-until em { font-style: normal; color: var(--accent); font-weight: 500; }
+    .limb-transitions {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .limb-tag {
+      font-size: 12px;
+      padding: 2px 9px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      color: var(--text-mid);
+    }
+
+    /* ── Graha section ── */
+    .graha-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .graha-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .graha-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .graha-symbol { font-size: 22px; }
+    .graha-label {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+    }
+    .graha-degree {
+      font-size: 15px;
+      color: var(--text-mid);
+      margin-bottom: 4px;
+    }
+    .graha-rashi {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .graha-nakshatra {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+    .rashi-transition {
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* ── Loading overlay ── */
+    .loading-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(250,245,236,0.8);
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+    .loading-overlay.active { display: flex; }
+    .loading-spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--border-light);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .date-nav { position: static; }
+      .limbs-grid, .graha-grid { grid-template-columns: 1fr; }
+      .limb-card.full-width { grid-column: 1; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Today’s Panchanga</h1>
 
-  <p>
-    <strong>Place:</strong> {{ place.name }}
-    <br>
-    <strong>Method:</strong> {{ engine }}
-    <br>
-    <a href="/settings">Change settings</a>
-  </p>
+<!-- Top bar -->
+<div class="topbar">
+  <a class="site-name" href="/">❧ BheshajPatro</a>
+  <div class="topbar-right">
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-sa" onclick="setLang('sa')">SA</button>
+    </div>
+    <a href="/settings">⚙ Settings</a>
+  </div>
+</div>
 
-  <hr>
+<div class="page">
 
-  <h2>{{ panchanga.result.date_ce }} / {{ panchanga.result.date_bs }}</h2>
+  <!-- Location bar -->
+  <div class="location-bar">
+    <div class="location-info">
+      <strong>Place:</strong> {{ place.name }}
+      &nbsp;·&nbsp;
+      <strong>Method:</strong> {{ engine | capitalize }}
+      <a href="/settings">Change</a>
+    </div>
+  </div>
 
-  <p><strong>Sunrise:</strong> {{ panchanga.result.sunrise_hm }}</p>
-  <p><strong>Sunset:</strong> {{ panchanga.result.sunset_hm }}</p>
-  <p><strong>Paksha:</strong> {{ panchanga.result.paksha }}</p>
+  <div class="main-layout">
 
-  <p>
-    <strong>Tithi:</strong>
-    {{ panchanga.result.tithi1_name }}
-    {% if panchanga.result.tithi1_hm %}until {{ panchanga.result.tithi1_hm }}{% endif %}
-  </p>
+    <!-- ── Date Navigation Sidebar ── -->
+    <aside class="date-nav">
+      <div class="date-nav-header">
+        <div class="date-nav-arrows">
+          <button class="nav-arrow" onclick="navigateDay(-1)" title="Previous day">‹</button>
+          <div class="date-display">
+            <div class="ce-date" id="nav-ce-date">{{ panchanga.result.date_ce }}</div>
+            <div class="bs-date" id="nav-bs-date">{{ panchanga.result.date_bs }}</div>
+          </div>
+          <button class="nav-arrow" onclick="navigateDay(1)" title="Next day">›</button>
+        </div>
+      </div>
 
-  <p>
-    <strong>Nakshatra:</strong>
-    {{ panchanga.result.nakshatra1_name }}
-    {% if panchanga.result.nakshatra1_hm %}until {{ panchanga.result.nakshatra1_hm }}{% endif %}
-  </p>
+      <div class="mini-cal">
+        <div class="mini-cal-nav">
+          <button onclick="calNav(-1)">‹</button>
+          <span class="mini-cal-month" id="cal-month-label"></span>
+          <button onclick="calNav(1)">›</button>
+        </div>
+        <div class="mini-cal-grid" id="cal-grid"></div>
+        <button class="btn-today" onclick="goToday()">Today</button>
+      </div>
+    </aside>
 
-  <p>
-    <strong>Yoga:</strong>
-    {{ panchanga.result.yoga1_name }}
-    {% if panchanga.result.yoga1_hm %}until {{ panchanga.result.yoga1_hm }}{% endif %}
-  </p>
+    <!-- ── Panchanga Content ── -->
+    <main class="panchanga-content" id="panchanga-panel" style="position:relative;">
 
-  <p>
-    <strong>Karana:</strong>
-    {{ panchanga.result.karana1_name }}
-    {% if panchanga.result.karana1_hm %}until {{ panchanga.result.karana1_hm }}{% endif %}
-  </p>
+      <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+      </div>
 
-  <hr>
+      <!-- Day Header -->
+      <div class="day-header" id="day-header">
+        <div class="day-header-top">
+          <div>
+            <div class="day-name-large" id="day-name">{{ panchanga.result.day_name }}</div>
+            <div class="date-ce-large" id="date-ce-large">{{ panchanga.result.date_ce }}</div>
+            <div class="date-bs-large" id="date-bs-large">
+              BS: {{ panchanga.result.date_bs }} &nbsp;·&nbsp; Shaka {{ panchanga.result.shaka_year }}
+            </div>
+          </div>
+          <span class="paksha-badge paksha-{{ panchanga.result.paksha }}" id="paksha-badge">
+            {{ panchanga.result.paksha | capitalize }} Paksha
+          </span>
+        </div>
 
-  <p><strong>Sun:</strong> {{ panchanga.result.sun_degree }}° ({{ panchanga.result.sun_rashi1_name }})</p>
-  <p><strong>Moon:</strong> {{ panchanga.result.moon_degree }}° ({{ panchanga.result.moon_rashi1_name }})</p>
+        <!-- Sun bar -->
+        <div class="sun-bar">
+          <div class="sun-item">
+            <span class="sun-icon">🌅</span>
+            <div>
+              <div class="sun-label" data-en="Sunrise" data-sa="सूर्योदय">Sunrise</div>
+              <div class="sun-time" id="sunrise-hm">{{ panchanga.result.sunrise_hm }}</div>
+            </div>
+          </div>
+          <div class="sun-item">
+            <span class="sun-icon">🌇</span>
+            <div>
+              <div class="sun-label" data-en="Sunset" data-sa="सूर्यास्त">Sunset</div>
+              <div class="sun-time" id="sunset-hm">{{ panchanga.result.sunset_hm }}</div>
+            </div>
+          </div>
+          <div class="sun-item dinamana-item">
+            <div>
+              <div class="sun-label" data-en="Dinamana" data-sa="दिनमान">Dinamana</div>
+              <div class="sun-time" id="dinamana-hm">{{ panchanga.result.dinamana_hm }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pancha Anga -->
+      <div class="section-title" data-en="Pancha Anga" data-sa="पञ्चाङ्ग">Pancha Anga</div>
+
+      <div class="limbs-grid">
+
+        <!-- Tithi -->
+        <div class="limb-card">
+          <div class="limb-label" data-en="Tithi" data-sa="तिथि">Tithi</div>
+          <div class="limb-name" id="tithi1-name">{{ panchanga.result.tithi1_name }}</div>
+          {% if panchanga.result.tithi1_hm %}
+          <div class="limb-until">until <em id="tithi1-hm">{{ panchanga.result.tithi1_hm }}</em></div>
+          {% endif %}
+          <div class="limb-transitions" id="tithi-transitions">
+            {% if panchanga.result.tithi2 %}
+            <span class="limb-tag">→ {{ panchanga.result.tithi2_name }}
+              {% if panchanga.result.tithi2_hm %}until {{ panchanga.result.tithi2_hm }}{% endif %}
+            </span>
+            {% endif %}
+            {% if panchanga.result.tithi3 %}
+            <span class="limb-tag">→ {{ panchanga.result.tithi3_name }}
+              {% if panchanga.result.tithi3_hm %}until {{ panchanga.result.tithi3_hm }}{% endif %}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Vara -->
+        <div class="limb-card">
+          <div class="limb-label" data-en="Vara" data-sa="वार">Vara</div>
+          <div class="limb-name" id="vara-name">{{ panchanga.result.day_name }}</div>
+        </div>
+
+        <!-- Nakshatra -->
+        <div class="limb-card">
+          <div class="limb-label" data-en="Nakshatra" data-sa="नक्षत्र">Nakshatra</div>
+          <div class="limb-name" id="nakshatra1-name">{{ panchanga.result.nakshatra1_name }}</div>
+          {% if panchanga.result.nakshatra1_hm %}
+          <div class="limb-until">until <em id="nakshatra1-hm">{{ panchanga.result.nakshatra1_hm }}</em></div>
+          {% endif %}
+          <div class="limb-transitions" id="nakshatra-transitions">
+            {% if panchanga.result.nakshatra2 %}
+            <span class="limb-tag">→ {{ panchanga.result.nakshatra2_name }}
+              {% if panchanga.result.nakshatra2_hm %}until {{ panchanga.result.nakshatra2_hm }}{% endif %}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Yoga -->
+        <div class="limb-card">
+          <div class="limb-label" data-en="Yoga" data-sa="योग">Yoga</div>
+          <div class="limb-name" id="yoga1-name">{{ panchanga.result.yoga1_name }}</div>
+          {% if panchanga.result.yoga1_hm %}
+          <div class="limb-until">until <em id="yoga1-hm">{{ panchanga.result.yoga1_hm }}</em></div>
+          {% endif %}
+          <div class="limb-transitions" id="yoga-transitions">
+            {% if panchanga.result.yoga2 %}
+            <span class="limb-tag">→ {{ panchanga.result.yoga2_name }}
+              {% if panchanga.result.yoga2_hm %}until {{ panchanga.result.yoga2_hm }}{% endif %}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Karana (full width) -->
+        <div class="limb-card full-width">
+          <div class="limb-label" data-en="Karana" data-sa="करण">Karana</div>
+          <div class="limb-name" id="karana1-name">{{ panchanga.result.karana1_name }}</div>
+          {% if panchanga.result.karana1_hm %}
+          <div class="limb-until">until <em id="karana1-hm">{{ panchanga.result.karana1_hm }}</em></div>
+          {% endif %}
+          <div class="limb-transitions" id="karana-transitions">
+            {% if panchanga.result.karana2 %}
+            <span class="limb-tag">→ {{ panchanga.result.karana2_name }}
+              {% if panchanga.result.karana2_hm %}until {{ panchanga.result.karana2_hm }}{% endif %}
+            </span>
+            {% endif %}
+            {% if panchanga.result.karana3 %}
+            <span class="limb-tag">→ {{ panchanga.result.karana3_name }}
+              {% if panchanga.result.karana3_hm %}until {{ panchanga.result.karana3_hm }}{% endif %}
+            </span>
+            {% endif %}
+            {% if panchanga.result.karana4 %}
+            <span class="limb-tag">→ {{ panchanga.result.karana4_name }}
+              {% if panchanga.result.karana4_hm %}until {{ panchanga.result.karana4_hm }}{% endif %}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+      </div><!-- .limbs-grid -->
+
+      <!-- Graha -->
+      <div class="section-title" data-en="Graha Sthiti" data-sa="ग्रह स्थिति">Graha Sthiti</div>
+
+      <div class="graha-grid">
+        <div class="graha-card">
+          <div class="graha-header">
+            <span class="graha-symbol">☉</span>
+            <span class="graha-label" data-en="Surya" data-sa="सूर्य">Surya</span>
+          </div>
+          <div class="graha-degree" id="sun-degree">{{ panchanga.result.sun_degree }}°</div>
+          <div class="graha-rashi" id="sun-rashi">{{ panchanga.result.sun_rashi1_name }}</div>
+          <div class="graha-nakshatra" id="sun-nakshatra">
+            Nakshatra: {{ panchanga.result.surya_nakshatra1_name }}
+            {% if panchanga.result.surya_nakshatra1_hm %}
+              until {{ panchanga.result.surya_nakshatra1_hm }}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="graha-card">
+          <div class="graha-header">
+            <span class="graha-symbol">☽</span>
+            <span class="graha-label" data-en="Chandra" data-sa="चन्द्र">Chandra</span>
+          </div>
+          <div class="graha-degree" id="moon-degree">{{ panchanga.result.moon_degree }}°</div>
+          <div class="graha-rashi" id="moon-rashi">{{ panchanga.result.moon_rashi1_name }}</div>
+          <div class="graha-nakshatra" id="moon-nakshatra">
+            Nakshatra: {{ panchanga.result.nakshatra1_name }}
+            {% if panchanga.result.nakshatra1_hm %}
+              until {{ panchanga.result.nakshatra1_hm }}
+            {% endif %}
+          </div>
+          {% if panchanga.result.moon_rashi2 %}
+          <div class="rashi-transition" id="moon-rashi-transition">
+            → {{ panchanga.result.moon_rashi2_name }}
+            {% if panchanga.result.moon_rashi1_hm %}at {{ panchanga.result.moon_rashi1_hm }}{% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </main><!-- .panchanga-content -->
+  </div><!-- .main-layout -->
+</div><!-- .page -->
+
+<script>
+// ─────────────────────────────────────────────
+// State
+// ─────────────────────────────────────────────
+const todayIso = new Date().toISOString().slice(0, 10);
+let currentDate = "{{ panchanga.result.date_ce }}";
+let calViewYear, calViewMonth;
+
+// ─────────────────────────────────────────────
+// Language Toggle
+// ─────────────────────────────────────────────
+const SA_NAMES = {
+  tithi: ["प्रतिपदा","द्वितीया","तृतीया","चतुर्थी","पञ्चमी","षष्ठी","सप्तमी","अष्टमी","नवमी","दशमी","एकादशी","द्वादशी","त्रयोदशी","चतुर्दशी","पूर्णिमा","प्रतिपदा","द्वितीया","तृतीया","चतुर्थी","पञ्चमी","षष्ठी","सप्तमी","अष्टमी","नवमी","दशमी","एकादशी","द्वादशी","त्रयोदशी","चतुर्दशी","अमावस्या"],
+  nakshatra: ["अश्विनी","भरणी","कृत्तिका","रोहिणी","मृगशिरा","आर्द्रा","पुनर्वसु","पुष्य","आश्लेषा","मघा","पूर्वफाल्गुनी","उत्तरफाल्गुनी","हस्त","चित्रा","स्वाती","विशाखा","अनुराधा","ज्येष्ठा","मूल","पूर्वाषाढा","उत्तराषाढा","श्रवण","धनिष्ठा","शतभिषा","पूर्वभाद्रपदा","उत्तरभाद्रपदा","रेवती"],
+  yoga: ["विष्कम्भ","प्रीति","आयुष्मान","सौभाग्य","शोभन","अतिगण्ड","सुकर्मा","धृति","शूल","गण्ड","वृद्धि","ध्रुव","व्याघात","हर्षण","वज्र","सिद्धि","व्यतीपात","वरीयान","परिघ","शिव","सिद्ध","साध्य","शुभ","शुक्ल","ब्रह्म","इन्द्र","वैधृति"],
+  karana: ["बव","बालव","कौलव","तैतिल","गर","वणिज","विष्टि","शकुनि","चतुष्पाद","नाग","किंस्तुघ्न"],
+  vara: ["रवि","सोम","मङ्गल","बुध","गुरु","शुक्र","शनि"],
+  rashi: ["मेष","वृष","मिथुन","कर्क","सिंह","कन्या","तुला","वृश्चिक","धनु","मकर","कुम्भ","मीन"],
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-sa').classList.toggle('active', lang === 'sa');
+
+  // Update all labeled elements
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.textContent = lang === 'sa' ? (el.dataset.sa || el.dataset.en) : el.dataset.en;
+  });
+}
+
+// ─────────────────────────────────────────────
+// Mini Calendar
+// ─────────────────────────────────────────────
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DAYS_SHORT = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+const MIN_YEAR = new Date().getFullYear() - 3;
+const MAX_YEAR = new Date().getFullYear() + 5;
+
+function initCalendar() {
+  const parts = currentDate.split('-');
+  calViewYear = parseInt(parts[0]);
+  calViewMonth = parseInt(parts[1]) - 1;
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const label = document.getElementById('cal-month-label');
+  label.textContent = MONTHS[calViewMonth] + ' ' + calViewYear;
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  // Day headers
+  DAYS_SHORT.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'mini-cal-day-header';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
+  const daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+  const prevDays = new Date(calViewYear, calViewMonth, 0).getDate();
+
+  // Prev month filler
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const el = document.createElement('div');
+    el.className = 'mini-cal-day other-month';
+    el.textContent = prevDays - i;
+    grid.appendChild(el);
+  }
+
+  // Current month days
+  const selParts = currentDate.split('-');
+  const selYear = parseInt(selParts[0]);
+  const selMonth = parseInt(selParts[1]) - 1;
+  const selDay = parseInt(selParts[2]);
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el = document.createElement('div');
+    el.className = 'mini-cal-day';
+
+    const isoDate = `${calViewYear}-${String(calViewMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+    if (isoDate === todayIso) el.classList.add('today');
+    if (calViewYear === selYear && calViewMonth === selMonth && d === selDay) el.classList.add('selected');
+
+    // Range check
+    const dateObj = new Date(calViewYear, calViewMonth, d);
+    const minDate = new Date(MIN_YEAR, 0, 1);
+    const maxDate = new Date(MAX_YEAR, 11, 31);
+    if (dateObj >= minDate && dateObj <= maxDate) {
+      el.textContent = d;
+      el.onclick = () => loadDate(isoDate);
+    } else {
+      el.textContent = d;
+      el.style.opacity = '0.2';
+      el.style.cursor = 'default';
+    }
+    grid.appendChild(el);
+  }
+
+  // Next month filler
+  const total = firstDay + daysInMonth;
+  const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for (let d = 1; d <= remaining; d++) {
+    const el = document.createElement('div');
+    el.className = 'mini-cal-day other-month';
+    el.textContent = d;
+    grid.appendChild(el);
+  }
+}
+
+function calNav(dir) {
+  calViewMonth += dir;
+  if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; }
+  if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
+  renderCalendar();
+}
+
+function goToday() {
+  loadDate(todayIso);
+}
+
+// ─────────────────────────────────────────────
+// Day Navigation
+// ─────────────────────────────────────────────
+function navigateDay(delta) {
+  const parts = currentDate.split('-');
+  const d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  d.setDate(d.getDate() + delta);
+
+  // Enforce range
+  const minDate = new Date(MIN_YEAR, 0, 1);
+  const maxDate = new Date(MAX_YEAR, 11, 31);
+  if (d < minDate || d > maxDate) return;
+
+  const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  loadDate(iso);
+}
+
+// ─────────────────────────────────────────────
+// Load Panchanga for date
+// ─────────────────────────────────────────────
+async function loadDate(iso) {
+  if (iso === currentDate) return;
+
+  // Show loading
+  const overlay = document.getElementById('loading-overlay');
+  overlay.classList.add('active');
+
+  try {
+    const resp = await fetch(`/api/panchanga/day?date=${iso}`);
+    if (!resp.ok) throw new Error('API error');
+    const data = await resp.json();
+    updateUI(data);
+    currentDate = iso;
+
+    // Update sidebar date display
+    document.getElementById('nav-ce-date').textContent = data.result.date_ce || iso;
+    document.getElementById('nav-bs-date').textContent = data.result.date_bs || '';
+
+    // Sync calendar view
+    const parts = iso.split('-');
+    calViewYear = parseInt(parts[0]);
+    calViewMonth = parseInt(parts[1]) - 1;
+    renderCalendar();
+
+  } catch(e) {
+    console.error('Failed to load panchanga for', iso, e);
+    alert('Could not load Panchanga for ' + iso);
+  } finally {
+    overlay.classList.remove('active');
+  }
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val || '';
+}
+
+function setHtml(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+function transitionTags(items) {
+  if (!items || items.length === 0) return '';
+  return items.map(it => {
+    const until = it.hm ? ` until ${it.hm}` : '';
+    return `<span class="limb-tag">→ ${it.name}${until}</span>`;
+  }).join('');
+}
+
+function updateUI(data) {
+  const r = data.result;
+
+  // Day header
+  setText('day-name', r.day_name);
+  setText('date-ce-large', r.date_ce);
+  setText('date-bs-large', `BS: ${r.date_bs} · Shaka ${r.shaka_year}`);
+
+  const pb = document.getElementById('paksha-badge');
+  if (pb) {
+    pb.textContent = (r.paksha ? r.paksha.charAt(0).toUpperCase() + r.paksha.slice(1) : '') + ' Paksha';
+    pb.className = 'paksha-badge paksha-' + (r.paksha || 'shukla');
+  }
+
+  // Sun bar
+  setText('sunrise-hm', r.sunrise_hm);
+  setText('sunset-hm', r.sunset_hm);
+  setText('dinamana-hm', r.dinamana_hm);
+
+  // Tithi
+  setText('tithi1-name', r.tithi1_name);
+  setText('tithi1-hm', r.tithi1_hm || '');
+  const tithi2 = r.tithi2_name ? [{name: r.tithi2_name, hm: r.tithi2_hm}] : [];
+  const tithi3 = r.tithi3_name ? [{name: r.tithi3_name, hm: r.tithi3_hm}] : [];
+  setHtml('tithi-transitions', transitionTags([...tithi2, ...tithi3]));
+
+  // Vara
+  setText('vara-name', r.day_name);
+
+  // Nakshatra
+  setText('nakshatra1-name', r.nakshatra1_name);
+  setText('nakshatra1-hm', r.nakshatra1_hm || '');
+  const naks2 = r.nakshatra2_name ? [{name: r.nakshatra2_name, hm: r.nakshatra2_hm}] : [];
+  setHtml('nakshatra-transitions', transitionTags(naks2));
+
+  // Yoga
+  setText('yoga1-name', r.yoga1_name);
+  setText('yoga1-hm', r.yoga1_hm || '');
+  const yoga2 = r.yoga2_name ? [{name: r.yoga2_name, hm: r.yoga2_hm}] : [];
+  setHtml('yoga-transitions', transitionTags(yoga2));
+
+  // Karana
+  setText('karana1-name', r.karana1_name);
+  setText('karana1-hm', r.karana1_hm || '');
+  const karanas = [];
+  if (r.karana2_name) karanas.push({name: r.karana2_name, hm: r.karana2_hm});
+  if (r.karana3_name) karanas.push({name: r.karana3_name, hm: r.karana3_hm});
+  if (r.karana4_name) karanas.push({name: r.karana4_name, hm: r.karana4_hm});
+  setHtml('karana-transitions', transitionTags(karanas));
+
+  // Graha
+  setText('sun-degree', (r.sun_degree || '') + '°');
+  setText('sun-rashi', r.sun_rashi1_name || '');
+  setText('sun-nakshatra', 'Nakshatra: ' + (r.surya_nakshatra1_name || '') +
+    (r.surya_nakshatra1_hm ? ' until ' + r.surya_nakshatra1_hm : ''));
+
+  setText('moon-degree', (r.moon_degree || '') + '°');
+  setText('moon-rashi', r.moon_rashi1_name || '');
+  setText('moon-nakshatra', 'Nakshatra: ' + (r.nakshatra1_name || '') +
+    (r.nakshatra1_hm ? ' until ' + r.nakshatra1_hm : ''));
+
+  const moonTrans = document.getElementById('moon-rashi-transition');
+  if (moonTrans) {
+    if (r.moon_rashi2_name) {
+      moonTrans.textContent = '→ ' + r.moon_rashi2_name + (r.moon_rashi1_hm ? ' at ' + r.moon_rashi1_hm : '');
+      moonTrans.style.display = '';
+    } else {
+      moonTrans.style.display = 'none';
+    }
+  }
+
+  // Re-apply language if Sanskrit is active
+  if (currentLang === 'sa') setLang('sa');
+}
+
+// ─────────────────────────────────────────────
+// Init
+// ─────────────────────────────────────────────
+initCalendar();
+</script>
+
 </body>
 </html>
