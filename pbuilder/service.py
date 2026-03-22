@@ -1,52 +1,43 @@
-# bheshajpatro/pbuilder/service.py
-
 from __future__ import annotations
 
 from datetime import date
-from typing import Dict, Any, Literal
+from typing import Any, Dict, Literal
 
 from bheshajpatro.core.models import PanchangaResponse, PanchangaResult
-from zz_legacy.app.session_orchestrator import build_engine_sessions_for_date
-
+from bheshajpatro.engines.session_orchestrator import build_engine_sessions_for_date
 
 EngineName = Literal["drik", "ketaki"]
 
 
 def _normalize_engine(engine: str | EngineName) -> EngineName:
-    e = str(engine).lower()
+    e = str(engine).lower().strip()
     if e not in {"drik", "ketaki"}:
         raise ValueError(f"unknown engine '{engine}', expected 'drik' or 'ketaki'.")
     return e  # type: ignore[return-value]
 
 
-# ---------------------------------------------------------------------------
-# shared session / daily bheshajpatro helpers
-# ---------------------------------------------------------------------------
-
 def get_panchanga_session(
     date_ce: date,
     place: Dict[str, Any],
-    engine: str | EngineName = "ketaki",
+    engine: str | EngineName = "drik",
 ) -> Dict[str, Any]:
     """
-    build a bheshajpatro computation session for the given engine.
+    Build a panchanga session for the given engine.
 
-    this now uses the unified drik/ketaki engine pipeline via
-    app.session_orchestrator.build_engine_sessions_for_date.
-
-    expected input `place` keys:
+    Expected place keys:
       - latitude
       - longitude
-      - standard  (standard meridian, degrees)
-      - tz        (iana tz name, lowercased)
+      - standard
+      - tz
+      - elevation (optional)
     """
-
     eng = _normalize_engine(engine)
 
     lat = float(place["latitude"])
     lon = float(place["longitude"])
     std = float(place["standard"])
-    tz = (place.get("tz") or None)  # keep None if empty
+    tz = place.get("tz") or None
+    elevation = float(place.get("elevation", 0.0))
 
     engine_sessions = build_engine_sessions_for_date(
         engine=eng,
@@ -55,17 +46,16 @@ def get_panchanga_session(
         longitude_deg=lon,
         standard_meridian_deg=std,
         tz_name=tz,
-        elevation_m=0.0,
+        elevation_m=elevation,
         ephe_dir=None,
     )
 
     daily = engine_sessions["daily"]
     context: Dict[str, Any] = daily.get("context", {})
     astro: Dict[str, Any] = daily.get("astro", {})
-
     panchanga_result: Dict[str, Any] = astro.get("panchanga_result", {})
 
-    session: Dict[str, Any] = {
+    return {
         "context": context,
         "products": {
             "main": {
@@ -76,27 +66,12 @@ def get_panchanga_session(
         },
     }
 
-    return session
-
 
 def get_panchanga_result(
     date_ce: date,
     place: Dict[str, Any],
-    engine: str | EngineName = "ketaki",
+    engine: str | EngineName = "drik",
 ) -> PanchangaResponse:
-    """
-    high-level helper that runs the selected engine and returns
-    a structured PanchangaResponse suitable for the web api.
-
-    expects get_panchanga_session() to return a session dict with:
-
-        session["context"]                -> context dict
-        session["products"]["main"]
-               ["panchanga_result"]       -> daily bheshajpatro dict
-
-    which matches PanchangaResult fields.
-    """
-
     session = get_panchanga_session(date_ce, place, engine=engine)
     context: Dict[str, Any] = session["context"]
     astro_main: Dict[str, Any] = session["products"]["main"]
@@ -106,18 +81,8 @@ def get_panchanga_result(
     return PanchangaResponse(context=context, result=result)
 
 
-# ---------------------------------------------------------------------------
-# optional: drik ephemeris helper (not wired yet)
-# ---------------------------------------------------------------------------
-
 def get_drik_ephemeris(
     date_ce: date,
     place: Dict[str, Any],
 ) -> Dict[str, Any]:
-    """
-    placeholder for a future drik/swiss ephemeris endpoint.
-
-    you can implement this later using your actual drik engine
-    (e.g. core + grahas), but for now it's a stub so imports succeed.
-    """
     raise NotImplementedError("get_drik_ephemeris is not implemented yet.")

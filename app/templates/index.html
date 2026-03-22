@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BheshajPatro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h1>Today’s Panchanga</h1>
+
+  <p>
+    <strong>Place:</strong> {{ place.name }}
+    <br>
+    <strong>Method:</strong> {{ engine }}
+    <br>
+    <a href="/settings">Change settings</a>
+  </p>
+
+  <hr>
+
+  <h2>{{ panchanga.result.date_ce }} / {{ panchanga.result.date_bs }}</h2>
+
+  <p><strong>Sunrise:</strong> {{ panchanga.result.sunrise_hm }}</p>
+  <p><strong>Sunset:</strong> {{ panchanga.result.sunset_hm }}</p>
+  <p><strong>Paksha:</strong> {{ panchanga.result.paksha }}</p>
+
+  <p>
+    <strong>Tithi:</strong>
+    {{ panchanga.result.tithi1_name }}
+    {% if panchanga.result.tithi1_hm %}until {{ panchanga.result.tithi1_hm }}{% endif %}
+  </p>
+
+  <p>
+    <strong>Nakshatra:</strong>
+    {{ panchanga.result.nakshatra1_name }}
+    {% if panchanga.result.nakshatra1_hm %}until {{ panchanga.result.nakshatra1_hm }}{% endif %}
+  </p>
+
+  <p>
+    <strong>Yoga:</strong>
+    {{ panchanga.result.yoga1_name }}
+    {% if panchanga.result.yoga1_hm %}until {{ panchanga.result.yoga1_hm }}{% endif %}
+  </p>
+
+  <p>
+    <strong>Karana:</strong>
+    {{ panchanga.result.karana1_name }}
+    {% if panchanga.result.karana1_hm %}until {{ panchanga.result.karana1_hm }}{% endif %}
+  </p>
+
+  <hr>
+
+  <p><strong>Sun:</strong> {{ panchanga.result.sun_degree }}° ({{ panchanga.result.sun_rashi1_name }})</p>
+  <p><strong>Moon:</strong> {{ panchanga.result.moon_degree }}° ({{ panchanga.result.moon_rashi1_name }})</p>
+</body>
+</html>

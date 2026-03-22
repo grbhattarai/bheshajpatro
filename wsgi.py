@@ -1,0 +1,1 @@
+from bheshajpatro.app.main import app
