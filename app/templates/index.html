@@ -114,6 +114,33 @@
       z-index: 1;
     }
 
+    /* ── Header block ── */
+    .page-header {
+      text-align: center;
+      margin: 0 0 18px;
+    }
+    .page-header-title {
+      font-family: 'Cinzel', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      line-height: 1.0;
+      letter-spacing: 0.03em;
+    }
+    .page-header-subtitle {
+      margin-top: 4px;
+      font-size: 40px;
+      font-weight: 500;
+      color: var(--accent-dark);
+      line-height: 1.1;
+    }
+    .page-header-location {
+      margin-top: 4px;
+      font-size: 24px;
+      color: var(--text-soft);
+      line-height: 1.1;
+    }
+
     /* ── Ornamental divider ── */
     .ornament {
       text-align: center;
@@ -530,6 +557,9 @@
       .date-nav { position: static; }
       .limbs-grid, .graha-grid { grid-template-columns: 1fr; }
       .limb-card.full-width { grid-column: 1; }
+      .page-header-title { font-size: 34px; }
+      .page-header-subtitle { font-size: 24px; }
+      .page-header-location { font-size: 20px; }
     }
   </style>
 </head>
@@ -548,6 +578,13 @@
 </div>
 
 <div class="page">
+
+  <!-- Header block -->
+  <div class="page-header">
+    <div class="page-header-title">Bheshaj Panchanga</div>
+    <div class="page-header-subtitle">Bheshaj Spiritual Center</div>
+    <div class="page-header-location">Morrisville, North Carolina, USA</div>
+  </div>
 
   <!-- Location bar -->
   <div class="location-bar">
@@ -658,10 +695,30 @@
           </div>
         </div>
 
-        <!-- Vara -->
+        <!-- Karana -->
         <div class="limb-card">
-          <div class="limb-label" data-en="Vara" data-sa="वार">Vara</div>
-          <div class="limb-name" id="vara-name">{{ panchanga.result.day_name }}</div>
+          <div class="limb-label" data-en="Karana" data-sa="करण">Karana</div>
+          <div class="limb-name" id="karana1-name">{{ panchanga.result.karana1_name }}</div>
+          {% if panchanga.result.karana1_hm %}
+          <div class="limb-until">until <em id="karana1-hm">{{ panchanga.result.karana1_hm }}</em></div>
+          {% endif %}
+          <div class="limb-transitions" id="karana-transitions">
+            {% if panchanga.result.karana2 %}
+            <span class="limb-tag">→ {{ panchanga.result.karana2_name }}
+              {% if panchanga.result.karana2_hm %}until {{ panchanga.result.karana2_hm }}{% endif %}
+            </span>
+            {% endif %}
+            {% if panchanga.result.karana3 %}
+            <span class="limb-tag">→ {{ panchanga.result.karana3_name }}
+              {% if panchanga.result.karana3_hm %}until {{ panchanga.result.karana3_hm }}{% endif %}
+            </span>
+            {% endif %}
+            {% if panchanga.result.karana4 %}
+            <span class="limb-tag">→ {{ panchanga.result.karana4_name }}
+              {% if panchanga.result.karana4_hm %}until {{ panchanga.result.karana4_hm }}{% endif %}
+            </span>
+            {% endif %}
+          </div>
         </div>
 
         <!-- Nakshatra -->
@@ -691,32 +748,6 @@
             {% if panchanga.result.yoga2 %}
             <span class="limb-tag">→ {{ panchanga.result.yoga2_name }}
               {% if panchanga.result.yoga2_hm %}until {{ panchanga.result.yoga2_hm }}{% endif %}
-            </span>
-            {% endif %}
-          </div>
-        </div>
-
-        <!-- Karana (full width) -->
-        <div class="limb-card full-width">
-          <div class="limb-label" data-en="Karana" data-sa="करण">Karana</div>
-          <div class="limb-name" id="karana1-name">{{ panchanga.result.karana1_name }}</div>
-          {% if panchanga.result.karana1_hm %}
-          <div class="limb-until">until <em id="karana1-hm">{{ panchanga.result.karana1_hm }}</em></div>
-          {% endif %}
-          <div class="limb-transitions" id="karana-transitions">
-            {% if panchanga.result.karana2 %}
-            <span class="limb-tag">→ {{ panchanga.result.karana2_name }}
-              {% if panchanga.result.karana2_hm %}until {{ panchanga.result.karana2_hm }}{% endif %}
-            </span>
-            {% endif %}
-            {% if panchanga.result.karana3 %}
-            <span class="limb-tag">→ {{ panchanga.result.karana3_name }}
-              {% if panchanga.result.karana3_hm %}until {{ panchanga.result.karana3_hm }}{% endif %}
-            </span>
-            {% endif %}
-            {% if panchanga.result.karana4 %}
-            <span class="limb-tag">→ {{ panchanga.result.karana4_name }}
-              {% if panchanga.result.karana4_hm %}until {{ panchanga.result.karana4_hm }}{% endif %}
             </span>
             {% endif %}
           </div>
@@ -991,9 +1022,6 @@ function updateUI(data) {
   const tithi2 = r.tithi2_name ? [{name: r.tithi2_name, hm: r.tithi2_hm}] : [];
   const tithi3 = r.tithi3_name ? [{name: r.tithi3_name, hm: r.tithi3_hm}] : [];
   setHtml('tithi-transitions', transitionTags([...tithi2, ...tithi3]));
-
-  // Vara
-  setText('vara-name', r.day_name);
 
   // Nakshatra
   setText('nakshatra1-name', r.nakshatra1_name);
