@@ -55,14 +55,14 @@ body::before {
   letter-spacing: 0.03em;
 }
 .topbar-subtitle {
-  margin-top: 4px;
-  font-size: 26px;
+  margin-top: 3px;
+  font-size: 32px;
   font-weight: 500;
   color: #f4dec0;
   line-height: 1.15;
 }
 .topbar-location {
-  margin-top: 2px;
+  margin-top: 3px;
   font-size: 18px;
   color: #e7c89c;
   line-height: 1.15;
@@ -88,7 +88,7 @@ body::before {
   font-size: 18px;
   color: var(--text);
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.05em;
 }
 .subbar-text strong {
@@ -506,4 +506,42 @@ body::before {
     color: #8a6a45;
     font-family: 'EB Garamond', serif;
     letter-spacing: 0.4px;
+}
+
+.pill {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 0 4px;
+    font-size: 0.95em;
+    border-radius: 999px;
+    border: 1px solid #e0d2bd;
+    background-color: #f8f3eb;
+    color: #6b4c2a;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+/* subtle hint, but not clickable */
+.pill {
+    cursor: default;
+}
+
+.pill:hover {
+    background-color: #f3ede4;
+}
+
+.meta-label {
+    font-size: 0.9em;
+    color: #8a6a45;
+    margin-right: 4px;
+}
+
+.meta-value {
+    color: #5a3f23;
+    font-weight: 500;   /* subtle emphasis */
+}
+
+.meta-sep {
+    margin: 0 10px;
+    color: #c2a98a;
 }

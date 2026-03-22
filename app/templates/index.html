@@ -19,11 +19,17 @@
 <div class="subbar">
   <div class="subbar-inner">
     <div class="subbar-text">
-      <strong>
-        <span class="subbar-linklike">{{ engine | capitalize }}</span>
-        Panchanga for
-        <span class="subbar-linklike">{{ place.name }}</span>
-      </strong>
+
+<strong>
+  <span class="meta-label">Location:</span>
+  <span class="meta-value">{{ place.name }}</span>
+
+  <span class="meta-sep">•</span>
+
+  <span class="meta-label">Panchanga Method:</span>
+  <span class="meta-value">{{ engine | capitalize }}</span>
+</strong>
+
     </div>
     <a class="subbar-settings" href="/settings">Settings</a>
   </div>
