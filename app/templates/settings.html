@@ -40,19 +40,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 28px;
+      padding: 12px 28px;
       font-family: 'Cinzel', serif;
       font-size: 13px;
       letter-spacing: 0.08em;
     }
-    .topbar .site-name {
-      font-size: 15px;
-      font-weight: 700;
+    .topbar-spacer {
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+    .topbar a {
       color: var(--gold-light);
       text-decoration: none;
-      letter-spacing: 0.12em;
+      opacity: 0.9;
     }
-    .topbar a { color: var(--gold-light); text-decoration: none; opacity: 0.85; }
     .topbar a:hover { opacity: 1; }
 
     .page {
@@ -207,7 +209,7 @@
 <body>
 
 <div class="topbar">
-  <a class="site-name" href="/">❧ BheshajPatro</a>
+  <div class="topbar-spacer"></div>
   <a href="/">← Back to Panchanga</a>
 </div>
 
@@ -218,7 +220,6 @@
 
   <form method="post" action="/settings" id="settings-form">
 
-    <!-- Hidden fields populated by JS -->
     <input type="hidden" name="key"       id="h-key">
     <input type="hidden" name="name"      id="h-name">
     <input type="hidden" name="latitude"  id="h-latitude">
@@ -295,7 +296,6 @@ async function loadCountries() {
       sel.appendChild(opt);
     });
 
-    // Pre-select current country
     if (currentKey) {
       const cc = currentKey.split('_')[0].toUpperCase();
       sel.value = cc;
