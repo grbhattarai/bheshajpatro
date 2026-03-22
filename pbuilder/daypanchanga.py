@@ -11,27 +11,17 @@
 
 from __future__ import annotations
 
-# =============================================================================
-# DEV OVERRIDE (REMOVE AFTER TESTING)
-# -----------------------------------------------------------------------------
-# Allows direct execution:
-#     python pbuilder/pa2_daypanchanga.py
-# =============================================================================
-if __name__ == "__main__" and __package__ is None:
-    import sys
-    from pathlib import Path
-
-    PACKAGE_PARENT = Path(__file__).resolve().parents[2]
-    if str(PACKAGE_PARENT) not in sys.path:
-        sys.path.insert(0, str(PACKAGE_PARENT))
-# =============================================================================
-
 from datetime import date as _date, datetime, timezone
 from typing import Any, Dict, List, Mapping
 
 from zoneinfo import ZoneInfo
 
-from bheshajpatro.core.core_functions import ghati_to_gp, hour_to_hm, norm_360
+from bheshajpatro.core.core_functions import (
+    ghati_to_gp,
+    hour_to_hm,
+    norm_360,
+    calc_shaka_year,
+)
 from bheshajpatro.data.mapnames import (
     get_emonth_name,
     get_karana_name,
@@ -87,18 +77,14 @@ def _blank_if_none(s: str | None) -> str:
 
 
 def _compute_bs_year(date_ce: _date) -> int:
-    """
-    Bikram Samvat year from Gregorian date.
-    """
+    """Bikram Samvat year from Gregorian date."""
     if date_ce.month > 4 or (date_ce.month == 4 and date_ce.day >= 14):
         return date_ce.year + 57
     return date_ce.year + 56
 
 
 def _compute_dst_offset_hours(date_ce: _date, location: Mapping[str, Any]) -> float:
-    """
-    Compute DST offset in hours from tz_name and std_meridian.
-    """
+    """Compute DST offset in hours from tz_name and std_meridian."""
     tz_name = location.get("tz_name")
     std_mer = location.get("std_meridian")
 
@@ -121,9 +107,7 @@ def _compute_dst_offset_hours(date_ce: _date, location: Mapping[str, Any]) -> fl
 
 
 def _hour_to_hm_24plus(hours: float) -> str:
-    """
-    Convert decimal hours -> HH:MM without mod-24 wrap.
-    """
+    """Convert decimal hours -> HH:MM without mod-24 wrap."""
     total_minutes = int(round(float(hours) * 60.0))
     h = total_minutes // 60
     m = total_minutes % 60
@@ -228,10 +212,6 @@ def compute_dinamana(sunrise_hours: float, sunset_hours: float) -> Dict[str, flo
 
 
 def _karana_index_from_slot(slot: int) -> int:
-    """
-    Map 1-based karana slot (1..60, each 6° of Sun-Moon separation)
-    to karana number 1..11.
-    """
     if slot <= 56:
         return ((slot - 1) % 7) + 1
     return 7 + (slot - 56)
@@ -282,27 +262,23 @@ def _segment_limb_for_day(
     segments: List[dict] = []
 
     if abs(rel_speed) < 1e-9:
-        segments.append(
-            {
-                "index": first_index,
-                "start_hm": _hour_to_hm_24plus(sunrise_std + dst_offset_hours),
-                "end_hm": None,
-                "ahoratra": True,
-            }
-        )
+        segments.append({
+            "index": first_index,
+            "start_hm": _hour_to_hm_24plus(sunrise_std + dst_offset_hours),
+            "end_hm": None,
+            "ahoratra": True,
+        })
         return segments
 
     full_ghati = (unit_deg * 60.0) / rel_speed
 
     if first_bhogya_ghati >= DAY_GHATI_BETWEEN_SUNRISES - 1e-6:
-        segments.append(
-            {
-                "index": first_index,
-                "start_hm": _hour_to_hm_24plus(sunrise_std + dst_offset_hours),
-                "end_hm": None,
-                "ahoratra": True,
-            }
-        )
+        segments.append({
+            "index": first_index,
+            "start_hm": _hour_to_hm_24plus(sunrise_std + dst_offset_hours),
+            "end_hm": None,
+            "ahoratra": True,
+        })
         return segments
 
     remaining_gh = DAY_GHATI_BETWEEN_SUNRISES
@@ -313,32 +289,27 @@ def _segment_limb_for_day(
         seg_len_gh = first_bhogya_ghati if seg_no == 0 else full_ghati
 
         if seg_len_gh >= remaining_gh - 1e-6:
-            segments.append(
-                {
-                    "index": idx,
-                    "start_hm": _hour_to_hm_24plus(
-                        sunrise_std + ghati_to_hours(start_gh) + dst_offset_hours
-                    ),
-                    "end_hm": None,
-                    "ahoratra": False,
-                }
-            )
-            break
-
-        end_gh = start_gh + seg_len_gh
-
-        segments.append(
-            {
+            segments.append({
                 "index": idx,
                 "start_hm": _hour_to_hm_24plus(
                     sunrise_std + ghati_to_hours(start_gh) + dst_offset_hours
                 ),
-                "end_hm": _hour_to_hm_24plus(
-                    sunrise_std + ghati_to_hours(end_gh) + dst_offset_hours
-                ),
+                "end_hm": None,
                 "ahoratra": False,
-            }
-        )
+            })
+            break
+
+        end_gh = start_gh + seg_len_gh
+        segments.append({
+            "index": idx,
+            "start_hm": _hour_to_hm_24plus(
+                sunrise_std + ghati_to_hours(start_gh) + dst_offset_hours
+            ),
+            "end_hm": _hour_to_hm_24plus(
+                sunrise_std + ghati_to_hours(end_gh) + dst_offset_hours
+            ),
+            "ahoratra": False,
+        })
 
         remaining_gh -= seg_len_gh
         start_gh = end_gh
@@ -360,28 +331,19 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
     dt_iso = _strict_get(ctx, "date")
     date_ce: _date = datetime.fromisoformat(str(dt_iso)).date()
 
-    # --- engine-agnostic weekday ---
     weekday_id = ctx.get("weekday_id")
     day_nbr = float(weekday_id) if weekday_id is not None else None
     day_name = ctx.get("day_name", "")
 
-    shaka_year = date_ce.year - 78
+    shaka_year = calc_shaka_year(date_ce)
     bs_year = _compute_bs_year(date_ce)
 
     location = ctx.get("location", {})
     dst_offset_hours = _compute_dst_offset_hours(date_ce, location)
 
     astro = _strict_get(session, "astro")
-
-    if "suryodaya_spashta" in astro:
-        spashta = astro["suryodaya_spashta"]
-    else:
-        spashta = _strict_get(astro, "graha_spashta")
-
-    if "suryodaya_gati" in astro:
-        gati = astro["suryodaya_gati"]
-    else:
-        gati = _strict_get(astro, "graha_gati")
+    spashta = astro["suryodaya_spashta"]
+    gati = astro["suryodaya_gati"]
 
     surya_deg = float(_strict_get(spashta, "surya"))
     chandra_deg = float(_strict_get(spashta, "chandra"))
@@ -416,8 +378,6 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
 
     sun_rashi1_idx = rashi_index_from_deg(surya_deg)
     moon_rashi1_idx = rashi_index_from_deg(chandra_deg)
-
-    # Your NMONTH is solar month based on Surya longitude
     nmonth = sun_rashi1_idx
 
     gati_antar = chandra_speed - surya_speed
@@ -483,45 +443,17 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
     y0 = yoga_segments[0]
     s0 = surya_naks_segments[0]
 
-    if t0["ahoratra"]:
-        tithi1_hm = "ahoratra"
-        tithi1_gp = "ahoratra"
-    elif t0["end_hm"] is None:
-        tithi1_hm = None
-        tithi1_gp = None
-    else:
-        tithi1_hm = t0["end_hm"]
-        tithi1_gp = ghati_to_gp(tithi_bhogya_ghati)
+    tithi1_hm = "ahoratra" if t0["ahoratra"] else (t0["end_hm"] if t0["end_hm"] else None)
+    tithi1_gp = "ahoratra" if t0["ahoratra"] else (ghati_to_gp(tithi_bhogya_ghati) if t0["end_hm"] else None)
 
-    if n0["ahoratra"]:
-        nakshatra1_hm = "ahoratra"
-        nakshatra1_gp = "ahoratra"
-    elif n0["end_hm"] is None:
-        nakshatra1_hm = None
-        nakshatra1_gp = None
-    else:
-        nakshatra1_hm = n0["end_hm"]
-        nakshatra1_gp = ghati_to_gp(naks_bhogya_ghati)
+    nakshatra1_hm = "ahoratra" if n0["ahoratra"] else (n0["end_hm"] if n0["end_hm"] else None)
+    nakshatra1_gp = "ahoratra" if n0["ahoratra"] else (ghati_to_gp(naks_bhogya_ghati) if n0["end_hm"] else None)
 
-    if s0["ahoratra"]:
-        surya_nakshatra1_hm = "ahoratra"
-        surya_nakshatra1_gp = "ahoratra"
-    elif s0["end_hm"] is None:
-        surya_nakshatra1_hm = None
-        surya_nakshatra1_gp = None
-    else:
-        surya_nakshatra1_hm = s0["end_hm"]
-        surya_nakshatra1_gp = ghati_to_gp(surya_naks_bhogya_ghati)
+    surya_nakshatra1_hm = "ahoratra" if s0["ahoratra"] else (s0["end_hm"] if s0["end_hm"] else None)
+    surya_nakshatra1_gp = "ahoratra" if s0["ahoratra"] else (ghati_to_gp(surya_naks_bhogya_ghati) if s0["end_hm"] else None)
 
-    if y0["ahoratra"]:
-        yoga1_hm = "ahoratra"
-        yoga1_gp = "ahoratra"
-    elif y0["end_hm"] is None:
-        yoga1_hm = None
-        yoga1_gp = None
-    else:
-        yoga1_hm = y0["end_hm"]
-        yoga1_gp = ghati_to_gp(yoga_bhogya_ghati)
+    yoga1_hm = "ahoratra" if y0["ahoratra"] else (y0["end_hm"] if y0["end_hm"] else None)
+    yoga1_gp = "ahoratra" if y0["ahoratra"] else (ghati_to_gp(yoga_bhogya_ghati) if y0["end_hm"] else None)
 
     tithi2_idx = tithi3_idx = None
     tithi2_hm = tithi3_hm = None
@@ -590,13 +522,10 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
         chandra_deg_mod = chandra_deg % 360.0
         current_rashi_start_deg = (moon_rashi1_idx - 1) * 30.0
         next_boundary_deg = current_rashi_start_deg + 30.0
-
         remaining_deg_rashi = next_boundary_deg - chandra_deg_mod
         if remaining_deg_rashi < 0:
             remaining_deg_rashi += 30.0
-
         ghati_to_next_rashi = (remaining_deg_rashi * 60.0) / chandra_speed
-
         if ghati_to_next_rashi < DAY_GHATI_BETWEEN_SUNRISES - 1e-6:
             moon_rashi1_hm = _hour_to_hm_24plus(
                 sunrise_std + ghati_to_hours(ghati_to_next_rashi) + dst_offset_hours
@@ -605,7 +534,6 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
 
     dinamana_hm = hour_to_hm(dinamana_hours)
     dinamana_gp = ghati_to_gp(dinamana_ghati)
-
     sunrise_hm = hour_to_hm(sunrise_std + dst_offset_hours)
     sunset_hm = hour_to_hm(sunset_std + dst_offset_hours)
 
@@ -628,59 +556,47 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
         "date_bs": date_bs,
         "bs_year": bs_year,
         "shaka_year": shaka_year,
-        "day_nbr": round(day_nbr, 3),
+        "day_nbr": round(day_nbr, 3) if day_nbr is not None else None,
         "day_name": day_name,
-
         "paksha": paksha,
-
         "emonth": emonth,
         "emonth_name": emonth_name,
         "nmonth": nmonth,
         "nmonth_name": nmonth_name,
-
         "tithi1": tithi1_idx,
         "tithi1_gp": _blank_if_none(tithi1_gp),
         "tithi1_hm": _blank_if_none(tithi1_hm),
         "tithi1_name": get_tithi_name(tithi1_idx, "en"),
-
         "nakshatra1": nakshatra1_idx,
         "nakshatra1_gp": _blank_if_none(nakshatra1_gp),
         "nakshatra1_hm": _blank_if_none(nakshatra1_hm),
         "nakshatra1_name": get_nakshatra_name(nakshatra1_idx, "en"),
-
         "surya_nakshatra1": surya_nakshatra1_idx,
         "surya_nakshatra1_gp": _blank_if_none(surya_nakshatra1_gp),
         "surya_nakshatra1_hm": _blank_if_none(surya_nakshatra1_hm),
         "surya_nakshatra1_name": get_nakshatra_name(surya_nakshatra1_idx, "en"),
-
         "yoga1": yoga1_idx,
         "yoga1_gp": _blank_if_none(yoga1_gp),
         "yoga1_hm": _blank_if_none(yoga1_hm),
         "yoga1_name": get_nyoga_name(yoga1_idx, "en"),
-
         "karana1": karana1_idx,
         "karana1_hm": _blank_if_none(karana1_hm),
         "karana1_name": get_karana_name(karana1_idx, "en"),
-
         "sun_degree": round(norm_360(surya_deg), 3),
         "sun_rashi1": sun_rashi1_idx,
         "sun_rashi1_name": sun_rashi1_name,
-
         "moon_degree": round(norm_360(chandra_deg), 3),
         "moon_rashi1": moon_rashi1_idx,
         "moon_rashi1_name": moon_rashi1_name,
         "moon_rashi1_hm": _blank_if_none(moon_rashi1_hm),
-
         "dinamana_hm": dinamana_hm,
         "dinamana_gp": dinamana_gp,
         "dinamana_dec": round(dinamana_ghati, 3),
-
         "sunrise_hm": sunrise_hm,
         "sunset_hm": sunset_hm,
         "sunrise_dec": round(sunrise_std, 3),
         "sunset_dec": round(sunset_std, 3),
         "dst_hours": round(dst_offset_hours, 3),
-
         "sun_day": int(sun_day),
     }
 
@@ -737,69 +653,8 @@ def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
 
 
 def run(session: dict[str, Any]) -> dict[str, Any]:
-    """
-    Attach panchanga_result under session['astro'] and return session.
-    """
+    """Attach panchanga_result under session['astro'] and return session."""
     result = calc_panchanga(session)
     astro = session.setdefault("astro", {})
     astro["panchanga_result"] = result
     return session
-
-
-# ---------------------------------------------------------------------------
-# SIMPLE SELF-TESTS
-# ---------------------------------------------------------------------------
-
-def _run_self_tests() -> None:
-    print("Running pa2_daypanchanga self-tests...")
-
-    from datetime import date as _d
-    from bheshajpatro.engines.drik.grahas.calc_pday import run as drik_day_run
-
-    d_test = _d(2025, 1, 1)
-    session = drik_day_run(
-        d_test,
-        latitude=27.7172,
-        longitude=85.3240,
-        std_meridian=86.25,
-        tz_name="Asia/Kathmandu",
-        elevation=1300.0,
-    )
-    session = run(session)
-
-    result = session["astro"]["panchanga_result"]
-
-    print("\n[ Panchanga summary ]")
-    print("date_ce        :", result["date_ce"])
-    print("date_bs        :", result["date_bs"])
-    print("day_name       :", result["day_name"])
-    print("emonth_name    :", result["emonth_name"])
-    print("nmonth_name    :", result["nmonth_name"])
-    print("sunrise_hm     :", result["sunrise_hm"])
-    print("sunset_hm      :", result["sunset_hm"])
-    print("tithi1         :", result["tithi1"], result["tithi1_name"], result["tithi1_hm"])
-    print("nakshatra1     :", result["nakshatra1"], result["nakshatra1_name"], result["nakshatra1_hm"])
-    print("yoga1          :", result["yoga1"], result["yoga1_name"], result["yoga1_hm"])
-    print("karana1        :", result["karana1"], result["karana1_name"], result["karana1_hm"])
-    print("sun_rashi1     :", result["sun_rashi1"], result["sun_rashi1_name"])
-    print("moon_rashi1    :", result["moon_rashi1"], result["moon_rashi1_name"])
-    print("dinamana_hm    :", result["dinamana_hm"])
-    print("sun_degree     :", result["sun_degree"])
-    print("moon_degree    :", result["moon_degree"])
-
-    assert result["date_ce"] == "2025-01-01"
-    assert result["emonth"] == 1
-    assert result["emonth_name"] == "January"
-    assert result["nmonth"] == result["sun_rashi1"]
-    assert 1 <= result["tithi1"] <= 30
-    assert 1 <= result["nakshatra1"] <= 27
-    assert 1 <= result["yoga1"] <= 27
-    assert 1 <= result["karana1"] <= 11
-    assert 1 <= result["sun_rashi1"] <= 12
-    assert 1 <= result["moon_rashi1"] <= 12
-
-    print("\nAll daypanchanga self-tests passed.")
-
-
-if __name__ == "__main__":
-    _run_self_tests()

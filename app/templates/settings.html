@@ -2,65 +2,418 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>BheshajPatro Settings</title>
+  <title>BheshajPatro — Settings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:           #faf5ec;
+      --bg-card:      #f4ead8;
+      --bg-deep:      #ede0c8;
+      --accent:       #b85c2a;
+      --accent-dark:  #7a3a18;
+      --gold:         #c9922a;
+      --gold-light:   #e8c97a;
+      --text:         #271508;
+      --text-mid:     #5a3018;
+      --text-soft:    #8a6040;
+      --border:       #c9a870;
+      --border-light: #e2cfa8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: var(--accent-dark);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 28px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+    .topbar .site-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold-light);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+    }
+    .topbar a { color: var(--gold-light); text-decoration: none; opacity: 0.85; }
+    .topbar a:hover { opacity: 1; }
+
+    .page {
+      max-width: 520px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+    }
+
+    .page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+    }
+    .rule-gold {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 14px 0 28px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 30px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent-dark), var(--gold), var(--accent-dark));
+    }
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 9px 32px 9px 13px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'EB Garamond', serif;
+      font-size: 16px;
+      color: var(--text);
+      transition: border-color 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a6040' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+    select:focus { outline: none; border-color: var(--accent); }
+    select:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .selected-location {
+      display: none;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 12px 16px;
+      margin-top: 16px;
+    }
+    .selected-location.visible { display: block; }
+    .selected-location-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .selected-location-detail {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 22px;
+    }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-danger {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: none;
+      color: var(--text-soft);
+      border: 1px solid var(--border-light);
+      border-radius: 7px;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-danger:hover { border-color: var(--accent); color: var(--accent); }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      font-size: 15px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-  <h1>Panchanga Settings</h1>
 
-  <form method="post" action="/settings">
-    <p>
-      <label>Method</label><br>
-      <select name="engine">
-        <option value="drik" {% if engine == "drik" %}selected{% endif %}>Drik</option>
-        <option value="ketaki" {% if engine == "ketaki" %}selected{% endif %}>Ketaki</option>
-      </select>
-    </p>
+<div class="topbar">
+  <a class="site-name" href="/">❧ BheshajPatro</a>
+  <a href="/">← Back to Panchanga</a>
+</div>
 
-    <p>
-      <label>Location key</label><br>
-      <input type="text" name="key" value="{{ place.key or '' }}">
-    </p>
+<div class="page">
+  <div class="page-title">Settings</div>
+  <div class="page-subtitle">Choose your location and computation method.</div>
+  <div class="rule-gold"></div>
 
-    <p>
-      <label>Location name</label><br>
-      <input type="text" name="name" value="{{ place.name or '' }}" required>
-    </p>
+  <form method="post" action="/settings" id="settings-form">
 
-    <p>
-      <label>Latitude</label><br>
-      <input type="number" step="any" name="latitude" value="{{ place.latitude }}" required>
-    </p>
+    <!-- Hidden fields populated by JS -->
+    <input type="hidden" name="key"       id="h-key">
+    <input type="hidden" name="name"      id="h-name">
+    <input type="hidden" name="latitude"  id="h-latitude">
+    <input type="hidden" name="longitude" id="h-longitude">
+    <input type="hidden" name="standard"  id="h-standard">
+    <input type="hidden" name="tz"        id="h-tz">
+    <input type="hidden" name="elevation" id="h-elevation" value="0">
 
-    <p>
-      <label>Longitude</label><br>
-      <input type="number" step="any" name="longitude" value="{{ place.longitude }}" required>
-    </p>
+    <!-- Method -->
+    <div class="card">
+      <div class="card-title">Computation Method</div>
+      <div class="field">
+        <label for="engine">Method</label>
+        <select name="engine" id="engine">
+          <option value="drik"   {% if engine == "drik" %}selected{% endif %}>Drik (Modern)</option>
+          <option value="ketaki" {% if engine == "ketaki" %}selected{% endif %}>Ketaki (Traditional)</option>
+        </select>
+      </div>
+    </div>
 
-    <p>
-      <label>Standard meridian</label><br>
-      <input type="number" step="any" name="standard" value="{{ place.standard }}" required>
-    </p>
+    <!-- Location -->
+    <div class="card">
+      <div class="card-title">Location</div>
 
-    <p>
-      <label>Timezone</label><br>
-      <input type="text" name="tz" value="{{ place.tz }}" required>
-    </p>
+      <div class="field">
+        <label for="sel-country">Country</label>
+        <select id="sel-country" onchange="onCountryChange()">
+          <option value="">— Select country —</option>
+        </select>
+      </div>
 
-    <p>
-      <label>Elevation (m)</label><br>
-      <input type="number" step="any" name="elevation" value="{{ place.elevation or 0 }}">
-    </p>
+      <div class="field">
+        <label for="sel-state">State / Region</label>
+        <select id="sel-state" disabled onchange="onStateChange()">
+          <option value="">— Select region —</option>
+        </select>
+      </div>
 
-    <button type="submit">Save settings</button>
+      <div class="field">
+        <label for="sel-city">City</label>
+        <select id="sel-city" disabled onchange="onCityChange()">
+          <option value="">— Select city —</option>
+        </select>
+      </div>
+
+      <div class="selected-location" id="selected-location">
+        <div class="selected-location-name" id="sel-loc-name"></div>
+        <div class="selected-location-detail" id="sel-loc-detail"></div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary" id="btn-save" disabled>Save Settings</button>
   </form>
 
-  <form method="post" action="/settings/clear" style="margin-top: 1rem;">
-    <button type="submit">Clear saved settings</button>
+  <form method="post" action="/settings/clear" style="margin-top: 12px;">
+    <button type="submit" class="btn-danger">Reset to Defaults</button>
   </form>
 
-  <p style="margin-top: 1rem;">
-    <a href="/">Back to Panchanga</a>
-  </p>
+  <a href="/" class="back-link">← Back to Panchanga</a>
+</div>
+
+<script>
+const currentKey = "{{ place.key or '' }}";
+
+async function loadCountries() {
+  const sel = document.getElementById('sel-country');
+  try {
+    const res = await fetch('/api/cities/countries');
+    const countries = await res.json();
+    countries.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.code;
+      opt.textContent = c.name;
+      sel.appendChild(opt);
+    });
+
+    // Pre-select current country
+    if (currentKey) {
+      const cc = currentKey.split('_')[0].toUpperCase();
+      sel.value = cc;
+      if (sel.value) await onCountryChange(true);
+    }
+  } catch(e) {
+    console.error('Failed to load countries', e);
+  }
+}
+
+async function onCountryChange(preselect = false) {
+  const cc = document.getElementById('sel-country').value;
+  const stateSel = document.getElementById('sel-state');
+  const citySel  = document.getElementById('sel-city');
+
+  stateSel.innerHTML = '<option value="">— Select region —</option>';
+  stateSel.disabled = true;
+  citySel.innerHTML  = '<option value="">— Select city —</option>';
+  citySel.disabled   = true;
+  clearSelected();
+
+  if (!cc) return;
+
+  const res = await fetch(`/api/cities/states?country_code=${cc}`);
+  const states = await res.json();
+
+  if (states.length > 0) {
+    states.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.code;
+      opt.textContent = s.name;
+      stateSel.appendChild(opt);
+    });
+    stateSel.disabled = false;
+
+    if (preselect && currentKey) {
+      const parts = currentKey.split('_');
+      if (parts.length >= 3) {
+        stateSel.value = parts[1].toUpperCase();
+        if (stateSel.value) { await onStateChange(true); return; }
+      }
+    }
+  } else {
+    await loadCities(cc, '', preselect);
+  }
+}
+
+async function onStateChange(preselect = false) {
+  const cc = document.getElementById('sel-country').value;
+  const sc = document.getElementById('sel-state').value;
+  const citySel = document.getElementById('sel-city');
+
+  citySel.innerHTML = '<option value="">— Select city —</option>';
+  citySel.disabled = true;
+  clearSelected();
+
+  await loadCities(cc, sc, preselect);
+}
+
+async function loadCities(cc, sc, preselect = false) {
+  const citySel = document.getElementById('sel-city');
+  const url = `/api/cities/cities?country_code=${cc}` + (sc ? `&state_code=${sc}` : '');
+  const res = await fetch(url);
+  const cities = await res.json();
+
+  cities.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = JSON.stringify(c);
+    opt.textContent = c.city_name;
+    citySel.appendChild(opt);
+  });
+  citySel.disabled = false;
+
+  if (preselect && currentKey) {
+    for (let i = 0; i < citySel.options.length; i++) {
+      try {
+        const data = JSON.parse(citySel.options[i].value);
+        if (data.key === currentKey) {
+          citySel.selectedIndex = i;
+          onCityChange();
+          break;
+        }
+      } catch {}
+    }
+  }
+}
+
+function onCityChange() {
+  const val = document.getElementById('sel-city').value;
+  if (!val) { clearSelected(); return; }
+
+  try {
+    const city = JSON.parse(val);
+    document.getElementById('h-key').value       = city.key || '';
+    document.getElementById('h-name').value      = city.name || '';
+    document.getElementById('h-latitude').value  = city.latitude;
+    document.getElementById('h-longitude').value = city.longitude;
+    document.getElementById('h-standard').value  = city.standard;
+    document.getElementById('h-tz').value        = city.tz || '';
+    document.getElementById('h-elevation').value = city.elevation || 0;
+
+    document.getElementById('sel-loc-name').textContent = city.name;
+    document.getElementById('sel-loc-detail').textContent =
+      `Lat: ${city.latitude}  ·  Lon: ${city.longitude}  ·  Std: ${city.standard}°  ·  TZ: ${city.tz}`;
+    document.getElementById('selected-location').classList.add('visible');
+    document.getElementById('btn-save').disabled = false;
+  } catch(e) {
+    clearSelected();
+  }
+}
+
+function clearSelected() {
+  document.getElementById('selected-location').classList.remove('visible');
+  document.getElementById('btn-save').disabled = true;
+}
+
+loadCountries();
+</script>
+
 </body>
 </html>

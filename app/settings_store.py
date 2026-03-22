@@ -11,7 +11,7 @@ DEFAULT_PLACE: Dict[str, Any] = {
     "name": "Raleigh, NC, USA",
     "latitude": 35.7796,
     "longitude": -78.6382,
-    "standard": -300.0,   # UTC-5 (EST) in minutes, or however you store offset
+    "standard": -75.0,
     "tz": "America/New_York",
     "elevation": 96.0,
 }
@@ -32,3 +32,4 @@ def save_user_settings(request: Request, engine: str, place: Dict[str, Any]) -> 
 def clear_user_settings(request: Request) -> None:
     request.session.pop("engine", None)
     request.session.pop("place", None)
+

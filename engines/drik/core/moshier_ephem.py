@@ -13,7 +13,7 @@
 
 from __future__ import annotations
 
-from math import asin, cos, radians, sin
+from math import cos, radians, sin
 from typing import Final
 
 from bheshajpatro.core.core_functions import norm_360
@@ -23,10 +23,7 @@ __all__ = [
     "PurePythonEphemerisBackend",
 ]
 
-
 J2000: Final[float] = 2451545.0
-TROPICAL_YEAR_DAYS: Final[float] = 365.242189
-SIDEREAL_YEAR_DAYS: Final[float] = 365.25636
 
 
 def _sin_deg(x: float) -> float:
@@ -35,10 +32,6 @@ def _sin_deg(x: float) -> float:
 
 def _cos_deg(x: float) -> float:
     return cos(radians(x))
-
-
-def _asin_deg(x: float) -> float:
-    return asin(max(-1.0, min(1.0, x))) * 180.0 / 3.141592653589793
 
 
 def _angle_diff(deg_a: float, deg_b: float) -> float:
@@ -248,14 +241,7 @@ class PurePythonEphemerisBackend:
             trop_lon = _sun_tropical_longitude(jd_ut)
             sid_lon = _sidereal_longitude(trop_lon, jd_ut)
             lon_speed = _finite_speed(_sun_tropical_longitude, jd_ut)
-            return (
-                float(sid_lon),
-                0.0,
-                1.0,
-                float(lon_speed),
-                0.0,
-                0.0,
-            )
+            return (float(sid_lon), 0.0, 1.0, float(lon_speed), 0.0, 0.0)
 
         if graha == "chandra":
             trop_lon, lat_deg, dist_km = _moon_tropical_longitude_latitude_distance(jd_ut)
@@ -274,31 +260,20 @@ class PurePythonEphemerisBackend:
                 return dist
 
             delta = 1.0 / 1440.0
-            lon_speed = _angle_diff(moon_lon_fn(jd_ut + delta), moon_lon_fn(jd_ut)) / delta
-            lat_speed = (moon_lat_fn(jd_ut + delta) - moon_lat_fn(jd_ut)) / delta
+            lon_speed  = _angle_diff(moon_lon_fn(jd_ut + delta), moon_lon_fn(jd_ut)) / delta
+            lat_speed  = (moon_lat_fn(jd_ut + delta) - moon_lat_fn(jd_ut)) / delta
             dist_speed = (moon_dist_fn(jd_ut + delta) - moon_dist_fn(jd_ut)) / delta
 
             return (
-                float(sid_lon),
-                float(lat_deg),
-                float(dist_km),
-                float(lon_speed),
-                float(lat_speed),
-                float(dist_speed),
+                float(sid_lon), float(lat_deg), float(dist_km),
+                float(lon_speed), float(lat_speed), float(dist_speed),
             )
 
         if graha == "rahu":
             trop_lon = _mean_node_tropical_longitude(jd_ut)
             sid_lon = _sidereal_longitude(trop_lon, jd_ut)
             lon_speed = _finite_speed(_mean_node_tropical_longitude, jd_ut)
-            return (
-                float(sid_lon),
-                0.0,
-                1.0,
-                float(lon_speed),
-                0.0,
-                0.0,
-            )
+            return (float(sid_lon), 0.0, 1.0, float(lon_speed), 0.0, 0.0)
 
         if graha in _PLANET_MEAN_LONGITUDE_J2000:
             trop_lon = _placeholder_planet_tropical_longitude(graha, jd_ut)
@@ -308,14 +283,7 @@ class PurePythonEphemerisBackend:
                 return _placeholder_planet_tropical_longitude(graha, jd)
 
             lon_speed = _finite_speed(planet_lon_fn, jd_ut)
-            return (
-                float(sid_lon),
-                0.0,
-                1.0,
-                float(lon_speed),
-                0.0,
-                0.0,
-            )
+            return (float(sid_lon), 0.0, 1.0, float(lon_speed), 0.0, 0.0)
 
         raise ValueError(f"unsupported graha: {graha!r}")
 

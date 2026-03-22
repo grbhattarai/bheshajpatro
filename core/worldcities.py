@@ -10,11 +10,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from bheshajpatro.utils.paths import input_data_path
-
 __all__ = [
-    "WORLD_CITIES_CSV_NAME",
-    "DEFAULT_WORLD_CITIES_PATH",
     "City",
     "all_cities",
     "search_cities",
@@ -23,10 +19,9 @@ __all__ = [
     "get_city_by_location_key",
 ]
 
-
-WORLD_CITIES_CSV_NAME = "worldcities.csv"
-DEFAULT_WORLD_CITIES_PATH = Path(input_data_path(WORLD_CITIES_CSV_NAME))
-
+DEFAULT_WORLD_CITIES_PATH = (
+    Path(__file__).resolve().parents[1] / "data" / "inputdata" / "worldcities.csv"
+)
 
 # ---------------------------------------------------------------------
 # Normalization

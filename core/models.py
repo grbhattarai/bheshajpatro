@@ -1,3 +1,6 @@
+# Copyright (c) 2025 Gandhi Bhattarai
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 from __future__ import annotations
 
 import datetime as dt
@@ -10,6 +13,8 @@ class Place(BaseModel):
     """
     Generic place model used across Panchanga and eclipse flows.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     location_key: str
     city: str
     state: str = ""
@@ -24,6 +29,7 @@ class Place(BaseModel):
 
     standard_meridian: float = Field(
         ...,
+        alias="standard",
         description="Standard meridian in degrees, e.g. -75 for EST",
     )
     tz: str
@@ -64,6 +70,13 @@ class PanchangaResult(BaseModel):
     Final built daily Panchanga result, engine-agnostic.
 
     Extra fields are allowed during migration so the pipeline remains stable.
+
+    TODO: add when compute engine supports them:
+        samvatsara, samvatsara_name
+        vikram_samvat
+        masa_name
+        ritu, ritu_name
+        shivavas, agnivasa, brahmavas
     """
     model_config = ConfigDict(extra="allow")
 

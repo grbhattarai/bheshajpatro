@@ -7,6 +7,7 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
+from bheshajpatro.core.worldcities import all_cities
 
 from bheshajpatro.config.settings import (
     APP_NAME,
@@ -100,31 +101,10 @@ def settings_clear(request: Request):
     return RedirectResponse(url="/settings", status_code=303)
 
 
-@app.get("/api/panchanga/today")
-def api_panchanga_today(request: Request):
-    settings = load_user_settings(request)
-    engine = settings["engine"]
-    place = settings["place"]
-
-    payload = get_panchanga_result(
-        date_ce=date.today(),
-        place=place,
-        engine=engine,
-    )
-
-    if hasattr(payload, "model_dump"):
-        return JSONResponse(payload.model_dump())
-
-    return JSONResponse(payload.dict())
-
-
-
-from datetime import date, date as _date
-
 @app.get("/api/panchanga/day")
-def api_panchanga_day(request: Request, date: str):
+def api_panchanga_day(request: Request, date_str: str):
     try:
-        d = _date.fromisoformat(date)
+        d = date.fromisoformat(date_str)
     except ValueError:
         return JSONResponse({"error": "invalid date"}, status_code=400)
 
@@ -135,6 +115,51 @@ def api_panchanga_day(request: Request, date: str):
         engine=settings["engine"],
     )
 
-    if hasattr(payload, "model_dump"):
-        return JSONResponse(payload.model_dump())
-    return JSONResponse(payload.dict())
+    return JSONResponse(payload.model_dump())
+
+
+@app.get("/api/cities/countries")
+def api_countries():
+    cities = all_cities()
+    seen = {}
+    for c in cities:
+        if c.country_code not in seen:
+            seen[c.country_code] = c.country
+    countries = sorted(seen.items(), key=lambda x: x[1])
+    return JSONResponse([{"code": cc, "name": name} for cc, name in countries])
+
+
+@app.get("/api/cities/states")
+def api_states(country_code: str):
+    cities = all_cities()
+    seen = {}
+    for c in cities:
+        if c.country_code.lower() == country_code.lower() and c.state_code:
+            seen[c.state_code] = c.state
+    states = sorted(seen.items(), key=lambda x: x[1])
+    return JSONResponse([{"code": sc, "name": name} for sc, name in states])
+
+
+@app.get("/api/cities/cities")
+def api_cities(country_code: str, state_code: str = ""):
+    cities = all_cities()
+    filtered = [
+        c for c in cities
+        if c.country_code.lower() == country_code.lower()
+        and (not state_code or c.state_code.lower() == state_code.lower())
+    ]
+    filtered = sorted(filtered, key=lambda c: c.city)
+    return JSONResponse([{
+        "key": c.location_key,
+        "name": ", ".join(filter(None, [
+            c.city.title(),
+            c.state.title() if c.state.strip() else None,
+            c.country,
+        ])),
+        "city_name": c.city.title(),
+        "latitude": c.latitude,
+        "longitude": c.longitude,
+        "standard": c.standard,
+        "tz": c.tz,
+        "elevation": 0.0,
+    } for c in filtered])

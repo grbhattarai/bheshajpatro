@@ -924,7 +924,7 @@ async function loadDate(iso) {
   overlay.classList.add('active');
 
   try {
-    const resp = await fetch(`/api/panchanga/day?date=${iso}`);
+    const resp = await fetch(`/api/panchanga/day?date_str=${iso}`);
     if (!resp.ok) throw new Error('API error');
     const data = await resp.json();
     updateUI(data);

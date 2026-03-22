@@ -1,3 +1,6 @@
+# Copyright (c) 2025 Gandhi Bhattarai
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 from __future__ import annotations
 
 from datetime import date

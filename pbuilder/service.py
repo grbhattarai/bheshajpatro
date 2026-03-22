@@ -1,3 +1,6 @@
+# Copyright (c) 2025 Gandhi Bhattarai
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 from __future__ import annotations
 
 from datetime import date
@@ -20,6 +23,7 @@ def get_panchanga_session(
     date_ce: date,
     place: Dict[str, Any],
     engine: str | EngineName = "drik",
+    include_monthly: bool = False,
 ) -> Dict[str, Any]:
     """
     Build a panchanga session for the given engine.
@@ -47,7 +51,7 @@ def get_panchanga_session(
         standard_meridian_deg=std,
         tz_name=tz,
         elevation_m=elevation,
-        ephe_dir=None,
+        include_monthly=include_monthly,
     )
 
     daily = engine_sessions["daily"]
@@ -79,10 +83,3 @@ def get_panchanga_result(
 
     result = PanchangaResult(**result_raw)
     return PanchangaResponse(context=context, result=result)
-
-
-def get_drik_ephemeris(
-    date_ce: date,
-    place: Dict[str, Any],
-) -> Dict[str, Any]:
-    raise NotImplementedError("get_drik_ephemeris is not implemented yet.")
