@@ -5,8 +5,10 @@ from pathlib import Path
 
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
+
 from bheshajpatro.core.worldcities import all_cities
 
 from bheshajpatro.config.settings import (
@@ -22,16 +24,30 @@ from bheshajpatro.app.settings_store import (
 )
 from bheshajpatro.pbuilder.service import get_panchanga_result
 
+
+# Base paths
 BASE_DIR = Path(__file__).resolve().parent
+
+# Templates
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
+# App
 app = FastAPI(title=APP_NAME, debug=APP_DEBUG)
+
+# Sessions
 app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY,
     session_cookie=SESSION_COOKIE_NAME,
 )
 
+# Static files (CSS, JS, images)
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+
+
+# -----------------------
+# Routes
+# -----------------------
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
@@ -149,17 +165,20 @@ def api_cities(country_code: str, state_code: str = ""):
         and (not state_code or c.state_code.lower() == state_code.lower())
     ]
     filtered = sorted(filtered, key=lambda c: c.city)
-    return JSONResponse([{
-        "key": c.location_key,
-        "name": ", ".join(filter(None, [
-            c.city.title(),
-            c.state.title() if c.state.strip() else None,
-            c.country,
-        ])),
-        "city_name": c.city.title(),
-        "latitude": c.latitude,
-        "longitude": c.longitude,
-        "standard": c.standard,
-        "tz": c.tz,
-        "elevation": 0.0,
-    } for c in filtered])
+    return JSONResponse([
+        {
+            "key": c.location_key,
+            "name": ", ".join(filter(None, [
+                c.city.title(),
+                c.state.title() if c.state.strip() else None,
+                c.country,
+            ])),
+            "city_name": c.city.title(),
+            "latitude": c.latitude,
+            "longitude": c.longitude,
+            "standard": c.standard,
+            "tz": c.tz,
+            "elevation": 0.0,
+        }
+        for c in filtered
+    ])
