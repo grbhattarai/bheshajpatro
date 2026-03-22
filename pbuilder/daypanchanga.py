@@ -356,12 +356,14 @@ def _segment_limb_for_day(
 
 def calc_panchanga(session: dict[str, Any]) -> dict[str, Any]:
     ctx = session.get("context", {})
+
     dt_iso = _strict_get(ctx, "date")
     date_ce: _date = datetime.fromisoformat(str(dt_iso)).date()
 
-    greg_weekday = date_ce.weekday()
-    day_nbr = float(greg_weekday)
-    day_name = get_weekday_name(greg_weekday + 1, "en")
+    # --- engine-agnostic weekday ---
+    weekday_id = ctx.get("weekday_id")
+    day_nbr = float(weekday_id) if weekday_id is not None else None
+    day_name = ctx.get("day_name", "")
 
     shaka_year = date_ce.year - 78
     bs_year = _compute_bs_year(date_ce)
