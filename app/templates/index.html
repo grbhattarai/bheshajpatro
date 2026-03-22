@@ -494,6 +494,122 @@
       margin-top: 4px;
     }
 
+.compact-table {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.ct-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border-light);
+}
+
+.ct-row:first-child {
+  border-top: none;
+}
+
+.ct-block {
+  padding: 10px 14px;
+  border-right: 1px solid var(--border-light);
+}
+
+.ct-block:last-child {
+  border-right: none;
+}
+
+.ct-title {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+
+.ct-line {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.info-table {
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
+}
+
+.info-row:first-child {
+  border-top: none;
+}
+
+.info-cell {
+  border-right: 1px solid var(--border);
+  padding: 8px 12px;
+}
+
+.info-cell:last-child {
+  border-right: none;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  column-gap: 10px;
+  align-items: start;
+}
+
+.info-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.info-values {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.info-values > div:empty {
+  display: none;
+}
+
+.mini-sub-label {
+  display: inline-block;
+  min-width: 78px;
+  color: var(--text);
+}
+
+@media (max-width: 680px) {
+  .info-row {
+    grid-template-columns: 1fr;
+  }
+
+  .info-cell {
+    border-right: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .info-row .info-cell:first-child {
+    border-top: none;
+  }
+
+  .info-grid {
+    grid-template-columns: 78px 1fr;
+  }
+}
     /* ── Loading overlay ── */
     .loading-overlay {
       display: none;
@@ -636,133 +752,105 @@
         </div>
       </div>
 
-      <!-- Pancha Anga -->
-      <div class="section-title">Pancha Anga</div>
+        <!-- Pancha Anga -->
 
-      <div class="limbs-grid">
+<div class="info-table">
 
-        <!-- Tithi -->
-        <div class="limb-card">
-          <div class="limb-label">Tithi</div>
-          <div class="limb-name" id="tithi1-name">{{ panchanga.result.tithi1_name }}</div>
-          {% if panchanga.result.tithi1_hm %}
-          <div class="limb-until">until <em id="tithi1-hm">{{ panchanga.result.tithi1_hm }}</em></div>
-          {% endif %}
-          <div class="limb-transitions" id="tithi-transitions">
-            {% if panchanga.result.tithi2 %}
-            <span class="limb-tag">→ {{ panchanga.result.tithi2_name }}
-              {% if panchanga.result.tithi2_hm %}until {{ panchanga.result.tithi2_hm }}{% endif %}
-            </span>
-            {% endif %}
-            {% if panchanga.result.tithi3 %}
-            <span class="limb-tag">→ {{ panchanga.result.tithi3_name }}
-              {% if panchanga.result.tithi3_hm %}until {{ panchanga.result.tithi3_hm }}{% endif %}
-            </span>
-            {% endif %}
+  <!-- Row 1 -->
+  <div class="info-row">
+    <div class="info-cell">
+      <div class="info-grid">
+        <div class="info-label">Tithi</div>
+        <div class="info-values">
+          <div id="tithi-line-1">
+            {{ panchanga.result.tithi1_name }}{% if panchanga.result.tithi1_hm %} &nbsp; Until {{ panchanga.result.tithi1_hm }}{% endif %}
           </div>
-        </div>
-
-        <!-- Karana -->
-        <div class="limb-card">
-          <div class="limb-label">Karana</div>
-          <div class="limb-name" id="karana1-name">{{ panchanga.result.karana1_name }}</div>
-          {% if panchanga.result.karana1_hm %}
-          <div class="limb-until">until <em id="karana1-hm">{{ panchanga.result.karana1_hm }}</em></div>
-          {% endif %}
-          <div class="limb-transitions" id="karana-transitions">
-            {% if panchanga.result.karana2 %}
-            <span class="limb-tag">→ {{ panchanga.result.karana2_name }}
-              {% if panchanga.result.karana2_hm %}until {{ panchanga.result.karana2_hm }}{% endif %}
-            </span>
-            {% endif %}
-            {% if panchanga.result.karana3 %}
-            <span class="limb-tag">→ {{ panchanga.result.karana3_name }}
-              {% if panchanga.result.karana3_hm %}until {{ panchanga.result.karana3_hm }}{% endif %}
-            </span>
-            {% endif %}
-            {% if panchanga.result.karana4 %}
-            <span class="limb-tag">→ {{ panchanga.result.karana4_name }}
-              {% if panchanga.result.karana4_hm %}until {{ panchanga.result.karana4_hm }}{% endif %}
-            </span>
-            {% endif %}
+          <div id="tithi-line-2">
+            {% if panchanga.result.tithi2 %}{{ panchanga.result.tithi2_name }}{% if panchanga.result.tithi2_hm %} &nbsp; Until {{ panchanga.result.tithi2_hm }}{% endif %}{% endif %}
           </div>
-        </div>
-
-        <!-- Nakshatra -->
-        <div class="limb-card">
-          <div class="limb-label">Nakshatra</div>
-          <div class="limb-name" id="nakshatra1-name">{{ panchanga.result.nakshatra1_name }}</div>
-          {% if panchanga.result.nakshatra1_hm %}
-          <div class="limb-until">until <em id="nakshatra1-hm">{{ panchanga.result.nakshatra1_hm }}</em></div>
-          {% endif %}
-          <div class="limb-transitions" id="nakshatra-transitions">
-            {% if panchanga.result.nakshatra2 %}
-            <span class="limb-tag">→ {{ panchanga.result.nakshatra2_name }}
-              {% if panchanga.result.nakshatra2_hm %}until {{ panchanga.result.nakshatra2_hm }}{% endif %}
-            </span>
-            {% endif %}
+          <div id="tithi-line-3">
+            {% if panchanga.result.tithi3 %}{{ panchanga.result.tithi3_name }}{% if panchanga.result.tithi3_hm %} &nbsp; Until {{ panchanga.result.tithi3_hm }}{% endif %}{% endif %}
           </div>
-        </div>
-
-        <!-- Yoga -->
-        <div class="limb-card">
-          <div class="limb-label">Yoga</div>
-          <div class="limb-name" id="yoga1-name">{{ panchanga.result.yoga1_name }}</div>
-          {% if panchanga.result.yoga1_hm %}
-          <div class="limb-until">until <em id="yoga1-hm">{{ panchanga.result.yoga1_hm }}</em></div>
-          {% endif %}
-          <div class="limb-transitions" id="yoga-transitions">
-            {% if panchanga.result.yoga2 %}
-            <span class="limb-tag">→ {{ panchanga.result.yoga2_name }}
-              {% if panchanga.result.yoga2_hm %}until {{ panchanga.result.yoga2_hm }}{% endif %}
-            </span>
-            {% endif %}
-          </div>
-        </div>
-
-      </div><!-- .limbs-grid -->
-
-      <!-- Graha -->
-      <div class="section-title">Graha Sthiti</div>
-
-      <div class="graha-grid">
-        <div class="graha-card">
-          <div class="graha-header">
-            <span class="graha-symbol">☉</span>
-            <span class="graha-label">Surya</span>
-          </div>
-          <div class="graha-degree" id="sun-degree">{{ panchanga.result.sun_degree }}°</div>
-          <div class="graha-rashi" id="sun-rashi">{{ panchanga.result.sun_rashi1_name }}</div>
-          <div class="graha-nakshatra" id="sun-nakshatra">
-            Nakshatra: {{ panchanga.result.surya_nakshatra1_name }}
-            {% if panchanga.result.surya_nakshatra1_hm %}
-              until {{ panchanga.result.surya_nakshatra1_hm }}
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="graha-card">
-          <div class="graha-header">
-            <span class="graha-symbol">☽</span>
-            <span class="graha-label">Chandra</span>
-          </div>
-          <div class="graha-degree" id="moon-degree">{{ panchanga.result.moon_degree }}°</div>
-          <div class="graha-rashi" id="moon-rashi">{{ panchanga.result.moon_rashi1_name }}</div>
-          <div class="graha-nakshatra" id="moon-nakshatra">
-            Nakshatra: {{ panchanga.result.nakshatra1_name }}
-            {% if panchanga.result.nakshatra1_hm %}
-              until {{ panchanga.result.nakshatra1_hm }}
-            {% endif %}
-          </div>
-          {% if panchanga.result.moon_rashi2 %}
-          <div class="rashi-transition" id="moon-rashi-transition">
-            → {{ panchanga.result.moon_rashi2_name }}
-            {% if panchanga.result.moon_rashi1_hm %}at {{ panchanga.result.moon_rashi1_hm }}{% endif %}
-          </div>
-          {% endif %}
         </div>
       </div>
+    </div>
 
+    <div class="info-cell">
+      <div class="info-grid">
+        <div class="info-label">Karana</div>
+        <div class="info-values">
+          <div id="karana-line-1">
+            {{ panchanga.result.karana1_name }}{% if panchanga.result.karana1_hm %} &nbsp; Until {{ panchanga.result.karana1_hm }}{% endif %}
+          </div>
+          <div id="karana-line-2">
+            {% if panchanga.result.karana2 %}{{ panchanga.result.karana2_name }}{% if panchanga.result.karana2_hm %} &nbsp; Until {{ panchanga.result.karana2_hm }}{% endif %}{% endif %}
+          </div>
+          <div id="karana-line-3">
+            {% if panchanga.result.karana3 %}{{ panchanga.result.karana3_name }}{% if panchanga.result.karana3_hm %} &nbsp; Until {{ panchanga.result.karana3_hm }}{% endif %}{% endif %}
+          </div>
+          <div id="karana-line-4">
+            {% if panchanga.result.karana4 %}{{ panchanga.result.karana4_name }}{% if panchanga.result.karana4_hm %} &nbsp; Until {{ panchanga.result.karana4_hm }}{% endif %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="info-row">
+    <div class="info-cell">
+      <div class="info-grid">
+        <div class="info-label">Nakshatra</div>
+        <div class="info-values">
+          <div id="nakshatra-line-1">
+            {{ panchanga.result.nakshatra1_name }}{% if panchanga.result.nakshatra1_hm %} &nbsp; Until {{ panchanga.result.nakshatra1_hm }}{% endif %}
+          </div>
+          <div id="nakshatra-line-2">
+            {% if panchanga.result.nakshatra2 %}{{ panchanga.result.nakshatra2_name }}{% if panchanga.result.nakshatra2_hm %} &nbsp; Until {{ panchanga.result.nakshatra2_hm }}{% endif %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-cell">
+      <div class="info-grid">
+        <div class="info-label">Yoga</div>
+        <div class="info-values">
+          <div id="yoga-line-1">
+            {{ panchanga.result.yoga1_name }}{% if panchanga.result.yoga1_hm %} &nbsp; Until {{ panchanga.result.yoga1_hm }}{% endif %}
+          </div>
+          <div id="yoga-line-2">
+            {% if panchanga.result.yoga2 %}{{ panchanga.result.yoga2_name }}{% if panchanga.result.yoga2_hm %} &nbsp; Until {{ panchanga.result.yoga2_hm }}{% endif %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="info-row">
+    <div class="info-cell">
+      <div class="info-grid graha-grid-mini">
+        <div class="info-label">Surya</div>
+        <div class="info-values">
+          <div><span class="mini-sub-label">Rashi</span> <span id="sun-rashi">{{ panchanga.result.sun_rashi1_name }}</span></div>
+          <div><span class="mini-sub-label">Nakshatra</span> <span id="sun-nakshatra">{{ panchanga.result.surya_nakshatra1_name }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-cell">
+      <div class="info-grid graha-grid-mini">
+        <div class="info-label">Chandra</div>
+        <div class="info-values">
+          <div><span class="mini-sub-label">Rashi</span> <span id="moon-rashi">{{ panchanga.result.moon_rashi1_name }}</span></div>
+          <div><span class="mini-sub-label">Nakshatra</span> <span id="moon-nakshatra">{{ panchanga.result.nakshatra1_name }}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
     </main><!-- .panchanga-content -->
   </div><!-- .main-layout -->
 </div><!-- .page -->
