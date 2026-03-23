@@ -6,18 +6,18 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from bheshajpatro.engines.ketaki.grahas.manda_chain import compute_manda_block
-from bheshajpatro.engines.ketaki.grahas.chandra_chain import (
+from bheshajpatro.engines.ketaki.chains.manda_chain import compute_manda_block
+from bheshajpatro.engines.ketaki.chains.chandra_chain import (
     compute_chandra_block,
 )
-from bheshajpatro.engines.ketaki.grahas.shighra_chain import (
+from bheshajpatro.engines.ketaki.chains.shighra_chain import (
     compute_shighra_block,
 )
-from bheshajpatro.engines.ketaki.grahas.sukshma_chain import (
+from bheshajpatro.engines.ketaki.chains.sukshma_chain import (
     compute_sukshma_block,
     TARA_GRAHAS,
 )
-from bheshajpatro.engines.ketaki.grahas.taragati_chain import (
+from bheshajpatro.engines.ketaki.chains.taragati_chain import (
     compute_panchatara_gati,
 )
 

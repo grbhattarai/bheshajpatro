@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from datetime import date as _date, datetime, timedelta, timezone
 from typing import Dict
 
-from bheshajpatro.engines.ketaki.core.anglefunc.ahargana import compute_ahargana
+from bheshajpatro.engines.ketaki.core.anglefunc import compute_ahargana
 from bheshajpatro.engines.ketaki.chains.full_chain import compute_ketaki_daily
 from bheshajpatro.engines.ketaki.grahas.suryodayas import (
     ayanamsha,

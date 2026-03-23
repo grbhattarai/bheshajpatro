@@ -6,7 +6,7 @@ from __future__ import annotations
 import math
 
 from bheshajpatro.core.core_functions import calc_shadvalpa, norm_360
-from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import calc_phalanka
+from bheshajpatro.engines.ketaki.core.anglefunc import calc_phalanka
 
 __all__ = [
     "ayanamsha",

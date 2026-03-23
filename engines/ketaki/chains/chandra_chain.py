@@ -8,7 +8,7 @@ from typing import Any
 from collections.abc import Mapping
 
 from bheshajpatro.core.core_functions import norm_360
-from bheshajpatro.engines.ketaki.core.upakaranas import (
+from bheshajpatro.engines.ketaki.core.constants import (
     ensure_loaded,
     calc_upakarana,
     row_for,
