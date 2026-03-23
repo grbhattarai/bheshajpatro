@@ -41,7 +41,7 @@ class PanchangaRequest(BaseModel):
     """
     date: dt.date
     place: Place
-    method: Literal["drik", "ketaki", "surya"]
+    method: Literal["drik", "ketaki"]
 
 
 class EclipseRequest(BaseModel):
@@ -61,7 +61,7 @@ class PanchangaContext(BaseModel):
 
     date: Optional[dt.date] = None
     place: Optional[Union[Place, dict[str, Any]]] = None
-    method: Optional[Literal["drik", "ketaki", "surya"]] = None
+    method: Optional[Literal["drik", "ketaki"]] = None
     standard_offset_hours: Optional[float] = None
 
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import math
 
-from bheshajpatro.core.core_functions import norm_360, calc_shadvalpa
+from bheshajpatro.core.core_functions import calc_shadvalpa, norm_360
 from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import calc_phalanka
 
 __all__ = [
@@ -23,11 +23,6 @@ __all__ = [
 ]
 
 
-# ----------------------------------------------------------------------
-# AYANAMSHA + SAYANA LONGITUDE
-# ----------------------------------------------------------------------
-
-
 def ayanamsha(shaka_year: float) -> float:
     """Compute ayanamsha (deg) for a given Shaka year."""
     year = float(shaka_year)
@@ -39,11 +34,6 @@ def surya_sayana(surya_nirayana: float, ayanamsha_deg: float) -> float:
     return norm_360(float(surya_nirayana) + float(ayanamsha_deg))
 
 
-# ----------------------------------------------------------------------
-# KRANTI (DECLINATION)
-# ----------------------------------------------------------------------
-
-
 def surya_kranti(surya_sayana_deg: float) -> float:
     """
     Compute solar declination (kranti) from sayana longitude.
@@ -52,12 +42,7 @@ def surya_kranti(surya_sayana_deg: float) -> float:
     """
     sv = calc_shadvalpa(float(surya_sayana_deg))
     ph = calc_phalanka("suryakranti", "surya", sv)
-    return ph / 60.0  # table values are in decaminutes
-
-
-# ----------------------------------------------------------------------
-# CHARA (LATITUDE × DECLINATION)
-# ----------------------------------------------------------------------
+    return ph / 60.0
 
 
 def chara(latitude: float, kranti: float) -> tuple[float, float]:
@@ -73,11 +58,6 @@ def chara(latitude: float, kranti: float) -> tuple[float, float]:
     return hours, hours * 60.0
 
 
-# ----------------------------------------------------------------------
-# EQUATION OF TIME (BELANTARA)
-# ----------------------------------------------------------------------
-
-
 def belantara(surya_sayana_deg: float) -> tuple[float, float]:
     """
     Equation of time (belantara) from sayana longitude.
@@ -86,16 +66,11 @@ def belantara(surya_sayana_deg: float) -> tuple[float, float]:
     """
     s = float(surya_sayana_deg) % 360.0
     minutes = (
-        9.87 * math.sin(math.radians(2 * s))
+        9.87 * math.sin(math.radians(2.0 * s))
         - 7.53 * math.cos(math.radians(s))
         - 1.5 * math.sin(math.radians(s))
     )
     return minutes / 60.0, minutes
-
-
-# ----------------------------------------------------------------------
-# LONGITUDE-TIME CORRECTION (DESHANTARA)
-# ----------------------------------------------------------------------
 
 
 def deshantara(longitude: float, standard_meridian: float) -> float:
@@ -104,11 +79,6 @@ def deshantara(longitude: float, standard_meridian: float) -> float:
     standard meridian.
     """
     return (float(standard_meridian) - float(longitude)) / 15.0
-
-
-# ----------------------------------------------------------------------
-# DHUPAGHADI + SUNRISE TIME
-# ----------------------------------------------------------------------
 
 
 def dhupaghadi(
@@ -126,7 +96,7 @@ def dhupaghadi(
     say = float(surya_sayana_deg)
     ch = float(chara_hours)
 
-    negative = (lat > 0 and say < 180.0) or (lat < 0 and say >= 180.0)
+    negative = (lat > 0.0 and say < 180.0) or (lat < 0.0 and say >= 180.0)
     adjust = -ch if negative else ch
 
     return 6.0 + adjust
@@ -159,11 +129,6 @@ def std_sunrise(
     return float(local_sunrise_hours) + float(deshantara_hours)
 
 
-# ----------------------------------------------------------------------
-# CHALANA (NET MINUTE ADJUSTMENT)
-# ----------------------------------------------------------------------
-
-
 def chalana(
     *,
     chara_mins: float,
@@ -177,17 +142,12 @@ def chalana(
     lat = float(latitude)
     say = float(surya_sayana_deg)
 
-    negative_chara = (lat > 0 and say < 180.0) or (lat < 0 and say > 180.0)
+    negative_chara = (lat > 0.0 and say < 180.0) or (lat < 0.0 and say > 180.0)
 
     adj_chara = -float(chara_mins) if negative_chara else float(chara_mins)
     adj_bel = -float(belantara_mins)
 
     return adj_chara + adj_bel
-
-
-# ----------------------------------------------------------------------
-# SPASHTA CORRECTION (FINAL SUNRISE-LONGITUDE ADJUSTMENT)
-# ----------------------------------------------------------------------
 
 
 def sunrise_adjust(
@@ -197,14 +157,14 @@ def sunrise_adjust(
     chalana_mins: float,
 ) -> tuple[float, float, float]:
     """
-    Apply final sunrise-longitude adjustment to solar spashta.
+    Apply final sunrise-longitude adjustment to graha spashta.
 
     Returns (final_spashta_deg, raw_delta_deg, signed_delta_deg).
     """
     c = float(chalana_mins)
     g = float(gati_per_day)
 
-    raw = (c * g) / 1440.0  # 1440 minutes in a day
+    raw = (c * g) / 1440.0
 
     same_sign = c == 0.0 or g == 0.0 or ((c > 0.0) == (g > 0.0))
     adj = raw if same_sign else -abs(raw)

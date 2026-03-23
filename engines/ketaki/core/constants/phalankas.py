@@ -43,29 +43,29 @@ def _build_table(
             for i in range(len(cols))
         }
 
-    if set(out.keys()) != set(range(19)):
-        raise ValueError(f"labdhi rows must be 0..18, got {sorted(out.keys())}")
+    expected = set(range(19))
+    actual = set(out.keys())
+    if actual != expected:
+        raise ValueError(f"labdhi rows must be 0..18, got {sorted(actual)}")
 
     return MappingProxyType(
         {k: MappingProxyType(v) for k, v in sorted(out.items())}
     )
 
 
-_tables: dict[str, Mapping[int, Mapping[str, float]]] = {}
-
-
 def _add(
+    target: dict[str, Mapping[int, Mapping[str, float]]],
     name: str,
     headers: Iterable[str],
     rows: Iterable[Iterable[object]],
 ) -> None:
-    _tables[name] = _build_table(headers, rows)
+    target[name] = _build_table(headers, rows)
 
-# --------------------------------------------------------------------------
-# TABLE DEFINITIONS (unchanged)
-# --------------------------------------------------------------------------
+
+_tables: dict[str, Mapping[int, Mapping[str, float]]] = {}
 
 _add(
+    _tables,
     "mandaphala",
     ("surya", "mangal", "budha", "guru", "shukra", "shani"),
     [
@@ -92,6 +92,7 @@ _add(
 )
 
 _add(
+    _tables,
     "shighraphala",
     ("mangal", "budha", "guru", "shukra", "shani"),
     [
@@ -118,6 +119,7 @@ _add(
 )
 
 _add(
+    _tables,
     "mandakarna",
     ("mangal", "budha"),
     [
@@ -144,6 +146,7 @@ _add(
 )
 
 _add(
+    _tables,
     "karnanka",
     ("mangal", "budha", "guru", "shukra", "shani"),
     [
@@ -170,6 +173,7 @@ _add(
 )
 
 _add(
+    _tables,
     "suryagati",
     ("surya",),
     [
@@ -196,6 +200,7 @@ _add(
 )
 
 _add(
+    _tables,
     "suryakranti",
     ("surya",),
     [
@@ -225,18 +230,22 @@ jyotish_lookup: Mapping[str, Mapping[int, Mapping[str, float]]] = MappingProxyTy
     dict(_tables)
 )
 
-# --------------------------------------------------------------------------
-# Simple Accessors
-# --------------------------------------------------------------------------
 
 def get_headers(name: str) -> list[str]:
+    if name not in jyotish_lookup:
+        raise KeyError(f"unknown phalanka table: {name}")
     table = jyotish_lookup[name]
     return list(next(iter(table.values())).keys())
 
 
 def get_row(name: str, labdhi: int) -> Mapping[str, float]:
+    if name not in jyotish_lookup:
+        raise KeyError(f"unknown phalanka table: {name}")
     return jyotish_lookup[name][int(labdhi)]
 
 
 def get_phalanka(name: str, labdhi: int, graha: str) -> float:
-    return jyotish_lookup[name][int(labdhi)][graha.strip().lower()]
+    if name not in jyotish_lookup:
+        raise KeyError(f"unknown phalanka table: {name}")
+    key = graha.strip().lower()
+    return float(jyotish_lookup[name][int(labdhi)][key])

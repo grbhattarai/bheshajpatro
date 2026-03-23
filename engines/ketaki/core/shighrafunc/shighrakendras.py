@@ -6,7 +6,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TypedDict
 
-from bheshajpatro.core.core_functions import norm_360, calc_shadvalpa
+from bheshajpatro.core.core_functions import calc_shadvalpa, norm_360
 
 __all__ = [
     "ShighrakendraResult",
@@ -28,8 +28,13 @@ def shighrakendra_one(
 ) -> ShighrakendraResult:
     g = graha.strip().lower()
 
-    gval = graha_spashta[g]
-    sval = graha_spashta["surya"]
+    if g not in graha_spashta:
+        raise KeyError(f"{g!r} not found in graha_spashta")
+    if "surya" not in graha_spashta:
+        raise KeyError("'surya' not found in graha_spashta")
+
+    gval = float(graha_spashta[g])
+    sval = float(graha_spashta["surya"])
 
     sk = norm_360(gval - sval)
     sv = calc_shadvalpa(sk)

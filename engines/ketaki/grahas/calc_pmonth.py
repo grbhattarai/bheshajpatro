@@ -1,12 +1,10 @@
-# bheshajpatro/ketaki/kmonthly/calc_pmonth.py
-# pure ascii-only, strict lowercase
 # Copyright (c) 2025 Gandhi Bhattarai
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from __future__ import annotations
 
 from datetime import date as _date, timedelta
-from typing import Any
+from typing import Any, Iterator
 
 from bheshajpatro.engines.ketaki.grahas.calc_pday import run as ketaki_day_run
 
@@ -29,7 +27,7 @@ def month_boundaries(d: _date) -> tuple[_date, _date]:
     return first, last
 
 
-def _iter_month_days(d: _date):
+def _iter_month_days(d: _date) -> Iterator[_date]:
     start, end = month_boundaries(d)
     cur = start
     while cur <= end:
@@ -43,6 +41,7 @@ def build_month_rows(
     longitude_deg: float,
     standard_meridian_deg: float,
     tz_name: str | None = None,
+    elevation_m: float | None = 0.0,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
 
@@ -53,6 +52,7 @@ def build_month_rows(
             longitude_deg=longitude_deg,
             standard_meridian_deg=standard_meridian_deg,
             tz_name=tz_name,
+            elevation_m=elevation_m,
         )
 
         astro = session["astro"]
@@ -63,12 +63,12 @@ def build_month_rows(
                 "year": day.year,
                 "month": day.month,
                 "day": day.day,
-                "sunrise_hours": astro["sunrise_hours"],
-                "sunset_hours": astro["sunset_hours"],
-                "surya_gati": astro["graha_gati"]["surya"],
-                "surya_spashta": astro["suryodayaspashta"]["surya"],
-                "chandra_gati": astro["graha_gati"]["chandra"],
-                "chandra_spashta": astro["suryodayaspashta"]["chandra"],
+                "sunrise_hours": float(astro["sunrise_hours"]),
+                "sunset_hours": float(astro["sunset_hours"]),
+                "surya_gati": float(astro["graha_gati"]["surya"]),
+                "surya_spashta": float(astro["suryodayaspashta"]["surya"]),
+                "chandra_gati": float(astro["graha_gati"]["chandra"]),
+                "chandra_spashta": float(astro["suryodayaspashta"]["chandra"]),
             }
         )
 
@@ -81,6 +81,7 @@ def run(
     longitude_deg: float,
     standard_meridian_deg: float,
     tz_name: str | None = None,
+    elevation_m: float | None = 0.0,
 ) -> list[dict[str, Any]]:
     return build_month_rows(
         d=d,
@@ -88,6 +89,7 @@ def run(
         longitude_deg=longitude_deg,
         standard_meridian_deg=standard_meridian_deg,
         tz_name=tz_name,
+        elevation_m=elevation_m,
     )
 
 
@@ -120,8 +122,14 @@ def format_month_table(rows: list[dict[str, Any]]) -> str:
     for r in rows:
         mname = month_names[r["month"] - 1]
 
-        sunrise = f"{int(r['sunrise_hours']):02d}:{int((r['sunrise_hours'] % 1) * 60):02d}"
-        sunset = f"{int(r['sunset_hours']):02d}:{int((r['sunset_hours'] % 1) * 60):02d}"
+        sunrise = (
+            f"{int(r['sunrise_hours']):02d}:"
+            f"{int((r['sunrise_hours'] % 1) * 60):02d}"
+        )
+        sunset = (
+            f"{int(r['sunset_hours']):02d}:"
+            f"{int((r['sunset_hours'] % 1) * 60):02d}"
+        )
 
         lines.append(
             f"{mname:<10} {r['day']:>3}  "

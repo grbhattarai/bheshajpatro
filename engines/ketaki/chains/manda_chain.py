@@ -1,5 +1,3 @@
-# bheshajpatro/ketaki/grahas/manda_chain.py
-# pure ascii-only, strict lowercase
 # Copyright (c) 2025 Gandhi Bhattarai
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -8,36 +6,29 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from bheshajpatro.core.core_functions import (
-    calc_shadvalpa,
-    norm_360,
-    calc_bhuja,
-)
-from bheshajpatro.engines.ketaki.core.mandafunc.madhyamas import calc_madhyama
-from bheshajpatro.engines.ketaki.core.mandafunc.mandochas import calc_mandocha
-from bheshajpatro.engines.ketaki.core.mandafunc.mandakendras import (
-    calc_mandakendra,
-)
+from bheshajpatro.core.core_functions import calc_shadvalpa, norm_360
 from bheshajpatro.engines.ketaki.core.anglefunc.beejas import calc_beeja
+from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import calc_phalanka
 from bheshajpatro.engines.ketaki.core.constants import madhyama_gati
+from bheshajpatro.engines.ketaki.core.mandafunc.madhyamas import calc_madhyama
 from bheshajpatro.engines.ketaki.core.mandafunc.mandakarnas import (
     mandakarna_map,
+)
+from bheshajpatro.engines.ketaki.core.mandafunc.mandakendras import (
+    calc_mandakendra,
 )
 from bheshajpatro.engines.ketaki.core.mandafunc.mandaphalas import (
     mandaphala_map,
 )
+from bheshajpatro.engines.ketaki.core.mandafunc.mandochas import calc_mandocha
 
 __all__ = ["compute_manda_block"]
 
-grahas_manda = ("surya", "mangal", "budha", "guru", "shukra", "shani", "rahu")
-manda_core_grahas = ("surya", "mangal", "budha", "guru", "shukra", "shani")
+GRAHAS_MANDA = ("surya", "mangal", "budha", "guru", "shukra", "shani", "rahu")
+MANDA_CORE_GRAHAS = ("surya", "mangal", "budha", "guru", "shukra", "shani")
 
 
 def _suryagati_from_sv(sv_surya: float) -> float:
-    from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import (
-        calc_phalanka,
-    )
-
     ph = calc_phalanka("suryagati", "surya", sv_surya)
     return float(ph) / 60.0
 
@@ -57,7 +48,7 @@ def _calc_mandagati(
 
     for g, gy in gamyantar_map.items():
         div = divisors[g]
-        minutes = abs(gy) / div
+        minutes = abs(float(gy)) / div
         if g == "budha":
             minutes *= 5.0
         corr = minutes / 60.0
@@ -68,7 +59,7 @@ def _calc_mandagati(
 
 
 def _calc_rahu_block(rahu_madhyama: float) -> dict[str, float]:
-    r = norm_360(rahu_madhyama)
+    r = norm_360(float(rahu_madhyama))
     k = norm_360(r + 180.0)
     g = -float(madhyama_gati["rahu"])
     return {
@@ -85,10 +76,10 @@ def compute_manda_block(
     chakra_cnt: int,
     shaka_year: int,
 ) -> dict[str, Any]:
-    grahas_all = grahas_manda
-    grahas_core = manda_core_grahas
+    grahas_all = GRAHAS_MANDA
+    grahas_core = MANDA_CORE_GRAHAS
 
-    beeja_map = calc_beeja(shaka_year, calc_bhuja)
+    beeja_map = calc_beeja(shaka_year)
 
     madhyama = calc_madhyama(
         grahas_all,
@@ -176,73 +167,3 @@ def compute_manda_block(
         "mandagati": mandagati,
         "mandakarna": mandakarna,
     }
-
-
-if __name__ == "__main__":
-    from datetime import date
-    from bheshajpatro.engines.ketaki.core.anglefunc.ahargana import (
-        compute_ahargana,
-    )
-
-    place = {
-        "city": "kathmandu",
-        "latitude": 27.7,
-        "longitude": 85.3,
-        "std_meridian": 86.25,
-        "tz": "asia/kathmandu",
-    }
-
-    for_date = date(2025, 3, 30)
-
-    ah_info = compute_ahargana(place=place, for_date=for_date)
-    ahargana_ujjain = ah_info["ahargana_ujjain"]
-    chakra_cnt = ah_info["chakra_cnt"]
-    shaka_year = ah_info["shaka_year"]
-
-    block = compute_manda_block(
-        ahargana=ahargana_ujjain,
-        chakra_cnt=chakra_cnt,
-        shaka_year=shaka_year,
-    )
-
-    grahas = [
-        "surya",
-        "mangal",
-        "budha",
-        "guru",
-        "shukra",
-        "shani",
-        "rahu",
-        "ketu",
-    ]
-
-    data_rows = [
-        ("madhyama", block["madhyama"]),
-        ("mandocha", block["mandocha"]),
-        ("mandakendra", block["mandakendra"]),
-        ("shadvalpa", block["shadvalpa"]),
-        ("mandaphala_deg", block["mandaphala_deg"]),
-        ("mandakantar", block["mandakantar"]),
-        ("mandaspashta", block["mandaspashta"]),
-        ("mandagati", block["mandagati"]),
-        ("mandakarna", block["mandakarna"]),
-    ]
-
-    print("manda chain – kathmandu, nepal – 2025-03-30")
-    print(f"ahargana_ujjain : {ahargana_ujjain:.6f}")
-    print(f"chakra_cnt      : {chakra_cnt}")
-    print(f"shaka_year      : {shaka_year}")
-    print()
-
-    header = "parameter       " + "".join(f"{g:>12s}" for g in grahas)
-    print(header)
-    print("-" * len(header))
-
-    for label, mapping in data_rows:
-        line = f"{label:15s}"
-        for g in grahas:
-            val = mapping.get(g, 0.0)
-            line += f"{val:12.6f}"
-        print(line)
-
-    print()

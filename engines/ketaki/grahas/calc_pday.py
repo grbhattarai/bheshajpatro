@@ -1,5 +1,3 @@
-# bheshajpatro/ketaki/grahas/calc_pday.py
-# pure ascii-only, strict lowercase
 # Copyright (c) 2025 Gandhi Bhattarai
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -10,9 +8,6 @@ from typing import Any
 
 from bheshajpatro.engines.ketaki.grahas.calc_grahas import (
     compute_daily_grahas_ketaki,
-)
-from bheshajpatro.engines.ketaki.core.anglefunc.ahargana import (
-    compute_ahargana,
 )
 
 
@@ -25,6 +20,25 @@ def _local_time_to_hours(dt) -> float:
     )
 
 
+def _python_weekday_to_display_id(py_weekday: int) -> int:
+    # Python: 0=Mon ... 6=Sun
+    # Display: 1=Sun ... 7=Sat
+    return ((int(py_weekday) + 1) % 7) + 1
+
+
+def _weekday_name_from_display_id(weekday_id: int) -> str:
+    names = {
+        1: "Sunday",
+        2: "Monday",
+        3: "Tuesday",
+        4: "Wednesday",
+        5: "Thursday",
+        6: "Friday",
+        7: "Saturday",
+    }
+    return names[int(weekday_id)]
+
+
 def build_session_from_ketaki(
     d: _date,
     *,
@@ -34,10 +48,10 @@ def build_session_from_ketaki(
     tz_name: str | None,
 ) -> dict[str, Any]:
     """
-    build a ketaki-style astro session for one date/place.
+    Build one Ketaki raw engine session.
 
-    mirrors drik dpanchanga_day structure so pbuilder can treat both engines
-    uniformly.
+    This mirrors the raw session structure expected by registry /
+    session_orchestrator / pbuilder.
     """
     daily = compute_daily_grahas_ketaki(
         d,
@@ -49,39 +63,36 @@ def build_session_from_ketaki(
     sunrise_hours = _local_time_to_hours(daily.sunrise_local)
     sunset_hours = _local_time_to_hours(daily.sunset_local)
 
-    ahargana_place = {
-        "city": None,
-        "latitude": float(latitude_deg),
-        "longitude": float(longitude_deg),
-        "std_meridian": float(standard_meridian_deg),
-        "tz": tz_name,
-    }
-    aha = compute_ahargana(place=ahargana_place, for_date=d)
+    weekday_id = _python_weekday_to_display_id(d.weekday())
 
     session: dict[str, Any] = {
         "context": {
             "date": d.isoformat(),
             "location": {
-                "latitude_deg": float(latitude_deg),
-                "longitude_deg": float(longitude_deg),
-                "standard_meridian_deg": float(standard_meridian_deg),
+                "latitude": float(latitude_deg),
+                "longitude": float(longitude_deg),
+                "std_meridian": float(standard_meridian_deg),
                 "tz_name": tz_name,
+                "elevation": 0.0,
             },
             "engine": "ketaki",
-            "weekday_index": aha["weekday_index"],
-            "weekday_name": aha["weekday_name"],
+            "weekday_id": weekday_id,
+            "day_name": _weekday_name_from_display_id(weekday_id),
         },
         "astro": {
+            # Keep internal full graha positions if useful elsewhere
             "graha_spashta": daily.graha_spashta,
-            "suryodayaspashta": daily.suryodayaspashta,
-            "graha_gati": daily.graha_gati,
-            "sunrise_hours": sunrise_hours,
-            "sunset_hours": sunset_hours,
+
+            # These two names must match pbuilder/daypanchanga.py expectations
+            "suryodaya_spashta": daily.suryodayaspashta,
+            "suryodaya_gati": daily.graha_gati,
+
+            "sunrise_hours": float(sunrise_hours),
+            "sunset_hours": float(sunset_hours),
             "sunrise_local": daily.sunrise_local.isoformat(),
             "sunset_local": daily.sunset_local.isoformat(),
-        },
-        "ketaki": {
-            "ahargana": aha,
+            "jd_6am_local": float(daily.jd_6am_local),
+            "jd_sunrise_local": float(daily.jd_sunrise_local),
         },
     }
 
@@ -90,21 +101,19 @@ def build_session_from_ketaki(
 
 def run(
     d: _date,
-    *,
     latitude_deg: float,
     longitude_deg: float,
     standard_meridian_deg: float,
     tz_name: str | None = None,
     elevation_m: float | None = 0.0,
-    ephe_dir: str | None = None,
 ) -> dict[str, Any]:
     """
-    public entrypoint used by session_orchestrator and monthly builder.
+    Public Ketaki day entrypoint.
 
-    signature mirrors drik.grahas.dpanchanga_day.run; elevation_m and ephe_dir
-    are ignored for ketaki.
+    Signature matches the way registry/session_orchestrator call engine runners.
+    `elevation_m` is accepted for compatibility and ignored.
     """
-    _ = elevation_m, ephe_dir  # kept only for signature compatibility
+    _ = elevation_m
 
     return build_session_from_ketaki(
         d=d,

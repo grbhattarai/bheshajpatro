@@ -1,5 +1,3 @@
-# bheshajpatro/ketaki/grahas/chandra_chain.py
-# pure ascii-only, strict lowercase
 # Copyright (c) 2025 Gandhi Bhattarai
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -22,6 +20,8 @@ __all__ = [
     "calc_chandra_gati",
 ]
 
+_EPS = 1e-9
+
 
 def _delta_forward(a2: float, a1: float) -> float:
     """forward angular delta (0..360)."""
@@ -34,14 +34,6 @@ def _interp_upakarana(
     *,
     step: float,
 ) -> tuple[float, dict[str, float]]:
-    """
-    generic upakarana interpolation helper:
-
-        - ang is already normalized (0..360)
-        - step is degrees per labdhi (6, 3, 30, etc.)
-
-    returns (value, debug_dict)
-    """
     a = norm_360(ang)
     lab = int(floor(a / step))
     sh = a - lab * step
@@ -51,6 +43,7 @@ def _interp_upakarana(
     ga = row["gamyantar"]
 
     val = ph + (sh * ga / step)
+
     dbg = {
         "angle": a,
         "labdhi": lab,
@@ -94,7 +87,6 @@ def _kakshabrite_from_upa(
 
 
 def calc_chandra_spashta(up: Mapping[int, float]) -> dict[str, Any]:
-    """full chandra chain from upakarana values."""
     ensure_loaded()
 
     mandasp, manda_k, manda_ph = _manda_from_upa(up)
@@ -115,15 +107,16 @@ def calc_chandra_spashta(up: Mapping[int, float]) -> dict[str, Any]:
     for key, val in corr_map.items():
         a = norm_360(val)
 
-        # tables 6..11: 30-degree step, labdhi 0..11
         lab = int(floor(a / 30.0))
         if lab > 11:
             lab = 11
+
         sh = a - lab * 30.0
 
         row = row_for(key, lab)
         ph = row["phala"]
         ga = row["gamyantar"]
+
         adj = ph + (sh * ga / 30.0)
 
         adj_sum += adj
@@ -151,7 +144,6 @@ def calc_chandra_spashta(up: Mapping[int, float]) -> dict[str, Any]:
 
 
 def calc_chandra_gati(*, ahargana: float, chakra_cnt: int) -> float:
-    """numerical gati: delta of chandra_spashta over +1 ahargana."""
     ensure_loaded()
 
     up1 = calc_upakarana(ahargana=ahargana, chakra_cnt=chakra_cnt)
@@ -169,7 +161,6 @@ def compute_chandra_block(
     chakra_cnt: int,
     shaka_year: int,
 ) -> dict[str, Any]:
-    """convenience wrapper: full chandra block for daily engine."""
     ensure_loaded()
 
     up = calc_upakarana(ahargana=ahargana, chakra_cnt=chakra_cnt)
@@ -188,37 +179,3 @@ def compute_chandra_block(
             "gati": float(gati),
         },
     }
-
-
-if __name__ == "__main__":
-    from datetime import date
-    from bheshajpatro.engines.ketaki.core.anglefunc.ahargana import (
-        compute_ahargana,
-    )
-
-    place = {
-        "city": "kathmandu",
-        "latitude": 27.7,
-        "longitude": 85.3,
-        "std_meridian": 86.25,
-        "tz": "asia/kathmandu",
-    }
-    for_date = date(2025, 3, 30)
-
-    ah_info = compute_ahargana(place=place, for_date=for_date)
-    ahargana = ah_info["ahargana_ujjain"]
-    chakra_cnt = ah_info["chakra_cnt"]
-    shaka_year = ah_info["shaka_year"]
-
-    block = compute_chandra_block(
-        ahargana=ahargana,
-        chakra_cnt=chakra_cnt,
-        shaka_year=shaka_year,
-    )
-
-    print("chandra chain – kathmandu, nepal – 2025-03-30")
-    print(f"ahargana_ujjain : {ahargana:.6f}")
-    print(f"chakra_cnt      : {chakra_cnt}")
-    print(f"shaka_year      : {shaka_year}")
-    print(f"chandra_spashta : {block['chandra_spashta']:.6f}")
-    print(f"chandra_gati    : {block['chandra_gati']:.6f}")

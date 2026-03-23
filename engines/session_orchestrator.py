@@ -23,13 +23,13 @@ def build_engine_sessions_for_date(
 ) -> Dict[str, Any]:
     engine_key = str(engine).lower().strip()
 
-    if engine_key not in ENGINE_RUNNERS:
-        raise ValueError(f"Unknown engine '{engine}'.")
+    try:
+        daily_engine_run = ENGINE_RUNNERS[engine_key]
+    except KeyError as exc:
+        raise ValueError(f"Unknown engine '{engine}'.") from exc
 
-    daily_engine_run = ENGINE_RUNNERS[engine_key]
-
-    # 1) engine raw daily session
-    daily = daily_engine_run(
+    # 1) Engine-specific raw daily session
+    raw_daily = daily_engine_run(
         d,
         latitude_deg,
         longitude_deg,
@@ -38,10 +38,10 @@ def build_engine_sessions_for_date(
         elevation_m,
     )
 
-    # 2) engine-agnostic panchanga builder
-    daily = build_day_panchanga(daily)
+    # 2) Engine-agnostic panchanga builder
+    daily = build_day_panchanga(raw_daily)
 
-    # 3) monthly bundle — only when explicitly requested
+    # 3) Monthly bundle — only when explicitly requested
     monthly_rows = []
     if include_monthly:
         monthly_rows = build_month_panchanga_from_daily(

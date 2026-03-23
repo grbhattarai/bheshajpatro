@@ -1,32 +1,26 @@
-# bheshajpatro/ketaki/grahas/calc_grahas.py
-# pure ascii-only, strict lowercase
 # Copyright (c) 2025 Gandhi Bhattarai
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date as _date, datetime, timezone, timedelta
+from datetime import date as _date, datetime, timedelta, timezone
 from typing import Dict
 
-from bheshajpatro.engines.ketaki.core.anglefunc.ahargana import (
-    compute_ahargana,
-)
-from bheshajpatro.engines.ketaki.grahas.full_chain import compute_ketaki_daily
+from bheshajpatro.engines.ketaki.core.anglefunc.ahargana import compute_ahargana
+from bheshajpatro.engines.ketaki.chains.full_chain import compute_ketaki_daily
 from bheshajpatro.engines.ketaki.grahas.suryodayas import (
     ayanamsha,
-    surya_sayana,
-    surya_kranti,
-    chara,
     belantara,
+    chalana,
+    chara,
     deshantara,
     local_sunrise,
     std_sunrise,
-    chalana,
     sunrise_adjust,
+    surya_kranti,
+    surya_sayana,
 )
-
-from swisseph import julday as _julday
 
 __all__ = [
     "DailyGrahasKetakiResult",
@@ -47,18 +41,41 @@ GRAHAS = (
 
 
 def _fixed_tz(std_meridian_deg: float) -> timezone:
-    return timezone(timedelta(hours=std_meridian_deg / 15.0))
+    return timezone(timedelta(hours=float(std_meridian_deg) / 15.0))
 
 
 def _dt_to_jd(dt: datetime) -> float:
+    """
+    Compute Julian Day from a timezone-aware datetime without Swiss Ephem.
+    """
     dt_utc = dt.astimezone(timezone.utc)
+    y = dt_utc.year
+    m = dt_utc.month
+    d = dt_utc.day
+
     hour = (
         dt_utc.hour
         + dt_utc.minute / 60.0
         + dt_utc.second / 3600.0
         + dt_utc.microsecond / 3_600_000_000.0
     )
-    return float(_julday(dt_utc.year, dt_utc.month, dt_utc.day, hour))
+
+    if m <= 2:
+        y -= 1
+        m += 12
+
+    a = y // 100
+    b = 2 - a + (a // 4)
+
+    jd = (
+        int(365.25 * (y + 4716))
+        + int(30.6001 * (m + 1))
+        + d
+        + b
+        - 1524.5
+        + hour / 24.0
+    )
+    return float(jd)
 
 
 @dataclass(frozen=True)
@@ -74,9 +91,9 @@ class DailyGrahasKetakiResult:
     jd_6am_local: float
     jd_sunrise_local: float
 
-    graha_spashta: Dict[str, float]      # nirayana @ 6am
-    suryodayaspashta: Dict[str, float]   # nirayana @ sunrise
-    graha_gati: Dict[str, float]         # ketaki gati @ 6am
+    graha_spashta: Dict[str, float]
+    suryodayaspashta: Dict[str, float]
+    graha_gati: Dict[str, float]
 
 
 def compute_daily_grahas_ketaki(
@@ -86,7 +103,6 @@ def compute_daily_grahas_ketaki(
     longitude_deg: float,
     standard_meridian_deg: float,
 ) -> DailyGrahasKetakiResult:
-    # 1) ahargana + ketaki daily core
     ah = compute_ahargana(
         place={
             "latitude": latitude_deg,
@@ -105,12 +121,10 @@ def compute_daily_grahas_ketaki(
     graha_sp = daily["graha_spashta"]
     graha_gati = daily["graha_gati"]
 
-    # 2) 6am local datetime
     tz = _fixed_tz(standard_meridian_deg)
     six_am = datetime(d.year, d.month, d.day, 6, 0, 0, tzinfo=tz)
     jd_6am = _dt_to_jd(six_am)
 
-    # 3) sunrise computation (classical ketaki)
     aya = ayanamsha(ah["shaka_year"])
     surya_nira = graha_sp["surya"]
     sur_say = surya_sayana(surya_nira, aya)
@@ -137,11 +151,16 @@ def compute_daily_grahas_ketaki(
     sr_sec = int((((std_sunrise_hours - sr_hour) * 60.0) - sr_min) * 60.0)
 
     sunrise_local = datetime(
-        d.year, d.month, d.day, sr_hour, sr_min, sr_sec, tzinfo=tz
+        d.year,
+        d.month,
+        d.day,
+        sr_hour,
+        sr_min,
+        sr_sec,
+        tzinfo=tz,
     )
     jd_sunrise = _dt_to_jd(sunrise_local)
 
-    # 4) dinamana + sunset (classical ketaki)
     ghatis_from_chara = ch_hours * 2.5
     adj_ghatis = ghatis_from_chara if sur_say < 180.0 else -ghatis_from_chara
 
@@ -155,10 +174,15 @@ def compute_daily_grahas_ketaki(
     ss_sec = int((((sunset_hours - ss_hour) * 60.0) - ss_min) * 60.0)
 
     sunset_local = datetime(
-        d.year, d.month, d.day, ss_hour, ss_min, ss_sec, tzinfo=tz
+        d.year,
+        d.month,
+        d.day,
+        ss_hour,
+        ss_min,
+        ss_sec,
+        tzinfo=tz,
     )
 
-    # 5) suryodayaspaṣṭa for all grahas
     suryodayaspashta: Dict[str, float] = {}
 
     chalana_mins = chalana(
@@ -177,7 +201,7 @@ def compute_daily_grahas_ketaki(
             gati_per_day=gati,
             chalana_mins=chalana_mins,
         )
-        suryodayaspashta[g] = spa_sr
+        suryodayaspashta[g] = float(spa_sr)
 
     return DailyGrahasKetakiResult(
         date=d,
@@ -188,7 +212,7 @@ def compute_daily_grahas_ketaki(
         sunset_local=sunset_local,
         jd_6am_local=jd_6am,
         jd_sunrise_local=jd_sunrise,
-        graha_spashta=graha_sp,
+        graha_spashta={k: float(v) for k, v in graha_sp.items()},
         suryodayaspashta=suryodayaspashta,
-        graha_gati=graha_gati,
+        graha_gati={k: float(v) for k, v in graha_gati.items()},
     )

@@ -20,12 +20,10 @@ __all__ = [
     "get_const",
 ]
 
-# ----------------------------------------------------------------------
 # Core constant maps (all keyed by canonical graha names):
 #   "surya", "chandra", "mangal", "budha",
 #   "guru", "shukra", "shani", "rahu"
-# Ketu is always handled as anti-Rahu at the algorithm level.
-# ----------------------------------------------------------------------
+# Ketu is handled separately at the algorithm level.
 
 madhyama_kshepaka: Final[Mapping[str, float]] = MappingProxyType(
     {
@@ -102,10 +100,6 @@ madhyama_karna: Final[Mapping[str, float]] = MappingProxyType(
     }
 )
 
-# ----------------------------------------------------------------------
-# Aggregate view + helpers
-# ----------------------------------------------------------------------
-
 const: Final[Mapping[str, Mapping[str, float]]] = MappingProxyType(
     {
         "madhyama_kshepaka": madhyama_kshepaka,
@@ -142,4 +136,11 @@ def get_const(category: str, graha: str) -> float:
     float
         The constant value.
     """
-    return float(const[category][graha.lower()])
+    if category not in const:
+        raise KeyError(f"Unknown constant category: {category}")
+
+    g = graha.lower()
+    if g not in const[category]:
+        raise KeyError(f"{g!r} not found in category {category!r}")
+
+    return float(const[category][g])

@@ -13,11 +13,15 @@ from bheshajpatro.engines.ketaki.core.constants import (
 
 __all__ = ["mandocha_one", "calc_mandocha"]
 
+# Traditional scaling factor used in mandocha progression
 DEFAULT_SCALE = 6940.0
 
 
 def _get(map_: Mapping[str, float], graha: str) -> float:
-    return float(map_[graha.strip().lower()])
+    key = graha.strip().lower()
+    if key not in map_:
+        raise KeyError(f"{key!r} not found in constant map")
+    return float(map_[key])
 
 
 def mandocha_one(
@@ -29,9 +33,16 @@ def mandocha_one(
     kshepaka_map: Mapping[str, float] = mandocha_kshepaka,
     ahargana_scale: float = DEFAULT_SCALE,
 ) -> float:
-    u_d = _get(dhruba_map, graha)
-    u_k = _get(kshepaka_map, graha)
-    pos = u_k + chakra_count * u_d + (ahargana * u_d / ahargana_scale)
+    g = graha.strip().lower()
+
+    u_d = _get(dhruba_map, g)
+    u_k = _get(kshepaka_map, g)
+
+    ah = float(ahargana)
+    cc = int(chakra_count)
+
+    pos = u_k + cc * u_d + (ah * u_d / float(ahargana_scale))
+
     return norm_360(pos)
 
 

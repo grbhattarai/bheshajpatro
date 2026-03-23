@@ -7,8 +7,8 @@ from collections.abc import Iterable, Mapping
 
 from bheshajpatro.core.core_functions import norm_360
 from bheshajpatro.engines.ketaki.core.constants import (
-    madhyama_gati,
     madhyama_dhruba,
+    madhyama_gati,
     madhyama_kshepaka,
 )
 
@@ -16,7 +16,10 @@ __all__ = ["madhyama_one", "calc_madhyama"]
 
 
 def _get(map_: Mapping[str, float], graha: str) -> float:
-    return float(map_[graha.lower()])
+    key = graha.strip().lower()
+    if key not in map_:
+        raise KeyError(f"{key!r} not found in constant map")
+    return float(map_[key])
 
 
 def madhyama_one(
@@ -32,8 +35,8 @@ def madhyama_one(
     g = graha.strip().lower()
     const_key = "rahu" if g == "ketu" else g
 
-    daily = ahargana * _get(gati_map, const_key)
-    cycle = chakra_count * _get(dhruba_map, const_key)
+    daily = float(ahargana) * _get(gati_map, const_key)
+    cycle = int(chakra_count) * _get(dhruba_map, const_key)
     base = _get(kshepaka_map, const_key)
     beeja = float(beeja_map.get(const_key, 0.0))
 

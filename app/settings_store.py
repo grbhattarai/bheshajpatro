@@ -4,6 +4,7 @@ from typing import Any, Dict
 
 from starlette.requests import Request
 
+ALLOWED_ENGINES = {"drik", "ketaki"}
 DEFAULT_ENGINE = "drik"
 
 DEFAULT_PLACE: Dict[str, Any] = {
@@ -17,19 +18,22 @@ DEFAULT_PLACE: Dict[str, Any] = {
 }
 
 
+def _normalize_engine(engine: Any) -> str:
+    return engine if engine in ALLOWED_ENGINES else DEFAULT_ENGINE
+
+
 def load_user_settings(request: Request) -> Dict[str, Any]:
     return {
-        "engine": request.session.get("engine", DEFAULT_ENGINE),
+        "engine": _normalize_engine(request.session.get("engine", DEFAULT_ENGINE)),
         "place": request.session.get("place", DEFAULT_PLACE),
     }
 
 
 def save_user_settings(request: Request, engine: str, place: Dict[str, Any]) -> None:
-    request.session["engine"] = engine
+    request.session["engine"] = _normalize_engine(engine)
     request.session["place"] = place
 
 
 def clear_user_settings(request: Request) -> None:
     request.session.pop("engine", None)
     request.session.pop("place", None)
-

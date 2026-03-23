@@ -7,10 +7,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Mapping
 from typing import TypedDict
 
-from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import (
-    calc_phalanka,
-    phalanka_info,
-)
+from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import phalanka_info
 
 __all__ = [
     "mandaphala_one",
@@ -31,16 +28,17 @@ def mandaphala_one(
     *,
     sv: float,
 ) -> MandaphalaResult:
-    info = phalanka_info("mandaphala", graha, sv)
-    base = calc_phalanka("mandaphala", graha, sv)
-
     g = graha.strip().lower()
+
+    info = phalanka_info("mandaphala", g, sv)
+    base = float(info["phalanka"])
+
     if g == "surya":
         # surya mandaphala table is in minutes
-        val_deg = float(base) / 60.0
+        val_deg = base / 60.0
     else:
-        # other grahas: table value × 0.1 → degrees
-        val_deg = float(base) * 0.1
+        # other grahas: table value × 0.1 -> degrees
+        val_deg = base * 0.1
 
     return {
         "graha": g,

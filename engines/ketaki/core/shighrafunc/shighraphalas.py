@@ -6,10 +6,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TypedDict
 
-from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import (
-    calc_phalanka,
-    phalanka_info,
-)
+from bheshajpatro.engines.ketaki.core.anglefunc.labdhis import phalanka_info
 
 __all__ = [
     "ShighraphalaResult",
@@ -34,12 +31,14 @@ def shighraphala_one(
     g = graha.strip().lower()
 
     info = phalanka_info("shighraphala", g, sv)
-    base = calc_phalanka("shighraphala", g, sv)
-    val_deg = float(base) * 0.1
+    base = float(info["phalanka"])
+
+    # table values scaled by 0.1 -> degrees
+    val_deg = base * 0.1
 
     return {
         "graha": g,
-        "value_deg": val_deg,
+        "value_deg": float(val_deg),
         "labdhi": float(info["labdhi_index"]),
         "shesha": float(info["shesha"]),
         "gamyantar": float(info["diff"]),

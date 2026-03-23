@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
 
-from bheshajpatro.core.core_functions import norm_360, calc_shadvalpa
+from bheshajpatro.core.core_functions import calc_shadvalpa, norm_360
 
 __all__ = [
     "calc_mandakendra",
@@ -20,7 +20,7 @@ def calc_mandakendra(
     grahas: Iterable[str] | None = None,
 ) -> dict[str, float]:
     if grahas is None:
-        grahas = set(madhyama.keys()) & set(mandocha.keys())
+        grahas = sorted(set(madhyama.keys()) & set(mandocha.keys()))
 
     return {g: norm_360(madhyama[g] - mandocha[g]) for g in grahas}
 

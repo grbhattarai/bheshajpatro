@@ -14,10 +14,9 @@ __all__ = [
     "phalanka_info",
     "rows",
     "columns",
-    "clamp_labdhi",
 ]
 
-# linear interpolation step is always 10° of shadvalpa
+# Linear interpolation step is always 10° of shadvalpa
 _INTERP_DENOM = 10.0
 
 
@@ -31,7 +30,6 @@ def _to_float_finite(value: object, name: str = "value") -> float:
 
 def rows(table_name: str) -> Mapping[int, Mapping[str, float]]:
     """Return the full labdhi table for a given name."""
-    # Let KeyError propagate if table_name is invalid
     return jyotish_lookup[table_name]
 
 
@@ -40,14 +38,6 @@ def columns(table_name: str) -> list[str]:
     tbl = rows(table_name)
     first_row = next(iter(tbl.values()))
     return list(first_row.keys())
-
-
-def clamp_labdhi(table_name: str, labdhi_index: int) -> int:
-    """Clamp labdhi index into the valid [min, max] range for the table."""
-    tbl = rows(table_name)
-    kmin = min(tbl.keys())
-    kmax = max(tbl.keys())
-    return max(min(int(labdhi_index), kmax), kmin)
 
 
 def sv_to_labdhi(shadvalpa: float) -> tuple[int, float]:
@@ -78,7 +68,7 @@ def phalanka_info(
     next_column_name: str | None = None,
 ) -> dict[str, float | str]:
     """
-    Interpolate phalanka value and return detailed info for debugging/inspection.
+    Interpolate phalanka value and return detailed info for inspection.
     """
     tbl = rows(table_name)
     idx, shesha = sv_to_labdhi(shadvalpa)
@@ -120,7 +110,7 @@ def calc_phalanka(
     shadvalpa: float,
     next_column_name: str | None = None,
 ) -> float:
-    """Simple wrapper: return just the interpolated phalanka value."""
+    """Return just the interpolated phalanka value."""
     info = phalanka_info(
         table_name=table_name,
         column_name=column_name,
