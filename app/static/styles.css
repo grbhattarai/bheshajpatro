@@ -79,7 +79,7 @@ body::before {
 }
 
 .subbar-inner {
-  max-width: 860px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 10px 20px;
   display: flex;
@@ -139,17 +139,17 @@ body::before {
 }
 
 .page {
-  max-width: 860px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 24px 20px 60px;
+  padding: 32px 24px 60px;
   position: relative;
   z-index: 1;
 }
 
 .main-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 24px;
+  grid-template-columns: 308px 1fr;
+  gap: 32px;
   align-items: start;
 }
 
@@ -160,135 +160,159 @@ body::before {
 
 .date-nav-header {
   background: var(--accent-dark);
-  border-radius: 8px 8px 0 0;
-  padding: 14px 16px 10px;
-  text-align: center;
+  border-radius: 10px 10px 0 0;
+  padding: 18px 18px 14px;
 }
 
-.date-nav-arrows {
+.date-nav-selects {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.nav-arrow {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.25);
-  color: var(--gold-light);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 16px;
+.date-nav-select-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  gap: 10px;
 }
 
-.nav-arrow:hover { background: rgba(255,255,255,0.25); }
-
-.date-display {
-  font-family: 'Cinzel', serif;
-  color: var(--gold-light);
-  text-align: center;
-}
-
-.date-display .ce-date {
-  font-size: 14px;
+.date-nav-label {
+  min-width: 62px;
+  text-align: right;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 19px;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  color: #f2d7af;
+  letter-spacing: 0.01em;
 }
 
-.date-display .bs-date {
-  font-size: 11px;
-  opacity: 0.75;
-  margin-top: 2px;
+.date-nav-select {
+  min-width: 112px;
+  padding: 5px 30px 5px 10px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 6px;
+  background-color: #fffaf2;
+  color: var(--text);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a3a18' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+}
+
+.date-nav-select:focus {
+  outline: none;
+  border-color: var(--gold-light);
+  box-shadow: 0 0 0 2px rgba(232, 201, 122, 0.18);
 }
 
 .mini-cal {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-top: none;
-  border-radius: 0 0 8px 8px;
-  padding: 12px;
+  border-radius: 0 0 10px 10px;
+  padding: 16px 18px 16px;
 }
 
 .mini-cal-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
 }
-
-.mini-cal-nav button {
-  background: none;
-  border: none;
-  color: var(--accent);
-  cursor: pointer;
-  font-size: 15px;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.mini-cal-nav button:hover { background: var(--bg-deep); }
 
 .mini-cal-month {
   font-family: 'Cinzel', serif;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--accent-dark);
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .mini-cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 6px 4px;
 }
 
 .mini-cal-day-header {
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   font-family: 'Cinzel', serif;
+  font-weight: 600;
   color: var(--text-soft);
-  padding: 2px 0 4px;
+  padding: 4px 0 6px;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .mini-cal-day {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 12px;
-  padding: 4px 2px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 6px 4px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--text-mid);
   transition: all 0.15s;
 }
 
-.mini-cal-day:hover { background: var(--bg-deep); color: var(--accent); }
-.mini-cal-day.today { background: var(--accent-light); color: white; font-weight: 600; }
-.mini-cal-day.selected { background: var(--accent-dark); color: var(--gold-light); font-weight: 600; }
-.mini-cal-day.other-month { opacity: 0.35; }
+.mini-cal-day:hover {
+  background: var(--bg-deep);
+  color: var(--accent);
+}
+
+.mini-cal-day.today {
+  background: var(--accent-light);
+  color: white;
+  font-weight: 700;
+}
+
+.mini-cal-day.selected {
+  background: var(--accent-dark);
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.mini-cal-day.other-month {
+  opacity: 0.35;
+}
 
 .btn-today {
   display: block;
   width: 100%;
-  margin-top: 10px;
-  padding: 7px;
+  margin-top: 16px;
+  padding: 10px;
   background: var(--accent);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   font-family: 'Cinzel', serif;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-.btn-today:hover { background: var(--accent-dark); }
+.btn-today:hover {
+  background: var(--accent-dark);
+}
 
 .panchanga-content { min-width: 0; }
 
@@ -317,31 +341,48 @@ body::before {
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+}
+
+.day-header-left {
+  min-width: 0;
+}
+
+.day-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  text-align: right;
 }
 
 .day-name-large {
   font-family: 'Cinzel', serif;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: var(--accent);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
 }
 
 .date-ce-large {
-  font-family: 'Cinzel', serif;
-  font-size: 22px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 30px;
   font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.03em;
+  color: var(--text-mid);
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.15;
 }
 
 .date-bs-large {
-  font-size: 14px;
-  color: var(--text-mid);
-  margin-top: 2px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #9a6c45;
+  line-height: 1.2;
+  margin-top: 0;
 }
 
 .paksha-badge {
@@ -506,7 +547,7 @@ body::before {
 .dev-note {
   margin: 36px auto 18px auto;
   padding: 12px 16px;
-  max-width: 900px;
+  max-width: 1120px;
   text-align: center;
   font-size: 1.05rem;
   color: #7a5a36;
@@ -517,7 +558,7 @@ body::before {
 }
 
 .site-footer {
-  max-width: 900px;
+  max-width: 1120px;
   margin: 10px auto 30px auto;
   padding-left: 6px;
   text-align: left;
@@ -561,7 +602,6 @@ body::before {
   color: #c2a98a;
 }
 
-/* eclipse button */
 .subbar-eclipse-btn {
   display: inline-block;
   margin-left: 2px;
@@ -594,7 +634,6 @@ body::before {
   color: var(--gold-light) !important;
 }
 
-/* tablet + mobile */
 @media (max-width: 680px) {
   .topbar {
     padding: 18px 18px 16px;
@@ -654,10 +693,47 @@ body::before {
 
   .main-layout {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .date-nav {
     position: static;
+  }
+
+  .date-nav-header {
+    padding: 16px 14px 12px;
+  }
+
+  .date-nav-selects {
+    gap: 10px;
+  }
+
+  .date-nav-select-wrap {
+    justify-content: flex-start;
+  }
+
+  .date-nav-label {
+    min-width: 58px;
+    font-size: 17px;
+    text-align: left;
+  }
+
+  .date-nav-select {
+    min-width: 140px;
+    font-size: 16px;
+  }
+
+  .mini-cal {
+    padding: 14px 14px 14px;
+  }
+
+  .mini-cal-month {
+    font-size: 15px;
+  }
+
+  .mini-cal-day {
+    min-height: 38px;
+    font-size: 16px;
   }
 
   .info-row {
@@ -676,9 +752,23 @@ body::before {
   .info-grid {
     grid-template-columns: 78px 1fr;
   }
+
+  .day-header-right {
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+    gap: 8px;
+  }
+
+  .date-ce-large {
+    font-size: 24px;
+  }
+
+  .date-bs-large {
+    font-size: 18px;
+  }
 }
 
-/* narrower phones */
 @media (max-width: 480px) {
   .topbar {
     padding: 20px 16px 16px;
@@ -714,5 +804,28 @@ body::before {
   .meta-sep {
     display: inline-block;
     margin: 0 7px;
+  }
+
+  .date-nav-label {
+    min-width: 54px;
+    font-size: 16px;
+  }
+
+  .date-nav-select {
+    min-width: 128px;
+    font-size: 15px;
+  }
+
+  .mini-cal-day-header {
+    font-size: 11px;
+  }
+
+  .mini-cal-day {
+    min-height: 34px;
+    font-size: 15px;
+  }
+
+  .btn-today {
+    font-size: 12px;
   }
 }

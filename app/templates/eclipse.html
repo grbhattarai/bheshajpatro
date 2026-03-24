@@ -312,13 +312,7 @@
                     <strong>Change Eclipse Year:</strong>
 
                     <form method="get" action="/eclipse" style="display:inline;">
-                        <select name="year" class="year-select" onchange="this.form.submit()">
-                            {% for y in range(2001, 2101) %}
-                                <option value="{{ y }}" {% if y == year %}selected{% endif %}>
-                                    {{ y }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                        <select name="year" id="eclipse-year-select" class="year-select" onchange="this.form.submit()"></select>
                     </form>
                 </div>
             </div>
@@ -476,7 +470,30 @@
     </div>
 
     <script>
+        const selectedEclipseYear = {{ year }};
+        const ECLIPSE_MIN_YEAR = new Date().getFullYear() - 3;
+        const ECLIPSE_MAX_YEAR = new Date().getFullYear() + 5;
+
+        function populateEclipseYearSelect() {
+            const select = document.getElementById("eclipse-year-select");
+            if (!select) return;
+
+            select.innerHTML = "";
+
+            for (let y = ECLIPSE_MIN_YEAR; y <= ECLIPSE_MAX_YEAR; y++) {
+                const opt = document.createElement("option");
+                opt.value = String(y);
+                opt.textContent = String(y);
+                if (y === selectedEclipseYear) {
+                    opt.selected = true;
+                }
+                select.appendChild(opt);
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
+            populateEclipseYearSelect();
+
             const modal = document.getElementById("eclipseModal");
             const closeBtn = document.getElementById("modalClose");
 
