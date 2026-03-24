@@ -30,75 +30,59 @@
       color: var(--text);
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 17px;
-      line-height: 1.65;
+      line-height: 1.6;
       min-height: 100vh;
     }
 
     .topbar {
       background: var(--accent-dark);
       color: var(--gold-light);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 28px;
-      font-family: 'Cinzel', serif;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-    }
-    .topbar-spacer {
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-    }
-    .topbar a {
-      color: var(--gold-light);
-      text-decoration: none;
-      opacity: 0.9;
-    }
-    .topbar a:hover { opacity: 1; }
-
-    .page {
-      max-width: 520px;
-      margin: 40px auto;
-      padding: 0 20px 60px;
+      padding: 14px 28px 16px;
+      text-align: center;
     }
 
-    .page-title {
+    .topbar-title {
       font-family: 'Cinzel', serif;
       font-size: 22px;
       font-weight: 700;
-      color: var(--accent-dark);
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+      color: var(--gold-light);
+      line-height: 1.2;
     }
-    .page-subtitle {
-      font-size: 15px;
-      color: var(--text-soft);
-      margin-bottom: 28px;
+
+    .page {
+      max-width: 540px;
+      margin: 22px auto;
+      padding: 0 18px 38px;
     }
+
     .rule-gold {
       border: none;
       height: 2px;
       background: linear-gradient(to right, transparent, var(--gold), transparent);
-      margin: 14px 0 28px;
+      margin: 8px 0 18px;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 28px 30px;
-      margin-bottom: 16px;
+      padding: 20px 22px;
+      margin-bottom: 12px;
       position: relative;
       overflow: hidden;
     }
+
     .card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 3px;
       background: linear-gradient(to right, var(--accent-dark), var(--gold), var(--accent-dark));
     }
+
     .card-title {
       font-family: 'Cinzel', serif;
       font-size: 11px;
@@ -106,11 +90,16 @@
       letter-spacing: 0.18em;
       color: var(--text-soft);
       text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
-    .field { margin-bottom: 16px; }
-    .field:last-child { margin-bottom: 0; }
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
 
     label {
       display: block;
@@ -119,7 +108,7 @@
       letter-spacing: 0.1em;
       color: var(--text-soft);
       text-transform: uppercase;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     select {
@@ -138,84 +127,167 @@
       background-position: right 12px center;
       cursor: pointer;
     }
-    select:focus { outline: none; border-color: var(--accent); }
-    select:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    select:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
 
     .selected-location {
       display: none;
       background: var(--bg-deep);
       border: 1px solid var(--border);
       border-radius: 7px;
-      padding: 12px 16px;
-      margin-top: 16px;
-    }
-    .selected-location.visible { display: block; }
-    .selected-location-name {
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .selected-location-detail {
-      font-size: 13px;
-      color: var(--text-soft);
+      padding: 10px 14px;
+      margin-top: 14px;
     }
 
-    .btn-primary {
+    .selected-location.visible {
+      display: block;
+    }
+
+    .selected-location-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .selected-location-detail {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-back {
       display: block;
       width: 100%;
-      padding: 12px;
-      background: var(--accent);
-      color: white;
-      border: none;
       border-radius: 7px;
       font-family: 'Cinzel', serif;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-decoration: none;
       cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 22px;
+      transition: all 0.2s;
     }
-    .btn-primary:hover { background: var(--accent-dark); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .btn-danger {
-      display: block;
-      width: 100%;
+    .btn-primary {
+      margin-top: 16px;
+      padding: 11px;
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      margin-top: 10px;
       padding: 10px;
       background: none;
       color: var(--text-soft);
       border: 1px solid var(--border-light);
-      border-radius: 7px;
-      font-family: 'Cinzel', serif;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: all 0.2s;
     }
-    .btn-danger:hover { border-color: var(--accent); color: var(--accent); }
 
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 18px;
-      font-size: 15px;
+    .btn-secondary:hover {
+      border-color: var(--accent);
       color: var(--accent);
-      text-decoration: none;
     }
-    .back-link:hover { text-decoration: underline; }
+
+    .btn-back {
+      margin-top: 10px;
+      padding: 10px;
+      background: var(--bg-card);
+      color: var(--accent-dark);
+      border: 1px solid var(--border);
+    }
+
+    .btn-back:hover {
+      background: var(--bg-deep);
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    @media (max-width: 680px) {
+      .topbar {
+        padding: 14px 16px 15px;
+      }
+
+      .topbar-title {
+        font-size: 18px;
+        line-height: 1.25;
+      }
+
+      .page {
+        max-width: 100%;
+        margin: 16px auto;
+        padding: 0 14px 30px;
+      }
+
+      .rule-gold {
+        margin: 8px 0 16px;
+      }
+
+      .card {
+        padding: 18px 18px;
+        margin-bottom: 12px;
+      }
+
+      .card-title {
+        margin-bottom: 12px;
+      }
+
+      .field {
+        margin-bottom: 11px;
+      }
+
+      select {
+        font-size: 16px;
+        padding: 9px 32px 9px 12px;
+      }
+
+      .selected-location {
+        padding: 10px 12px;
+        margin-top: 12px;
+      }
+
+      .selected-location-name {
+        font-size: 14px;
+      }
+
+      .selected-location-detail {
+        font-size: 11.5px;
+      }
+
+      .btn-primary {
+        margin-top: 14px;
+      }
+    }
   </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="topbar-spacer"></div>
-  <a href="/">← Back to Panchanga</a>
+  <div class="topbar-title">Set Location &amp; Panchanga Method</div>
 </div>
 
 <div class="page">
-  <div class="page-title">Settings</div>
-  <div class="page-subtitle">Choose your location and computation method.</div>
   <div class="rule-gold"></div>
 
   <form method="post" action="/settings" id="settings-form">
@@ -228,7 +300,6 @@
     <input type="hidden" name="tz"        id="h-tz">
     <input type="hidden" name="elevation" id="h-elevation" value="0">
 
-    <!-- Method -->
     <div class="card">
       <div class="card-title">Computation Method</div>
       <div class="field">
@@ -240,7 +311,6 @@
       </div>
     </div>
 
-    <!-- Location -->
     <div class="card">
       <div class="card-title">Location</div>
 
@@ -274,11 +344,11 @@
     <button type="submit" class="btn-primary" id="btn-save" disabled>Save Settings</button>
   </form>
 
-  <form method="post" action="/settings/clear" style="margin-top: 12px;">
-    <button type="submit" class="btn-danger">Reset to Defaults</button>
+  <form method="post" action="/settings/clear" style="margin-top: 10px;">
+    <button type="submit" class="btn-secondary">Reset to Defaults</button>
   </form>
 
-  <a href="/" class="back-link">← Back to Panchanga</a>
+  <a href="/" class="btn-back">Back to Panchanga</a>
 </div>
 
 <script>
@@ -301,7 +371,7 @@ async function loadCountries() {
       sel.value = cc;
       if (sel.value) await onCountryChange(true);
     }
-  } catch(e) {
+  } catch (e) {
     console.error('Failed to load countries', e);
   }
 }
@@ -309,12 +379,12 @@ async function loadCountries() {
 async function onCountryChange(preselect = false) {
   const cc = document.getElementById('sel-country').value;
   const stateSel = document.getElementById('sel-state');
-  const citySel  = document.getElementById('sel-city');
+  const citySel = document.getElementById('sel-city');
 
   stateSel.innerHTML = '<option value="">— Select region —</option>';
   stateSel.disabled = true;
-  citySel.innerHTML  = '<option value="">— Select city —</option>';
-  citySel.disabled   = true;
+  citySel.innerHTML = '<option value="">— Select city —</option>';
+  citySel.disabled = true;
   clearSelected();
 
   if (!cc) return;
@@ -335,7 +405,10 @@ async function onCountryChange(preselect = false) {
       const parts = currentKey.split('_');
       if (parts.length >= 3) {
         stateSel.value = parts[1].toUpperCase();
-        if (stateSel.value) { await onStateChange(true); return; }
+        if (stateSel.value) {
+          await onStateChange(true);
+          return;
+        }
       }
     }
   } else {
@@ -385,24 +458,29 @@ async function loadCities(cc, sc, preselect = false) {
 
 function onCityChange() {
   const val = document.getElementById('sel-city').value;
-  if (!val) { clearSelected(); return; }
+  if (!val) {
+    clearSelected();
+    return;
+  }
 
   try {
     const city = JSON.parse(val);
-    document.getElementById('h-key').value       = city.key || '';
-    document.getElementById('h-name').value      = city.name || '';
-    document.getElementById('h-latitude').value  = city.latitude;
+
+    document.getElementById('h-key').value = city.key || '';
+    document.getElementById('h-name').value = city.name || '';
+    document.getElementById('h-latitude').value = city.latitude;
     document.getElementById('h-longitude').value = city.longitude;
-    document.getElementById('h-standard').value  = city.standard;
-    document.getElementById('h-tz').value        = city.tz || '';
+    document.getElementById('h-standard').value = city.standard;
+    document.getElementById('h-tz').value = city.tz || '';
     document.getElementById('h-elevation').value = city.elevation || 0;
 
     document.getElementById('sel-loc-name').textContent = city.name;
     document.getElementById('sel-loc-detail').textContent =
-      `Lat: ${city.latitude}  ·  Lon: ${city.longitude}  ·  Std: ${city.standard}°  ·  TZ: ${city.tz}`;
+      `Lat: ${city.latitude} · Lon: ${city.longitude} · Std: ${city.standard}° · TZ: ${city.tz}`;
+
     document.getElementById('selected-location').classList.add('visible');
     document.getElementById('btn-save').disabled = false;
-  } catch(e) {
+  } catch (e) {
     clearSelected();
   }
 }
