@@ -1,0 +1,2490 @@
+{
+  "catalog_version": 1,
+  "generated_at": "2026-03-24T03:24:28.882231+00:00",
+  "ephemeris": "de440s.bsp",
+  "start_year": 2001,
+  "end_year": 2100,
+  "event_count": 310,
+  "events": [
+    {
+      "time_utc": "2001-01-09T20:24:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99603,
+      "moon_lat_deg": 0.381781,
+      "sun_lon_deg": 289.651964,
+      "moon_lon_deg": 109.647994
+    },
+    {
+      "time_utc": "2001-06-21T11:58:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002306,
+      "moon_lat_deg": -0.569474,
+      "sun_lon_deg": 90.172564,
+      "moon_lon_deg": 90.17487
+    },
+    {
+      "time_utc": "2001-07-05T15:04:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001764,
+      "moon_lat_deg": -0.669327,
+      "sun_lon_deg": 103.64793,
+      "moon_lon_deg": 283.649694
+    },
+    {
+      "time_utc": "2001-12-14T20:47:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996758,
+      "moon_lat_deg": 0.389039,
+      "sun_lon_deg": 262.933467,
+      "moon_lon_deg": 262.930224
+    },
+    {
+      "time_utc": "2002-06-10T23:47:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004004,
+      "moon_lat_deg": 0.189238,
+      "sun_lon_deg": 79.905758,
+      "moon_lon_deg": 79.909761
+    },
+    {
+      "time_utc": "2002-12-04T07:34:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996557,
+      "moon_lat_deg": -0.30257,
+      "sun_lon_deg": 251.967922,
+      "moon_lon_deg": 251.96448
+    },
+    {
+      "time_utc": "2003-05-16T03:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000404,
+      "moon_lat_deg": 0.42324,
+      "sun_lon_deg": 54.880659,
+      "moon_lon_deg": 234.881062
+    },
+    {
+      "time_utc": "2003-05-31T04:20:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000903,
+      "moon_lat_deg": 0.903822,
+      "sun_lon_deg": 69.330445,
+      "moon_lon_deg": 69.331348
+    },
+    {
+      "time_utc": "2003-11-09T01:13:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997252,
+      "moon_lat_deg": -0.391366,
+      "sun_lon_deg": 226.212436,
+      "moon_lon_deg": 46.209688
+    },
+    {
+      "time_utc": "2003-11-23T22:59:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000501,
+      "moon_lat_deg": -0.989516,
+      "sun_lon_deg": 241.232552,
+      "moon_lon_deg": 241.233053
+    },
+    {
+      "time_utc": "2004-05-04T20:33:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995719,
+      "moon_lat_deg": -0.317838,
+      "sun_lon_deg": 44.697764,
+      "moon_lon_deg": 224.693483
+    },
+    {
+      "time_utc": "2004-10-28T03:07:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996907,
+      "moon_lat_deg": 0.26653,
+      "sun_lon_deg": 215.038161,
+      "moon_lon_deg": 35.035068
+    },
+    {
+      "time_utc": "2005-04-08T20:32:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999834,
+      "moon_lat_deg": -0.337418,
+      "sun_lon_deg": 19.098491,
+      "moon_lon_deg": 19.098325
+    },
+    {
+      "time_utc": "2005-10-03T10:28:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000904,
+      "moon_lat_deg": 0.305653,
+      "sun_lon_deg": 190.311855,
+      "moon_lon_deg": 190.312759
+    },
+    {
+      "time_utc": "2005-10-17T12:14:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003249,
+      "moon_lat_deg": 0.970482,
+      "sun_lon_deg": 204.224319,
+      "moon_lon_deg": 24.227568
+    },
+    {
+      "time_utc": "2006-03-14T23:35:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996729,
+      "moon_lat_deg": 0.926116,
+      "sun_lon_deg": 354.244965,
+      "moon_lon_deg": 174.241694
+    },
+    {
+      "time_utc": "2006-03-29T10:15:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997623,
+      "moon_lat_deg": 0.390488,
+      "sun_lon_deg": 8.583699,
+      "moon_lon_deg": 8.581322
+    },
+    {
+      "time_utc": "2006-09-07T18:42:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999447,
+      "moon_lat_deg": -0.951787,
+      "sun_lon_deg": 165.002008,
+      "moon_lon_deg": 345.001455
+    },
+    {
+      "time_utc": "2006-09-22T11:45:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99959,
+      "moon_lat_deg": -0.366065,
+      "sun_lon_deg": 179.335021,
+      "moon_lon_deg": 179.334611
+    },
+    {
+      "time_utc": "2007-03-03T23:17:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999128,
+      "moon_lat_deg": 0.289992,
+      "sun_lon_deg": 342.995842,
+      "moon_lon_deg": 162.994971
+    },
+    {
+      "time_utc": "2007-08-28T10:35:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99911,
+      "moon_lat_deg": -0.21386,
+      "sun_lon_deg": 154.759412,
+      "moon_lon_deg": 334.758522
+    },
+    {
+      "time_utc": "2008-02-07T03:45:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004115,
+      "moon_lat_deg": -0.914101,
+      "sun_lon_deg": 317.735969,
+      "moon_lon_deg": 317.740084
+    },
+    {
+      "time_utc": "2008-02-21T03:31:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.004134,
+      "moon_lat_deg": -0.382417,
+      "sun_lon_deg": 331.876867,
+      "moon_lon_deg": 151.881001
+    },
+    {
+      "time_utc": "2008-08-01T10:13:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004053,
+      "moon_lat_deg": 0.826492,
+      "sun_lon_deg": 129.530619,
+      "moon_lon_deg": 129.534672
+    },
+    {
+      "time_utc": "2008-08-16T21:16:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996189,
+      "moon_lat_deg": 0.532314,
+      "sun_lon_deg": 144.356173,
+      "moon_lon_deg": 324.352362
+    },
+    {
+      "time_utc": "2009-01-26T07:55:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997855,
+      "moon_lat_deg": -0.257236,
+      "sun_lon_deg": 306.497383,
+      "moon_lon_deg": 306.495238
+    },
+    {
+      "time_utc": "2009-07-22T02:35:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003976,
+      "moon_lat_deg": 0.071125,
+      "sun_lon_deg": 119.442319,
+      "moon_lon_deg": 119.446296
+    },
+    {
+      "time_utc": "2009-12-31T19:13:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00243,
+      "moon_lat_deg": 0.99661,
+      "sun_lon_deg": 280.248106,
+      "moon_lon_deg": 100.250536
+    },
+    {
+      "time_utc": "2010-01-15T07:11:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997216,
+      "moon_lat_deg": 0.361265,
+      "sun_lon_deg": 295.023028,
+      "moon_lon_deg": 295.020244
+    },
+    {
+      "time_utc": "2010-06-26T11:30:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997112,
+      "moon_lat_deg": -0.65932,
+      "sun_lon_deg": 94.769626,
+      "moon_lon_deg": 274.766738
+    },
+    {
+      "time_utc": "2010-07-11T19:40:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.995632,
+      "moon_lat_deg": -0.683857,
+      "sun_lon_deg": 109.396805,
+      "moon_lon_deg": 109.392437
+    },
+    {
+      "time_utc": "2010-12-21T08:13:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995959,
+      "moon_lat_deg": 0.313748,
+      "sun_lon_deg": 269.345775,
+      "moon_lon_deg": 89.341734
+    },
+    {
+      "time_utc": "2011-01-04T09:03:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003161,
+      "moon_lat_deg": 0.997234,
+      "sun_lon_deg": 283.646398,
+      "moon_lon_deg": 283.649559
+    },
+    {
+      "time_utc": "2011-06-15T20:14:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003716,
+      "moon_lat_deg": 0.088396,
+      "sun_lon_deg": 84.391489,
+      "moon_lon_deg": 264.395205
+    },
+    {
+      "time_utc": "2011-12-10T14:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996951,
+      "moon_lat_deg": -0.358648,
+      "sun_lon_deg": 258.178089,
+      "moon_lon_deg": 78.17504
+    },
+    {
+      "time_utc": "2012-05-20T23:47:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999754,
+      "moon_lat_deg": 0.435727,
+      "sun_lon_deg": 60.341861,
+      "moon_lon_deg": 60.341615
+    },
+    {
+      "time_utc": "2012-06-04T11:12:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.004218,
+      "moon_lat_deg": 0.843437,
+      "sun_lon_deg": 74.233144,
+      "moon_lon_deg": 254.237361
+    },
+    {
+      "time_utc": "2012-11-13T22:08:00+00:00",
+      "type": "solar",
+      "phase_deg": 4.1e-05,
+      "moon_lat_deg": -0.380973,
+      "sun_lon_deg": 231.941924,
+      "moon_lon_deg": 231.941965
+    },
+    {
+      "time_utc": "2012-11-28T14:46:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000537,
+      "moon_lat_deg": -0.982361,
+      "sun_lon_deg": 246.781139,
+      "moon_lon_deg": 66.781676
+    },
+    {
+      "time_utc": "2013-05-10T00:28:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996991,
+      "moon_lat_deg": -0.245683,
+      "sun_lon_deg": 49.523742,
+      "moon_lon_deg": 49.520733
+    },
+    {
+      "time_utc": "2013-11-03T12:50:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000393,
+      "moon_lat_deg": 0.323408,
+      "sun_lon_deg": 221.264103,
+      "moon_lon_deg": 221.264496
+    },
+    {
+      "time_utc": "2014-04-15T07:42:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997453,
+      "moon_lat_deg": -0.288003,
+      "sun_lon_deg": 25.265951,
+      "moon_lon_deg": 205.263404
+    },
+    {
+      "time_utc": "2014-04-29T06:14:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997018,
+      "moon_lat_deg": -0.958514,
+      "sun_lon_deg": 38.862692,
+      "moon_lon_deg": 38.85971
+    },
+    {
+      "time_utc": "2014-10-08T10:51:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003725,
+      "moon_lat_deg": 0.383931,
+      "sun_lon_deg": 195.084614,
+      "moon_lon_deg": 15.08834
+    },
+    {
+      "time_utc": "2015-03-20T09:36:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99817,
+      "moon_lat_deg": 0.967713,
+      "sun_lon_deg": 359.455191,
+      "moon_lon_deg": 359.45336
+    },
+    {
+      "time_utc": "2015-04-04T12:06:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003263,
+      "moon_lat_deg": 0.406904,
+      "sun_lon_deg": 14.402867,
+      "moon_lon_deg": 194.406129
+    },
+    {
+      "time_utc": "2015-09-13T06:41:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99801,
+      "moon_lat_deg": -0.992845,
+      "sun_lon_deg": 170.172358,
+      "moon_lon_deg": 170.170368
+    },
+    {
+      "time_utc": "2015-09-28T02:51:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00493,
+      "moon_lat_deg": -0.339709,
+      "sun_lon_deg": 184.673488,
+      "moon_lon_deg": 4.678418
+    },
+    {
+      "time_utc": "2016-03-09T01:54:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.995273,
+      "moon_lat_deg": 0.265303,
+      "sun_lon_deg": 348.927879,
+      "moon_lon_deg": 348.923152
+    },
+    {
+      "time_utc": "2016-09-01T09:03:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999177,
+      "moon_lat_deg": -0.310469,
+      "sun_lon_deg": 159.35288,
+      "moon_lon_deg": 159.352057
+    },
+    {
+      "time_utc": "2017-02-11T00:33:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001115,
+      "moon_lat_deg": -0.997339,
+      "sun_lon_deg": 322.468532,
+      "moon_lon_deg": 142.469647
+    },
+    {
+      "time_utc": "2017-02-26T14:58:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996763,
+      "moon_lat_deg": -0.443194,
+      "sun_lon_deg": 338.201565,
+      "moon_lon_deg": 338.198328
+    },
+    {
+      "time_utc": "2017-08-07T18:11:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00307,
+      "moon_lat_deg": 0.806067,
+      "sun_lon_deg": 135.419786,
+      "moon_lon_deg": 315.422857
+    },
+    {
+      "time_utc": "2017-08-21T18:30:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998433,
+      "moon_lat_deg": 0.429794,
+      "sun_lon_deg": 148.882111,
+      "moon_lon_deg": 148.880544
+    },
+    {
+      "time_utc": "2018-01-31T13:27:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002626,
+      "moon_lat_deg": -0.307051,
+      "sun_lon_deg": 311.617888,
+      "moon_lon_deg": 131.620513
+    },
+    {
+      "time_utc": "2018-07-27T20:20:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997351,
+      "moon_lat_deg": 0.105921,
+      "sun_lon_deg": 124.747834,
+      "moon_lon_deg": 304.745185
+    },
+    {
+      "time_utc": "2019-01-21T05:16:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999233,
+      "moon_lat_deg": 0.377983,
+      "sun_lon_deg": 300.859506,
+      "moon_lon_deg": 120.85874
+    },
+    {
+      "time_utc": "2019-07-02T19:16:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998034,
+      "moon_lat_deg": -0.644389,
+      "sun_lon_deg": 100.625884,
+      "moon_lon_deg": 100.623919
+    },
+    {
+      "time_utc": "2019-07-16T21:38:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998293,
+      "moon_lat_deg": -0.59168,
+      "sun_lon_deg": 114.069059,
+      "moon_lon_deg": 294.067352
+    },
+    {
+      "time_utc": "2019-12-26T05:13:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998909,
+      "moon_lat_deg": 0.394362,
+      "sun_lon_deg": 274.114248,
+      "moon_lon_deg": 274.113157
+    },
+    {
+      "time_utc": "2020-06-21T06:41:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996193,
+      "moon_lat_deg": 0.113787,
+      "sun_lon_deg": 90.3562,
+      "moon_lon_deg": 90.352392
+    },
+    {
+      "time_utc": "2020-12-14T16:17:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003928,
+      "moon_lat_deg": -0.295945,
+      "sun_lon_deg": 263.137697,
+      "moon_lon_deg": 263.141625
+    },
+    {
+      "time_utc": "2021-05-26T11:14:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001146,
+      "moon_lat_deg": 0.490169,
+      "sun_lon_deg": 65.429476,
+      "moon_lon_deg": 245.430623
+    },
+    {
+      "time_utc": "2021-06-10T10:53:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002682,
+      "moon_lat_deg": 0.829556,
+      "sun_lon_deg": 79.785272,
+      "moon_lon_deg": 79.787954
+    },
+    {
+      "time_utc": "2021-11-19T08:57:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996487,
+      "moon_lat_deg": -0.41278,
+      "sun_lon_deg": 237.240883,
+      "moon_lon_deg": 57.23737
+    },
+    {
+      "time_utc": "2021-12-04T07:43:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999715,
+      "moon_lat_deg": -0.978063,
+      "sun_lon_deg": 252.367228,
+      "moon_lon_deg": 252.366943
+    },
+    {
+      "time_utc": "2022-05-16T04:14:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998488,
+      "moon_lat_deg": -0.256633,
+      "sun_lon_deg": 55.299835,
+      "moon_lon_deg": 235.298324
+    },
+    {
+      "time_utc": "2022-11-08T11:02:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998768,
+      "moon_lat_deg": 0.241491,
+      "sun_lon_deg": 226.014719,
+      "moon_lon_deg": 46.013486
+    },
+    {
+      "time_utc": "2023-04-20T04:13:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00414,
+      "moon_lat_deg": -0.384685,
+      "sun_lon_deg": 29.836713,
+      "moon_lon_deg": 29.840853
+    },
+    {
+      "time_utc": "2023-05-05T17:34:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999527,
+      "moon_lat_deg": -0.99932,
+      "sun_lon_deg": 44.969894,
+      "moon_lon_deg": 224.969421
+    },
+    {
+      "time_utc": "2023-10-14T17:55:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998792,
+      "moon_lat_deg": 0.346556,
+      "sun_lon_deg": 201.125961,
+      "moon_lon_deg": 201.124753
+    },
+    {
+      "time_utc": "2023-10-28T20:24:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99957,
+      "moon_lat_deg": 0.940552,
+      "sun_lon_deg": 215.151239,
+      "moon_lon_deg": 35.150808
+    },
+    {
+      "time_utc": "2024-03-25T07:00:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997532,
+      "moon_lat_deg": 0.961383,
+      "sun_lon_deg": 5.120429,
+      "moon_lon_deg": 185.117961
+    },
+    {
+      "time_utc": "2024-04-08T18:21:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001371,
+      "moon_lat_deg": 0.349457,
+      "sun_lon_deg": 19.400537,
+      "moon_lon_deg": 19.401907
+    },
+    {
+      "time_utc": "2024-10-02T18:49:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997895,
+      "moon_lat_deg": -0.315919,
+      "sun_lon_deg": 190.063223,
+      "moon_lon_deg": 190.061118
+    },
+    {
+      "time_utc": "2025-03-14T06:55:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002669,
+      "moon_lat_deg": 0.318507,
+      "sun_lon_deg": 353.942546,
+      "moon_lon_deg": 173.945215
+    },
+    {
+      "time_utc": "2025-09-07T18:09:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000944,
+      "moon_lat_deg": -0.273279,
+      "sun_lon_deg": 165.375302,
+      "moon_lon_deg": 345.376245
+    },
+    {
+      "time_utc": "2025-09-21T19:54:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998966,
+      "moon_lat_deg": -0.982297,
+      "sun_lon_deg": 179.085798,
+      "moon_lon_deg": 179.084764
+    },
+    {
+      "time_utc": "2026-02-17T12:01:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998724,
+      "moon_lat_deg": -0.92831,
+      "sun_lon_deg": 328.828781,
+      "moon_lon_deg": 328.827506
+    },
+    {
+      "time_utc": "2026-03-03T11:38:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000892,
+      "moon_lat_deg": -0.361459,
+      "sun_lon_deg": 342.89822,
+      "moon_lon_deg": 162.899112
+    },
+    {
+      "time_utc": "2026-08-12T17:37:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002341,
+      "moon_lat_deg": 0.895931,
+      "sun_lon_deg": 140.033083,
+      "moon_lon_deg": 140.035424
+    },
+    {
+      "time_utc": "2026-08-28T04:19:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003819,
+      "moon_lat_deg": 0.467282,
+      "sun_lon_deg": 154.902276,
+      "moon_lon_deg": 334.906095
+    },
+    {
+      "time_utc": "2027-02-06T15:56:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999077,
+      "moon_lat_deg": -0.268537,
+      "sun_lon_deg": 317.627027,
+      "moon_lon_deg": 317.626104
+    },
+    {
+      "time_utc": "2027-08-02T10:05:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997629,
+      "moon_lat_deg": 0.145874,
+      "sun_lon_deg": 129.917213,
+      "moon_lon_deg": 129.914842
+    },
+    {
+      "time_utc": "2028-01-26T15:13:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003638,
+      "moon_lat_deg": 0.353223,
+      "sun_lon_deg": 306.184077,
+      "moon_lon_deg": 306.187715
+    },
+    {
+      "time_utc": "2028-07-06T18:11:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001424,
+      "moon_lat_deg": -0.736503,
+      "sun_lon_deg": 105.18578,
+      "moon_lon_deg": 285.187204
+    },
+    {
+      "time_utc": "2028-07-22T03:02:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002666,
+      "moon_lat_deg": -0.609389,
+      "sun_lon_deg": 119.846123,
+      "moon_lon_deg": 119.848789
+    },
+    {
+      "time_utc": "2028-12-31T16:49:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00413,
+      "moon_lat_deg": 0.316452,
+      "sun_lon_deg": 280.547344,
+      "moon_lon_deg": 100.551474
+    },
+    {
+      "time_utc": "2028-12-31T16:49:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00413,
+      "moon_lat_deg": 0.316452,
+      "sun_lon_deg": 280.547344,
+      "moon_lon_deg": 100.551474
+    },
+    {
+      "time_utc": "2029-01-14T17:25:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003915,
+      "moon_lat_deg": 0.99303,
+      "sun_lon_deg": 294.839606,
+      "moon_lon_deg": 294.843521
+    },
+    {
+      "time_utc": "2029-06-26T03:22:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996804,
+      "moon_lat_deg": 0.011905,
+      "sun_lon_deg": 94.830643,
+      "moon_lon_deg": 274.827447
+    },
+    {
+      "time_utc": "2029-12-20T22:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003717,
+      "moon_lat_deg": -0.351911,
+      "sun_lon_deg": 269.344611,
+      "moon_lon_deg": 89.348329
+    },
+    {
+      "time_utc": "2030-06-01T06:21:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.9973,
+      "moon_lat_deg": 0.507746,
+      "sun_lon_deg": 70.831882,
+      "moon_lon_deg": 70.829182
+    },
+    {
+      "time_utc": "2030-06-15T18:41:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999769,
+      "moon_lat_deg": 0.771068,
+      "sun_lon_deg": 84.717407,
+      "moon_lon_deg": 264.717176
+    },
+    {
+      "time_utc": "2030-11-25T06:47:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004902,
+      "moon_lat_deg": -0.395404,
+      "sun_lon_deg": 243.035026,
+      "moon_lon_deg": 243.039928
+    },
+    {
+      "time_utc": "2030-12-09T22:40:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996468,
+      "moon_lat_deg": -0.969592,
+      "sun_lon_deg": 257.899558,
+      "moon_lon_deg": 77.896026
+    },
+    {
+      "time_utc": "2031-05-21T07:17:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99822,
+      "moon_lat_deg": -0.180049,
+      "sun_lon_deg": 60.072923,
+      "moon_lon_deg": 60.071143
+    },
+    {
+      "time_utc": "2031-11-14T21:10:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003255,
+      "moon_lat_deg": 0.303812,
+      "sun_lon_deg": 232.292136,
+      "moon_lon_deg": 232.295391
+    },
+    {
+      "time_utc": "2032-04-25T15:10:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002475,
+      "moon_lat_deg": -0.337961,
+      "sun_lon_deg": 35.967427,
+      "moon_lon_deg": 215.969902
+    },
+    {
+      "time_utc": "2032-05-09T13:36:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002109,
+      "moon_lat_deg": -0.902053,
+      "sun_lon_deg": 49.484203,
+      "moon_lon_deg": 49.486312
+    },
+    {
+      "time_utc": "2032-10-18T18:58:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99848,
+      "moon_lat_deg": 0.419887,
+      "sun_lon_deg": 205.949492,
+      "moon_lon_deg": 25.947973
+    },
+    {
+      "time_utc": "2032-11-03T05:45:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00023,
+      "moon_lat_deg": 0.992799,
+      "sun_lon_deg": 221.358438,
+      "moon_lon_deg": 221.358668
+    },
+    {
+      "time_utc": "2033-04-14T19:17:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996872,
+      "moon_lat_deg": 0.359683,
+      "sun_lon_deg": 25.154606,
+      "moon_lon_deg": 205.151478
+    },
+    {
+      "time_utc": "2033-10-08T10:58:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998306,
+      "moon_lat_deg": -0.297177,
+      "sun_lon_deg": 195.48236,
+      "moon_lon_deg": 15.480665
+    },
+    {
+      "time_utc": "2034-03-20T10:15:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003822,
+      "moon_lat_deg": 0.292843,
+      "sun_lon_deg": 359.87399,
+      "moon_lon_deg": 359.877812
+    },
+    {
+      "time_utc": "2034-09-12T16:14:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001301,
+      "moon_lat_deg": -0.36782,
+      "sun_lon_deg": 169.981165,
+      "moon_lon_deg": 169.982465
+    },
+    {
+      "time_utc": "2035-03-09T23:10:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004307,
+      "moon_lat_deg": -0.422181,
+      "sun_lon_deg": 349.205084,
+      "moon_lon_deg": 349.209391
+    },
+    {
+      "time_utc": "2035-08-19T01:00:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997268,
+      "moon_lat_deg": 0.875366,
+      "sun_lon_deg": 145.920939,
+      "moon_lon_deg": 325.918207
+    },
+    {
+      "time_utc": "2035-09-02T02:00:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003825,
+      "moon_lat_deg": 0.368455,
+      "sun_lon_deg": 159.465614,
+      "moon_lon_deg": 159.469439
+    },
+    {
+      "time_utc": "2036-02-11T22:09:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002533,
+      "moon_lat_deg": -0.317308,
+      "sun_lon_deg": 322.757566,
+      "moon_lon_deg": 142.760099
+    },
+    {
+      "time_utc": "2036-08-07T02:49:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000126,
+      "moon_lat_deg": 0.181309,
+      "sun_lon_deg": 135.199594,
+      "moon_lon_deg": 315.199719
+    },
+    {
+      "time_utc": "2037-01-31T14:04:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997995,
+      "moon_lat_deg": 0.370822,
+      "sun_lon_deg": 312.036123,
+      "moon_lon_deg": 132.034118
+    },
+    {
+      "time_utc": "2037-07-13T02:32:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001378,
+      "moon_lat_deg": -0.719599,
+      "sun_lon_deg": 111.065678,
+      "moon_lon_deg": 111.067056
+    },
+    {
+      "time_utc": "2037-07-27T04:15:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998425,
+      "moon_lat_deg": -0.514982,
+      "sun_lon_deg": 124.49759,
+      "moon_lon_deg": 304.496016
+    },
+    {
+      "time_utc": "2038-01-05T13:41:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996542,
+      "moon_lat_deg": 0.398908,
+      "sun_lon_deg": 285.307426,
+      "moon_lon_deg": 285.303968
+    },
+    {
+      "time_utc": "2038-07-02T13:32:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998253,
+      "moon_lat_deg": 0.037284,
+      "sun_lon_deg": 100.786946,
+      "moon_lon_deg": 100.785199
+    },
+    {
+      "time_utc": "2038-12-26T01:02:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999793,
+      "moon_lat_deg": -0.290343,
+      "sun_lon_deg": 274.330083,
+      "moon_lon_deg": 274.329876
+    },
+    {
+      "time_utc": "2039-06-06T18:48:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002502,
+      "moon_lat_deg": 0.560755,
+      "sun_lon_deg": 75.938609,
+      "moon_lon_deg": 255.941111
+    },
+    {
+      "time_utc": "2039-06-21T17:21:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996231,
+      "moon_lat_deg": 0.751856,
+      "sun_lon_deg": 90.214508,
+      "moon_lon_deg": 90.210739
+    },
+    {
+      "time_utc": "2039-11-30T16:50:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002782,
+      "moon_lat_deg": -0.427905,
+      "sun_lon_deg": 248.32843,
+      "moon_lon_deg": 68.331212
+    },
+    {
+      "time_utc": "2039-12-15T16:32:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999021,
+      "moon_lat_deg": -0.970756,
+      "sun_lon_deg": 263.545931,
+      "moon_lon_deg": 263.544952
+    },
+    {
+      "time_utc": "2040-05-26T11:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99861,
+      "moon_lat_deg": -0.189223,
+      "sun_lon_deg": 65.839784,
+      "moon_lon_deg": 245.838394
+    },
+    {
+      "time_utc": "2040-11-18T19:06:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998246,
+      "moon_lat_deg": 0.222404,
+      "sun_lon_deg": 237.056982,
+      "moon_lon_deg": 57.055228
+    },
+    {
+      "time_utc": "2041-04-30T11:46:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996458,
+      "moon_lat_deg": -0.439605,
+      "sun_lon_deg": 40.505868,
+      "moon_lon_deg": 40.502326
+    },
+    {
+      "time_utc": "2041-05-16T00:52:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996269,
+      "moon_lat_deg": -0.937482,
+      "sun_lon_deg": 55.548175,
+      "moon_lon_deg": 235.544444
+    },
+    {
+      "time_utc": "2041-10-25T01:30:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997044,
+      "moon_lat_deg": 0.38085,
+      "sun_lon_deg": 212.011908,
+      "moon_lon_deg": 212.008952
+    },
+    {
+      "time_utc": "2041-11-08T04:44:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00418,
+      "moon_lat_deg": 0.917814,
+      "sun_lon_deg": 226.150052,
+      "moon_lon_deg": 46.154233
+    },
+    {
+      "time_utc": "2042-04-20T02:19:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996325,
+      "moon_lat_deg": 0.300939,
+      "sun_lon_deg": 30.148732,
+      "moon_lon_deg": 30.145057
+    },
+    {
+      "time_utc": "2042-10-14T02:03:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998583,
+      "moon_lat_deg": -0.272895,
+      "sun_lon_deg": 200.865565,
+      "moon_lon_deg": 200.864148
+    },
+    {
+      "time_utc": "2043-03-25T14:26:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997191,
+      "moon_lat_deg": 0.352973,
+      "sun_lon_deg": 4.835421,
+      "moon_lon_deg": 184.832612
+    },
+    {
+      "time_utc": "2043-09-19T01:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998618,
+      "moon_lat_deg": -0.328543,
+      "sun_lon_deg": 176.038596,
+      "moon_lon_deg": 356.037214
+    },
+    {
+      "time_utc": "2043-10-03T03:12:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998108,
+      "moon_lat_deg": -0.934051,
+      "sun_lon_deg": 189.814863,
+      "moon_lon_deg": 189.812971
+    },
+    {
+      "time_utc": "2044-02-28T20:12:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996212,
+      "moon_lat_deg": -0.945762,
+      "sun_lon_deg": 339.885123,
+      "moon_lon_deg": 339.881335
+    },
+    {
+      "time_utc": "2044-03-13T19:41:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997831,
+      "moon_lat_deg": -0.336369,
+      "sun_lon_deg": 353.876662,
+      "moon_lon_deg": 173.874493
+    },
+    {
+      "time_utc": "2044-08-23T01:06:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999209,
+      "moon_lat_deg": 0.962239,
+      "sun_lon_deg": 150.569841,
+      "moon_lon_deg": 150.56905
+    },
+    {
+      "time_utc": "2044-09-07T11:25:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.004063,
+      "moon_lat_deg": 0.405406,
+      "sun_lon_deg": 165.490689,
+      "moon_lon_deg": 345.494753
+    },
+    {
+      "time_utc": "2045-02-16T23:51:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998299,
+      "moon_lat_deg": -0.284015,
+      "sun_lon_deg": 328.716018,
+      "moon_lon_deg": 328.714317
+    },
+    {
+      "time_utc": "2045-08-12T17:39:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996546,
+      "moon_lat_deg": 0.217346,
+      "sun_lon_deg": 140.422318,
+      "moon_lon_deg": 140.418864
+    },
+    {
+      "time_utc": "2046-02-05T23:10:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001498,
+      "moon_lat_deg": 0.341013,
+      "sun_lon_deg": 317.309791,
+      "moon_lon_deg": 317.311288
+    },
+    {
+      "time_utc": "2046-07-18T00:55:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998949,
+      "moon_lat_deg": -0.812658,
+      "sun_lon_deg": 115.618149,
+      "moon_lon_deg": 295.617098
+    },
+    {
+      "time_utc": "2046-08-02T10:26:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003913,
+      "moon_lat_deg": -0.537101,
+      "sun_lon_deg": 130.326139,
+      "moon_lon_deg": 130.330052
+    },
+    {
+      "time_utc": "2047-01-12T01:21:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996169,
+      "moon_lat_deg": 0.322061,
+      "sun_lon_deg": 291.734561,
+      "moon_lon_deg": 111.73073
+    },
+    {
+      "time_utc": "2047-01-26T01:44:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.0011,
+      "moon_lat_deg": 0.98569,
+      "sun_lon_deg": 306.002752,
+      "moon_lon_deg": 306.003852
+    },
+    {
+      "time_utc": "2047-07-07T10:34:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000675,
+      "moon_lat_deg": -0.062763,
+      "sun_lon_deg": 105.280222,
+      "moon_lon_deg": 285.280898
+    },
+    {
+      "time_utc": "2048-01-01T06:57:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998614,
+      "moon_lat_deg": -0.344703,
+      "sun_lon_deg": 280.519187,
+      "moon_lon_deg": 100.517801
+    },
+    {
+      "time_utc": "2048-01-01T06:57:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998614,
+      "moon_lat_deg": -0.344703,
+      "sun_lon_deg": 280.519187,
+      "moon_lon_deg": 100.517801
+    },
+    {
+      "time_utc": "2048-06-11T12:50:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999747,
+      "moon_lat_deg": 0.583172,
+      "sun_lon_deg": 81.280669,
+      "moon_lon_deg": 81.280417
+    },
+    {
+      "time_utc": "2048-06-26T02:08:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998133,
+      "moon_lat_deg": 0.696192,
+      "sun_lon_deg": 95.175509,
+      "moon_lon_deg": 275.173643
+    },
+    {
+      "time_utc": "2048-12-05T15:30:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997873,
+      "moon_lat_deg": -0.406608,
+      "sun_lon_deg": 254.174234,
+      "moon_lon_deg": 254.172106
+    },
+    {
+      "time_utc": "2048-12-20T06:39:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997813,
+      "moon_lat_deg": -0.960272,
+      "sun_lon_deg": 269.050362,
+      "moon_lon_deg": 89.048175
+    },
+    {
+      "time_utc": "2049-05-31T14:00:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998339,
+      "moon_lat_deg": -0.1088,
+      "sun_lon_deg": 70.564585,
+      "moon_lon_deg": 70.562924
+    },
+    {
+      "time_utc": "2049-11-25T05:36:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001825,
+      "moon_lat_deg": 0.289574,
+      "sun_lon_deg": 243.381408,
+      "moon_lon_deg": 243.383233
+    },
+    {
+      "time_utc": "2050-05-06T22:26:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998514,
+      "moon_lat_deg": -0.396268,
+      "sun_lon_deg": 46.589608,
+      "moon_lon_deg": 226.588122
+    },
+    {
+      "time_utc": "2050-05-20T20:51:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99906,
+      "moon_lat_deg": -0.838482,
+      "sun_lon_deg": 60.040115,
+      "moon_lon_deg": 60.039174
+    },
+    {
+      "time_utc": "2050-10-30T03:16:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999955,
+      "moon_lat_deg": 0.447496,
+      "sun_lon_deg": 216.897438,
+      "moon_lon_deg": 36.897392
+    },
+    {
+      "time_utc": "2050-11-14T13:41:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996116,
+      "moon_lat_deg": 0.971632,
+      "sun_lon_deg": 232.376016,
+      "moon_lon_deg": 232.372131
+    },
+    {
+      "time_utc": "2051-04-26T02:19:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997499,
+      "moon_lat_deg": 0.306223,
+      "sun_lon_deg": 35.835278,
+      "moon_lon_deg": 215.832777
+    },
+    {
+      "time_utc": "2051-10-19T19:13:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997325,
+      "moon_lat_deg": -0.261382,
+      "sun_lon_deg": 206.357647,
+      "moon_lon_deg": 26.354973
+    },
+    {
+      "time_utc": "2052-03-30T18:27:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996455,
+      "moon_lat_deg": 0.327831,
+      "sun_lon_deg": 10.757168,
+      "moon_lon_deg": 10.753623
+    },
+    {
+      "time_utc": "2052-04-14T02:29:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99697,
+      "moon_lat_deg": 0.966922,
+      "sun_lon_deg": 24.85916,
+      "moon_lon_deg": 204.85613
+    },
+    {
+      "time_utc": "2052-09-22T23:33:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000432,
+      "moon_lat_deg": -0.420203,
+      "sun_lon_deg": 180.664119,
+      "moon_lon_deg": 180.664551
+    },
+    {
+      "time_utc": "2052-10-08T10:55:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001291,
+      "moon_lat_deg": -0.974455,
+      "sun_lon_deg": 195.873525,
+      "moon_lon_deg": 15.874816
+    },
+    {
+      "time_utc": "2053-03-20T07:12:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00304,
+      "moon_lat_deg": -0.393905,
+      "sun_lon_deg": 0.141095,
+      "moon_lon_deg": 0.144135
+    },
+    {
+      "time_utc": "2053-08-29T07:53:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999469,
+      "moon_lat_deg": 0.940416,
+      "sun_lon_deg": 156.458643,
+      "moon_lon_deg": 336.458112
+    },
+    {
+      "time_utc": "2053-09-12T09:36:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997023,
+      "moon_lat_deg": 0.310695,
+      "sun_lon_deg": 170.100415,
+      "moon_lon_deg": 170.097438
+    },
+    {
+      "time_utc": "2054-02-22T06:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000425,
+      "moon_lat_deg": -0.331365,
+      "sun_lon_deg": 333.859823,
+      "moon_lon_deg": 153.860248
+    },
+    {
+      "time_utc": "2054-08-18T09:22:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000139,
+      "moon_lat_deg": 0.253716,
+      "sun_lon_deg": 145.685926,
+      "moon_lon_deg": 325.686065
+    },
+    {
+      "time_utc": "2055-02-11T22:49:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002318,
+      "moon_lat_deg": 0.361421,
+      "sun_lon_deg": 323.182725,
+      "moon_lon_deg": 143.185043
+    },
+    {
+      "time_utc": "2055-07-24T09:48:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997532,
+      "moon_lat_deg": -0.793584,
+      "sun_lon_deg": 121.522752,
+      "moon_lon_deg": 121.520284
+    },
+    {
+      "time_utc": "2055-08-07T10:58:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002664,
+      "moon_lat_deg": -0.441605,
+      "sun_lon_deg": 134.957858,
+      "moon_lon_deg": 314.960521
+    },
+    {
+      "time_utc": "2056-01-16T22:11:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00033,
+      "moon_lat_deg": 0.402562,
+      "sun_lon_deg": 296.503949,
+      "moon_lon_deg": 296.504279
+    },
+    {
+      "time_utc": "2056-07-12T20:20:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997105,
+      "moon_lat_deg": -0.040158,
+      "sun_lon_deg": 111.211078,
+      "moon_lon_deg": 111.208183
+    },
+    {
+      "time_utc": "2057-01-05T09:50:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00308,
+      "moon_lat_deg": -0.286851,
+      "sun_lon_deg": 285.537893,
+      "moon_lon_deg": 285.540973
+    },
+    {
+      "time_utc": "2057-06-17T02:19:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000436,
+      "moon_lat_deg": 0.634,
+      "sun_lon_deg": 86.420901,
+      "moon_lon_deg": 266.421337
+    },
+    {
+      "time_utc": "2057-07-01T23:48:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000837,
+      "moon_lat_deg": 0.673944,
+      "sun_lon_deg": 100.63192,
+      "moon_lon_deg": 100.632757
+    },
+    {
+      "time_utc": "2057-12-11T00:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002628,
+      "moon_lat_deg": -0.440378,
+      "sun_lon_deg": 259.450228,
+      "moon_lon_deg": 79.452857
+    },
+    {
+      "time_utc": "2057-12-26T01:23:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001256,
+      "moon_lat_deg": -0.965263,
+      "sun_lon_deg": 274.740223,
+      "moon_lon_deg": 274.741479
+    },
+    {
+      "time_utc": "2058-06-06T19:16:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.0012,
+      "moon_lat_deg": -0.119287,
+      "sun_lon_deg": 76.349645,
+      "moon_lon_deg": 256.350845
+    },
+    {
+      "time_utc": "2058-11-30T03:18:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002854,
+      "moon_lat_deg": 0.208825,
+      "sun_lon_deg": 248.150541,
+      "moon_lon_deg": 68.153395
+    },
+    {
+      "time_utc": "2059-05-11T19:16:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002572,
+      "moon_lat_deg": -0.497975,
+      "sun_lon_deg": 51.125004,
+      "moon_lon_deg": 51.127576
+    },
+    {
+      "time_utc": "2059-05-27T08:04:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997195,
+      "moon_lat_deg": -0.87213,
+      "sun_lon_deg": 66.086331,
+      "moon_lon_deg": 246.083526
+    },
+    {
+      "time_utc": "2059-11-05T09:12:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001066,
+      "moon_lat_deg": 0.409064,
+      "sun_lon_deg": 222.956388,
+      "moon_lon_deg": 222.957454
+    },
+    {
+      "time_utc": "2059-11-19T13:10:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001514,
+      "moon_lat_deg": 0.899209,
+      "sun_lon_deg": 237.199782,
+      "moon_lon_deg": 57.201296
+    },
+    {
+      "time_utc": "2060-04-30T10:11:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99687,
+      "moon_lat_deg": 0.246864,
+      "sun_lon_deg": 40.833098,
+      "moon_lon_deg": 40.829968
+    },
+    {
+      "time_utc": "2060-10-24T09:26:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998649,
+      "moon_lat_deg": -0.236497,
+      "sun_lon_deg": 211.737494,
+      "moon_lon_deg": 211.736143
+    },
+    {
+      "time_utc": "2061-04-04T21:48:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000982,
+      "moon_lat_deg": 0.394689,
+      "sun_lon_deg": 15.640901,
+      "moon_lon_deg": 195.641884
+    },
+    {
+      "time_utc": "2061-04-20T03:05:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997386,
+      "moon_lat_deg": 0.974987,
+      "sun_lon_deg": 30.568648,
+      "moon_lon_deg": 30.566034
+    },
+    {
+      "time_utc": "2061-09-29T09:33:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000012,
+      "moon_lat_deg": -0.376182,
+      "sun_lon_deg": 186.777452,
+      "moon_lon_deg": 6.777464
+    },
+    {
+      "time_utc": "2061-10-13T10:42:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999669,
+      "moon_lat_deg": -0.893816,
+      "sun_lon_deg": 200.627285,
+      "moon_lon_deg": 200.626955
+    },
+    {
+      "time_utc": "2062-03-11T04:14:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002318,
+      "moon_lat_deg": -0.969246,
+      "sun_lon_deg": 350.867539,
+      "moon_lon_deg": 350.869858
+    },
+    {
+      "time_utc": "2062-03-25T03:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998682,
+      "moon_lat_deg": -0.304101,
+      "sun_lon_deg": 4.774317,
+      "moon_lon_deg": 184.772999
+    },
+    {
+      "time_utc": "2062-09-18T18:37:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998724,
+      "moon_lat_deg": 0.349183,
+      "sun_lon_deg": 176.1452,
+      "moon_lon_deg": 356.143924
+    },
+    {
+      "time_utc": "2063-02-28T07:38:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997501,
+      "moon_lat_deg": -0.305067,
+      "sun_lon_deg": 339.746731,
+      "moon_lon_deg": 339.744232
+    },
+    {
+      "time_utc": "2063-08-24T01:18:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997932,
+      "moon_lat_deg": 0.284506,
+      "sun_lon_deg": 150.96969,
+      "moon_lon_deg": 150.967622
+    },
+    {
+      "time_utc": "2064-02-17T07:04:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003472,
+      "moon_lat_deg": 0.326267,
+      "sun_lon_deg": 328.404153,
+      "moon_lon_deg": 328.407626
+    },
+    {
+      "time_utc": "2064-07-28T07:41:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999764,
+      "moon_lat_deg": -0.888418,
+      "sun_lon_deg": 126.048713,
+      "moon_lon_deg": 306.048477
+    },
+    {
+      "time_utc": "2064-08-12T17:50:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002133,
+      "moon_lat_deg": -0.465707,
+      "sun_lon_deg": 140.818854,
+      "moon_lon_deg": 140.820986
+    },
+    {
+      "time_utc": "2065-01-22T09:54:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999109,
+      "moon_lat_deg": 0.32613,
+      "sun_lon_deg": 302.928042,
+      "moon_lon_deg": 122.92715
+    },
+    {
+      "time_utc": "2065-02-05T10:03:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001477,
+      "moon_lat_deg": 0.977621,
+      "sun_lon_deg": 317.154887,
+      "moon_lon_deg": 317.156364
+    },
+    {
+      "time_utc": "2065-07-17T17:46:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999707,
+      "moon_lat_deg": -0.138833,
+      "sun_lon_deg": 115.720621,
+      "moon_lon_deg": 295.720328
+    },
+    {
+      "time_utc": "2066-01-11T15:08:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00003,
+      "moon_lat_deg": -0.338784,
+      "sun_lon_deg": 291.70215,
+      "moon_lon_deg": 111.70218
+    },
+    {
+      "time_utc": "2066-06-22T19:16:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000427,
+      "moon_lat_deg": 0.660538,
+      "sun_lon_deg": 91.70978,
+      "moon_lon_deg": 91.710207
+    },
+    {
+      "time_utc": "2066-07-07T09:35:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99541,
+      "moon_lat_deg": 0.620647,
+      "sun_lon_deg": 105.630401,
+      "moon_lon_deg": 285.625811
+    },
+    {
+      "time_utc": "2066-12-17T00:18:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996485,
+      "moon_lat_deg": -0.41335,
+      "sun_lon_deg": 265.355246,
+      "moon_lon_deg": 265.351731
+    },
+    {
+      "time_utc": "2066-12-31T14:42:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003372,
+      "moon_lat_deg": -0.953695,
+      "sun_lon_deg": 280.226533,
+      "moon_lon_deg": 100.229905
+    },
+    {
+      "time_utc": "2067-06-11T20:42:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002067,
+      "moon_lat_deg": -0.035803,
+      "sun_lon_deg": 81.034273,
+      "moon_lon_deg": 81.036341
+    },
+    {
+      "time_utc": "2067-12-06T14:06:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003342,
+      "moon_lat_deg": 0.279317,
+      "sun_lon_deg": 254.509689,
+      "moon_lon_deg": 254.513032
+    },
+    {
+      "time_utc": "2068-05-17T05:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002732,
+      "moon_lat_deg": -0.457907,
+      "sun_lon_deg": 57.168692,
+      "moon_lon_deg": 237.171424
+    },
+    {
+      "time_utc": "2068-05-31T04:04:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99899,
+      "moon_lat_deg": -0.771839,
+      "sun_lon_deg": 70.562918,
+      "moon_lon_deg": 70.561909
+    },
+    {
+      "time_utc": "2068-11-09T11:41:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999893,
+      "moon_lat_deg": 0.469852,
+      "sun_lon_deg": 227.903262,
+      "moon_lon_deg": 47.903155
+    },
+    {
+      "time_utc": "2068-11-24T21:43:00+00:00",
+      "type": "solar",
+      "phase_deg": 6.9e-05,
+      "moon_lat_deg": 0.955748,
+      "sun_lon_deg": 243.443312,
+      "moon_lon_deg": 243.443381
+    },
+    {
+      "time_utc": "2069-05-06T09:12:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999747,
+      "moon_lat_deg": 0.246622,
+      "sun_lon_deg": 46.450462,
+      "moon_lon_deg": 226.450209
+    },
+    {
+      "time_utc": "2069-10-30T03:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997464,
+      "moon_lat_deg": -0.232576,
+      "sun_lon_deg": 217.304887,
+      "moon_lon_deg": 37.302352
+    },
+    {
+      "time_utc": "2070-04-11T02:31:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997981,
+      "moon_lat_deg": 0.36871,
+      "sun_lon_deg": 21.567346,
+      "moon_lon_deg": 21.565327
+    },
+    {
+      "time_utc": "2070-04-25T09:32:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999991,
+      "moon_lat_deg": 0.915444,
+      "sun_lon_deg": 35.545153,
+      "moon_lon_deg": 215.545144
+    },
+    {
+      "time_utc": "2070-10-04T07:02:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998137,
+      "moon_lat_deg": -0.465832,
+      "sun_lon_deg": 191.418204,
+      "moon_lon_deg": 191.416341
+    },
+    {
+      "time_utc": "2070-10-19T19:00:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001734,
+      "moon_lat_deg": -0.940022,
+      "sun_lon_deg": 206.743322,
+      "moon_lon_deg": 26.745057
+    },
+    {
+      "time_utc": "2071-03-31T15:04:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999454,
+      "moon_lat_deg": -0.358722,
+      "sun_lon_deg": 11.005325,
+      "moon_lon_deg": 11.004779
+    },
+    {
+      "time_utc": "2071-09-09T14:52:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999095,
+      "moon_lat_deg": 0.999811,
+      "sun_lon_deg": 167.057086,
+      "moon_lon_deg": 347.056181
+    },
+    {
+      "time_utc": "2071-09-23T17:22:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999213,
+      "moon_lat_deg": 0.260309,
+      "sun_lon_deg": 180.804207,
+      "moon_lon_deg": 180.803421
+    },
+    {
+      "time_utc": "2072-03-04T15:18:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995718,
+      "moon_lat_deg": -0.351525,
+      "sun_lon_deg": 344.899989,
+      "moon_lon_deg": 164.895708
+    },
+    {
+      "time_utc": "2072-08-28T16:00:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997937,
+      "moon_lat_deg": 0.322362,
+      "sun_lon_deg": 156.21219,
+      "moon_lon_deg": 336.210127
+    },
+    {
+      "time_utc": "2072-09-12T09:08:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001516,
+      "moon_lat_deg": 0.989528,
+      "sun_lon_deg": 170.474252,
+      "moon_lon_deg": 170.475768
+    },
+    {
+      "time_utc": "2073-02-22T07:27:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997903,
+      "moon_lat_deg": 0.346449,
+      "sun_lon_deg": 334.277113,
+      "moon_lon_deg": 154.275016
+    },
+    {
+      "time_utc": "2073-08-03T17:05:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999986,
+      "moon_lat_deg": -0.865108,
+      "sun_lon_deg": 131.995481,
+      "moon_lon_deg": 131.995467
+    },
+    {
+      "time_utc": "2073-08-17T17:46:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998824,
+      "moon_lat_deg": -0.370828,
+      "sun_lon_deg": 145.452717,
+      "moon_lon_deg": 325.45154
+    },
+    {
+      "time_utc": "2074-01-27T06:38:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996329,
+      "moon_lat_deg": 0.409156,
+      "sun_lon_deg": 307.675361,
+      "moon_lon_deg": 307.67169
+    },
+    {
+      "time_utc": "2074-07-24T03:08:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000271,
+      "moon_lat_deg": -0.116088,
+      "sun_lon_deg": 121.646035,
+      "moon_lon_deg": 121.646305
+    },
+    {
+      "time_utc": "2075-01-16T18:38:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001598,
+      "moon_lat_deg": -0.283167,
+      "sun_lon_deg": 296.74656,
+      "moon_lon_deg": 296.748157
+    },
+    {
+      "time_utc": "2075-06-28T09:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995118,
+      "moon_lat_deg": 0.709679,
+      "sun_lon_deg": 96.878779,
+      "moon_lon_deg": 276.873897
+    },
+    {
+      "time_utc": "2075-07-13T06:12:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997212,
+      "moon_lat_deg": 0.594114,
+      "sun_lon_deg": 111.039048,
+      "moon_lon_deg": 111.036259
+    },
+    {
+      "time_utc": "2075-12-22T08:49:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001253,
+      "moon_lat_deg": -0.449377,
+      "sun_lon_deg": 270.608584,
+      "moon_lon_deg": 90.609837
+    },
+    {
+      "time_utc": "2076-01-06T10:16:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002793,
+      "moon_lat_deg": -0.961694,
+      "sun_lon_deg": 285.9545,
+      "moon_lon_deg": 285.957293
+    },
+    {
+      "time_utc": "2076-06-17T02:39:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999125,
+      "moon_lat_deg": -0.045306,
+      "sun_lon_deg": 86.819736,
+      "moon_lon_deg": 266.818861
+    },
+    {
+      "time_utc": "2076-12-10T11:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999281,
+      "moon_lat_deg": 0.199165,
+      "sun_lon_deg": 259.293311,
+      "moon_lon_deg": 79.292592
+    },
+    {
+      "time_utc": "2077-05-22T02:39:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000945,
+      "moon_lat_deg": -0.563048,
+      "sun_lon_deg": 61.679969,
+      "moon_lon_deg": 61.680914
+    },
+    {
+      "time_utc": "2077-06-06T15:08:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000793,
+      "moon_lat_deg": -0.801763,
+      "sun_lon_deg": 76.570009,
+      "moon_lon_deg": 256.570802
+    },
+    {
+      "time_utc": "2077-11-15T17:01:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998112,
+      "moon_lat_deg": 0.431345,
+      "sun_lon_deg": 233.971117,
+      "moon_lon_deg": 233.969229
+    },
+    {
+      "time_utc": "2077-11-29T21:44:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000457,
+      "moon_lat_deg": 0.886565,
+      "sun_lon_deg": 248.312546,
+      "moon_lon_deg": 68.313003
+    },
+    {
+      "time_utc": "2078-05-11T17:58:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003578,
+      "moon_lat_deg": 0.188196,
+      "sun_lon_deg": 51.463895,
+      "moon_lon_deg": 51.467473
+    },
+    {
+      "time_utc": "2078-11-04T16:57:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997448,
+      "moon_lat_deg": -0.205876,
+      "sun_lon_deg": 222.671853,
+      "moon_lon_deg": 222.669301
+    },
+    {
+      "time_utc": "2079-04-16T05:04:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000109,
+      "moon_lat_deg": 0.441587,
+      "sun_lon_deg": 26.395825,
+      "moon_lon_deg": 206.395934
+    },
+    {
+      "time_utc": "2079-05-01T10:58:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99812,
+      "moon_lat_deg": 0.922945,
+      "sun_lon_deg": 41.262106,
+      "moon_lon_deg": 41.260226
+    },
+    {
+      "time_utc": "2079-10-10T17:25:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001839,
+      "moon_lat_deg": -0.417921,
+      "sun_lon_deg": 197.576866,
+      "moon_lon_deg": 17.578705
+    },
+    {
+      "time_utc": "2079-10-24T18:21:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001869,
+      "moon_lat_deg": -0.85947,
+      "sun_lon_deg": 211.501831,
+      "moon_lon_deg": 211.503701
+    },
+    {
+      "time_utc": "2080-03-21T12:07:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997453,
+      "moon_lat_deg": -0.998877,
+      "sun_lon_deg": 1.795963,
+      "moon_lon_deg": 1.793416
+    },
+    {
+      "time_utc": "2080-04-04T11:25:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995647,
+      "moon_lat_deg": -0.266037,
+      "sun_lon_deg": 15.616424,
+      "moon_lon_deg": 195.612071
+    },
+    {
+      "time_utc": "2080-09-29T01:55:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998161,
+      "moon_lat_deg": 0.298438,
+      "sun_lon_deg": 186.855151,
+      "moon_lon_deg": 6.853311
+    },
+    {
+      "time_utc": "2081-03-10T15:18:00+00:00",
+      "type": "solar",
+      "phase_deg": 8.6e-05,
+      "moon_lat_deg": -0.330998,
+      "sun_lon_deg": 350.72433,
+      "moon_lon_deg": 350.724415
+    },
+    {
+      "time_utc": "2081-03-25T00:31:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002864,
+      "moon_lat_deg": -0.984748,
+      "sun_lon_deg": 5.04217,
+      "moon_lon_deg": 185.045034
+    },
+    {
+      "time_utc": "2081-09-03T09:03:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000734,
+      "moon_lat_deg": 0.346475,
+      "sun_lon_deg": 161.571176,
+      "moon_lon_deg": 161.571909
+    },
+    {
+      "time_utc": "2081-09-18T03:47:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00047,
+      "moon_lat_deg": 0.97196,
+      "sun_lon_deg": 175.936839,
+      "moon_lon_deg": 355.937309
+    },
+    {
+      "time_utc": "2082-02-27T14:50:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001084,
+      "moon_lat_deg": 0.305097,
+      "sun_lon_deg": 339.435604,
+      "moon_lon_deg": 339.436687
+    },
+    {
+      "time_utc": "2082-08-08T14:34:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998469,
+      "moon_lat_deg": -0.960042,
+      "sun_lon_deg": 136.52413,
+      "moon_lon_deg": 316.522599
+    },
+    {
+      "time_utc": "2082-08-24T01:19:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996629,
+      "moon_lat_deg": -0.399186,
+      "sun_lon_deg": 151.368292,
+      "moon_lon_deg": 151.364921
+    },
+    {
+      "time_utc": "2083-02-02T18:22:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001932,
+      "moon_lat_deg": 0.333654,
+      "sun_lon_deg": 314.085972,
+      "moon_lon_deg": 134.087904
+    },
+    {
+      "time_utc": "2083-02-16T18:17:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00192,
+      "moon_lat_deg": 0.964915,
+      "sun_lon_deg": 328.257554,
+      "moon_lon_deg": 328.259475
+    },
+    {
+      "time_utc": "2083-07-29T01:02:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998611,
+      "moon_lat_deg": -0.212878,
+      "sun_lon_deg": 126.18365,
+      "moon_lon_deg": 306.18226
+    },
+    {
+      "time_utc": "2084-01-22T23:16:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999021,
+      "moon_lat_deg": -0.331,
+      "sun_lon_deg": 302.869335,
+      "moon_lon_deg": 122.868355
+    },
+    {
+      "time_utc": "2084-07-03T01:40:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003291,
+      "moon_lat_deg": 0.739214,
+      "sun_lon_deg": 102.12201,
+      "moon_lon_deg": 102.1253
+    },
+    {
+      "time_utc": "2084-07-17T17:03:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999243,
+      "moon_lat_deg": 0.545405,
+      "sun_lon_deg": 116.085074,
+      "moon_lon_deg": 296.084317
+    },
+    {
+      "time_utc": "2084-12-27T09:08:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.995762,
+      "moon_lat_deg": -0.418271,
+      "sun_lon_deg": 276.555598,
+      "moon_lon_deg": 276.551359
+    },
+    {
+      "time_utc": "2085-01-10T22:44:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001763,
+      "moon_lat_deg": -0.946212,
+      "sun_lon_deg": 291.400547,
+      "moon_lon_deg": 111.40231
+    },
+    {
+      "time_utc": "2085-06-22T03:20:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003262,
+      "moon_lat_deg": 0.041407,
+      "sun_lon_deg": 91.46258,
+      "moon_lon_deg": 91.465842
+    },
+    {
+      "time_utc": "2085-12-16T22:40:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003106,
+      "moon_lat_deg": 0.272784,
+      "sun_lon_deg": 265.679935,
+      "moon_lon_deg": 265.683042
+    },
+    {
+      "time_utc": "2086-05-28T12:36:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997347,
+      "moon_lat_deg": -0.526068,
+      "sun_lon_deg": 67.688393,
+      "moon_lon_deg": 247.68574
+    },
+    {
+      "time_utc": "2086-06-11T11:14:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001303,
+      "moon_lat_deg": -0.701241,
+      "sun_lon_deg": 81.044599,
+      "moon_lon_deg": 81.045901
+    },
+    {
+      "time_utc": "2086-11-20T20:14:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.004125,
+      "moon_lat_deg": 0.486111,
+      "sun_lon_deg": 238.971117,
+      "moon_lon_deg": 58.975241
+    },
+    {
+      "time_utc": "2086-12-06T05:49:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99717,
+      "moon_lat_deg": 0.943394,
+      "sun_lon_deg": 254.557039,
+      "moon_lon_deg": 254.554209
+    },
+    {
+      "time_utc": "2087-05-17T15:57:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003234,
+      "moon_lat_deg": 0.181524,
+      "sun_lon_deg": 57.008314,
+      "moon_lon_deg": 237.011548
+    },
+    {
+      "time_utc": "2087-11-10T12:06:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.99512,
+      "moon_lat_deg": -0.209663,
+      "sun_lon_deg": 228.317412,
+      "moon_lon_deg": 48.312532
+    },
+    {
+      "time_utc": "2088-04-21T10:26:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996468,
+      "moon_lat_deg": 0.416595,
+      "sun_lon_deg": 32.306874,
+      "moon_lon_deg": 32.303343
+    },
+    {
+      "time_utc": "2088-05-05T16:27:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.00272,
+      "moon_lat_deg": 0.857375,
+      "sun_lon_deg": 46.162998,
+      "moon_lon_deg": 226.165718
+    },
+    {
+      "time_utc": "2088-10-14T14:41:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000495,
+      "moon_lat_deg": -0.504716,
+      "sun_lon_deg": 202.239102,
+      "moon_lon_deg": 202.239597
+    },
+    {
+      "time_utc": "2088-10-30T03:12:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002464,
+      "moon_lat_deg": -0.911898,
+      "sun_lon_deg": 217.681392,
+      "moon_lon_deg": 37.683856
+    },
+    {
+      "time_utc": "2089-04-10T22:47:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.998281,
+      "moon_lat_deg": -0.317326,
+      "sun_lon_deg": 21.802773,
+      "moon_lon_deg": 21.801054
+    },
+    {
+      "time_utc": "2089-10-04T01:17:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004466,
+      "moon_lat_deg": 0.216434,
+      "sun_lon_deg": 191.575569,
+      "moon_lon_deg": 191.580035
+    },
+    {
+      "time_utc": "2090-03-15T23:44:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.004035,
+      "moon_lat_deg": -0.376081,
+      "sun_lon_deg": 355.882042,
+      "moon_lon_deg": 175.886076
+    },
+    {
+      "time_utc": "2090-09-08T22:46:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998277,
+      "moon_lat_deg": 0.38513,
+      "sun_lon_deg": 166.797548,
+      "moon_lon_deg": 346.795825
+    },
+    {
+      "time_utc": "2090-09-23T17:05:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003649,
+      "moon_lat_deg": 0.93927,
+      "sun_lon_deg": 181.185079,
+      "moon_lon_deg": 181.188729
+    },
+    {
+      "time_utc": "2091-03-05T16:01:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.004571,
+      "moon_lat_deg": 0.328502,
+      "sun_lon_deg": 345.329128,
+      "moon_lon_deg": 165.333699
+    },
+    {
+      "time_utc": "2091-08-15T00:24:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.004131,
+      "moon_lat_deg": -0.933598,
+      "sun_lon_deg": 142.49632,
+      "moon_lon_deg": 142.500451
+    },
+    {
+      "time_utc": "2091-08-29T00:41:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.999788,
+      "moon_lat_deg": -0.304218,
+      "sun_lon_deg": 155.987365,
+      "moon_lon_deg": 335.987153
+    },
+    {
+      "time_utc": "2092-02-07T15:04:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.996105,
+      "moon_lat_deg": 0.417196,
+      "sun_lon_deg": 318.827804,
+      "moon_lon_deg": 318.823909
+    },
+    {
+      "time_utc": "2092-08-03T09:56:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999547,
+      "moon_lat_deg": -0.190634,
+      "sun_lon_deg": 132.098663,
+      "moon_lon_deg": 132.09821
+    },
+    {
+      "time_utc": "2093-01-27T03:24:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000404,
+      "moon_lat_deg": -0.277363,
+      "sun_lon_deg": 307.934219,
+      "moon_lon_deg": 307.934623
+    },
+    {
+      "time_utc": "2093-07-08T17:15:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995354,
+      "moon_lat_deg": 0.785155,
+      "sun_lon_deg": 107.331636,
+      "moon_lon_deg": 287.32699
+    },
+    {
+      "time_utc": "2093-07-23T12:38:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002267,
+      "moon_lat_deg": 0.516062,
+      "sun_lon_deg": 121.458445,
+      "moon_lon_deg": 121.460713
+    },
+    {
+      "time_utc": "2094-01-01T16:53:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000527,
+      "moon_lat_deg": -0.457205,
+      "sun_lon_deg": 281.778177,
+      "moon_lon_deg": 101.778704
+    },
+    {
+      "time_utc": "2094-01-16T19:07:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997246,
+      "moon_lat_deg": -0.956512,
+      "sun_lon_deg": 297.157313,
+      "moon_lon_deg": 297.154559
+    },
+    {
+      "time_utc": "2094-06-28T10:00:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.995375,
+      "moon_lat_deg": 0.029398,
+      "sun_lon_deg": 97.283501,
+      "moon_lon_deg": 277.278877
+    },
+    {
+      "time_utc": "2094-12-21T19:58:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.002845,
+      "moon_lat_deg": 0.191961,
+      "sun_lon_deg": 270.454372,
+      "moon_lon_deg": 90.457216
+    },
+    {
+      "time_utc": "2095-06-02T10:00:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.001763,
+      "moon_lat_deg": -0.630883,
+      "sun_lon_deg": 72.202877,
+      "moon_lon_deg": 72.20464
+    },
+    {
+      "time_utc": "2095-06-17T22:07:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.996044,
+      "moon_lat_deg": -0.728685,
+      "sun_lon_deg": 87.034844,
+      "moon_lon_deg": 267.030888
+    },
+    {
+      "time_utc": "2095-11-27T00:56:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.999919,
+      "moon_lat_deg": 0.4485,
+      "sun_lon_deg": 245.035902,
+      "moon_lon_deg": 245.035821
+    },
+    {
+      "time_utc": "2095-12-11T06:23:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000337,
+      "moon_lat_deg": 0.877452,
+      "sun_lon_deg": 259.462289,
+      "moon_lon_deg": 79.462626
+    },
+    {
+      "time_utc": "2096-05-22T01:37:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.997041,
+      "moon_lat_deg": 0.122076,
+      "sun_lon_deg": 62.030284,
+      "moon_lon_deg": 62.027325
+    },
+    {
+      "time_utc": "2096-11-15T00:38:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003548,
+      "moon_lat_deg": -0.182512,
+      "sun_lon_deg": 233.675827,
+      "moon_lon_deg": 233.679376
+    },
+    {
+      "time_utc": "2097-04-26T12:11:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000959,
+      "moon_lat_deg": 0.495927,
+      "sun_lon_deg": 37.06848,
+      "moon_lon_deg": 217.06944
+    },
+    {
+      "time_utc": "2097-05-11T18:42:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.000335,
+      "moon_lat_deg": 0.863925,
+      "sun_lon_deg": 51.87892,
+      "moon_lon_deg": 51.879255
+    },
+    {
+      "time_utc": "2097-10-21T01:25:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.001716,
+      "moon_lat_deg": -0.45232,
+      "sun_lon_deg": 208.456186,
+      "moon_lon_deg": 28.457901
+    },
+    {
+      "time_utc": "2097-11-04T02:10:00+00:00",
+      "type": "solar",
+      "phase_deg": 359.99636,
+      "moon_lat_deg": -0.831719,
+      "sun_lon_deg": 222.455148,
+      "moon_lon_deg": 222.451508
+    },
+    {
+      "time_utc": "2098-04-15T19:06:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.998934,
+      "moon_lat_deg": -0.22058,
+      "sun_lon_deg": 26.374725,
+      "moon_lon_deg": 206.37366
+    },
+    {
+      "time_utc": "2098-10-10T09:22:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.000012,
+      "moon_lat_deg": 0.255506,
+      "sun_lon_deg": 197.646189,
+      "moon_lon_deg": 17.646201
+    },
+    {
+      "time_utc": "2099-03-21T22:49:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.003205,
+      "moon_lat_deg": -0.36316,
+      "sun_lon_deg": 1.635959,
+      "moon_lon_deg": 1.639164
+    },
+    {
+      "time_utc": "2099-04-05T08:39:00+00:00",
+      "type": "lunar",
+      "phase_deg": 179.997887,
+      "moon_lat_deg": -0.946861,
+      "sun_lon_deg": 15.893249,
+      "moon_lon_deg": 195.891137
+    },
+    {
+      "time_utc": "2099-09-14T16:53:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002704,
+      "moon_lat_deg": 0.403943,
+      "sun_lon_deg": 172.22006,
+      "moon_lon_deg": 172.222765
+    },
+    {
+      "time_utc": "2099-09-29T10:48:00+00:00",
+      "type": "lunar",
+      "phase_deg": 180.003642,
+      "moon_lat_deg": 0.920123,
+      "sun_lon_deg": 186.634483,
+      "moon_lon_deg": 6.638125
+    },
+    {
+      "time_utc": "2100-03-10T22:31:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.00233,
+      "moon_lat_deg": 0.279865,
+      "sun_lon_deg": 350.419754,
+      "moon_lon_deg": 350.422084
+    },
+    {
+      "time_utc": "2100-09-04T08:52:00+00:00",
+      "type": "solar",
+      "phase_deg": 0.002525,
+      "moon_lat_deg": -0.337135,
+      "sun_lon_deg": 161.953297,
+      "moon_lon_deg": 161.955823
+    }
+  ]
+}

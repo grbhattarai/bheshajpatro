@@ -1,0 +1,298 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, List, Optional
+
+from bheshajpatro.eclipse.models import EclipseEvent, EclipseYearReport
+
+
+UTC = timezone.utc
+
+
+@dataclass
+class SearchPoint:
+    dt: datetime
+    score: float
+
+
+def normalize_deg(x: float) -> float:
+    x = x % 360.0
+    if x > 180.0:
+        x -= 360.0
+    return x
+
+
+def angular_distance_deg(a: float, b: float) -> float:
+    return abs(normalize_deg(a - b))
+
+
+# -----------------------------
+# Placeholder astronomy hooks
+# Replace these with your real engine later
+# -----------------------------
+
+def sun_ecliptic_longitude(dt_utc: datetime) -> float:
+    raise NotImplementedError
+
+
+def moon_ecliptic_longitude(dt_utc: datetime) -> float:
+    raise NotImplementedError
+
+
+def moon_node_longitude(dt_utc: datetime) -> float:
+    raise NotImplementedError
+
+
+def moon_ecliptic_latitude(dt_utc: datetime) -> float:
+    raise NotImplementedError
+
+
+def localize_to_place(dt_utc: datetime, place: Dict[str, Any]) -> datetime:
+    # temporary fallback; replace with zoneinfo later if needed
+    return dt_utc
+
+
+def is_moon_above_horizon(dt_utc: datetime, place: Dict[str, Any]) -> bool:
+    # placeholder
+    return True
+
+
+def is_sun_above_horizon(dt_utc: datetime, place: Dict[str, Any]) -> bool:
+    # placeholder
+    return True
+
+
+# -----------------------------
+# Score functions
+# -----------------------------
+
+def lunar_score(dt_utc: datetime) -> float:
+    sun_lon = sun_ecliptic_longitude(dt_utc)
+    moon_lon = moon_ecliptic_longitude(dt_utc)
+    moon_lat = moon_ecliptic_latitude(dt_utc)
+
+    opposition_error = angular_distance_deg(moon_lon - sun_lon, 180.0)
+    lat_error = abs(moon_lat)
+
+    return opposition_error + 8.0 * lat_error
+
+
+def solar_score(dt_utc: datetime) -> float:
+    sun_lon = sun_ecliptic_longitude(dt_utc)
+    moon_lon = moon_ecliptic_longitude(dt_utc)
+    moon_lat = moon_ecliptic_latitude(dt_utc)
+
+    conjunction_error = angular_distance_deg(moon_lon, sun_lon)
+    lat_error = abs(moon_lat)
+
+    return conjunction_error + 8.0 * lat_error
+
+
+# -----------------------------
+# Greedy refinement
+# -----------------------------
+
+def greedy_refine(
+    center_dt: datetime,
+    score_fn,
+    step_sequence_minutes: List[int],
+) -> SearchPoint:
+    current = center_dt
+    current_score = score_fn(current)
+
+    for minutes in step_sequence_minutes:
+        step = timedelta(minutes=minutes)
+        improved = True
+
+        while improved:
+            improved = False
+            candidates = [
+                (current - step, score_fn(current - step)),
+                (current, current_score),
+                (current + step, score_fn(current + step)),
+            ]
+            best_dt, best_score = min(candidates, key=lambda x: x[1])
+
+            if best_score < current_score:
+                current = best_dt
+                current_score = best_score
+                improved = True
+
+    return SearchPoint(dt=current, score=current_score)
+
+
+# -----------------------------
+# Candidate scanning
+# -----------------------------
+
+def phase_angle_error_for_lunar(dt_utc: datetime) -> float:
+    sun_lon = sun_ecliptic_longitude(dt_utc)
+    moon_lon = moon_ecliptic_longitude(dt_utc)
+    return angular_distance_deg(moon_lon - sun_lon, 180.0)
+
+
+def phase_angle_error_for_solar(dt_utc: datetime) -> float:
+    sun_lon = sun_ecliptic_longitude(dt_utc)
+    moon_lon = moon_ecliptic_longitude(dt_utc)
+    return angular_distance_deg(moon_lon, sun_lon)
+
+
+def is_near_node(dt_utc: datetime, threshold_deg: float = 1.8) -> bool:
+    return abs(moon_ecliptic_latitude(dt_utc)) <= threshold_deg
+
+
+def find_candidate_centers(year: int) -> List[tuple[str, datetime]]:
+    start = datetime(year, 1, 1, tzinfo=UTC)
+    end = datetime(year + 1, 1, 1, tzinfo=UTC)
+
+    t = start
+    step = timedelta(hours=6)
+
+    lunar_candidates: List[datetime] = []
+    solar_candidates: List[datetime] = []
+
+    prev_lunar_err: Optional[float] = None
+    prev_solar_err: Optional[float] = None
+
+    while t < end:
+        lunar_err = phase_angle_error_for_lunar(t)
+        solar_err = phase_angle_error_for_solar(t)
+
+        if lunar_err < 8.0 and is_near_node(t, threshold_deg=2.0):
+            lunar_candidates.append(t)
+
+        if solar_err < 8.0 and is_near_node(t, threshold_deg=2.0):
+            solar_candidates.append(t)
+
+        prev_lunar_err = lunar_err
+        prev_solar_err = solar_err
+        t += step
+
+    merged: List[tuple[str, datetime]] = []
+    merged.extend(("lunar", x) for x in dedupe_close_datetimes(lunar_candidates, hours=24))
+    merged.extend(("solar", x) for x in dedupe_close_datetimes(solar_candidates, hours=24))
+
+    merged.sort(key=lambda item: item[1])
+    return merged
+
+
+def dedupe_close_datetimes(dts: List[datetime], hours: int = 24) -> List[datetime]:
+    if not dts:
+        return []
+
+    dts = sorted(dts)
+    out = [dts[0]]
+    gap = timedelta(hours=hours)
+
+    for dt in dts[1:]:
+        if dt - out[-1] > gap:
+            out.append(dt)
+
+    return out
+
+
+# -----------------------------
+# Event building
+# -----------------------------
+
+def classify_visibility(kind: str, max_dt_utc: datetime, place: Dict[str, Any]) -> bool:
+    if kind == "lunar":
+        return is_moon_above_horizon(max_dt_utc, place)
+    return is_sun_above_horizon(max_dt_utc, place)
+
+
+def estimate_contact_times(
+    kind: str,
+    max_dt_utc: datetime,
+) -> Dict[str, Optional[datetime]]:
+    """
+    Temporary heuristic contact times.
+    Replace later with real shadow/contact geometry.
+    """
+    if kind == "lunar":
+        return {
+            "start": max_dt_utc - timedelta(hours=1, minutes=49),
+            "inner_start": None,
+            "maximum": max_dt_utc,
+            "inner_end": None,
+            "end": max_dt_utc + timedelta(hours=1, minutes=49),
+        }
+
+    return {
+        "start": max_dt_utc - timedelta(hours=1, minutes=10),
+        "inner_start": None,
+        "maximum": max_dt_utc,
+        "inner_end": None,
+        "end": max_dt_utc + timedelta(hours=1, minutes=10),
+    }
+
+
+def format_local(dt_utc: Optional[datetime], place: Dict[str, Any]) -> Optional[str]:
+    if dt_utc is None:
+        return None
+    local_dt = localize_to_place(dt_utc, place)
+    return local_dt.strftime("%I:%M %p")
+
+
+def build_event_from_candidate(
+    kind: str,
+    approx_center: datetime,
+    place: Dict[str, Any],
+) -> EclipseEvent:
+    score_fn = lunar_score if kind == "lunar" else solar_score
+    refined = greedy_refine(
+        center_dt=approx_center,
+        score_fn=score_fn,
+        step_sequence_minutes=[60, 20, 5, 1],
+    )
+
+    max_dt_utc = refined.dt
+    visible = classify_visibility(kind, max_dt_utc, place)
+    contacts = estimate_contact_times(kind, max_dt_utc)
+
+    eclipse_type = "partial"
+    title = f"{eclipse_type.capitalize()} {kind.capitalize()} Eclipse"
+
+    return EclipseEvent(
+        kind=kind,
+        eclipse_type=eclipse_type,
+        global_date=max_dt_utc.date().isoformat(),
+        title=title,
+        visible=visible,
+        visibility_note=f"{'Visible' if visible else 'Not visible'} in {place['name'].split(',')[0]}",
+        start_local=format_local(contacts["start"], place),
+        inner_start_local=format_local(contacts["inner_start"], place),
+        maximum_local=format_local(contacts["maximum"], place),
+        inner_end_local=format_local(contacts["inner_end"], place),
+        end_local=format_local(contacts["end"], place),
+        tithi=None,
+        nakshatra=None,
+        sutak_start=None,
+        magnitude=None,
+        obscuration=None,
+    )
+
+
+def compute_eclipse_year(year: int, place: Dict[str, Any]) -> EclipseYearReport:
+    candidate_centers = find_candidate_centers(year)
+
+    events = [
+        build_event_from_candidate(kind=kind, approx_center=dt, place=place)
+        for kind, dt in candidate_centers
+    ]
+
+    solar_count = sum(1 for e in events if e.kind == "solar")
+    lunar_count = sum(1 for e in events if e.kind == "lunar")
+    visible_count = sum(1 for e in events if e.visible)
+
+    return EclipseYearReport(
+        place_key=place["key"],
+        place_name=place["name"],
+        year=year,
+        total_events=len(events),
+        visible_events=visible_count,
+        solar_count=solar_count,
+        lunar_count=lunar_count,
+        events=events,
+    )

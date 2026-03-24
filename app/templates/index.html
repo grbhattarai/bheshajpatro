@@ -19,18 +19,23 @@
 <div class="subbar">
   <div class="subbar-inner">
     <div class="subbar-text">
+      <strong>
+        <span class="meta-label">Location:</span>
+        <span class="meta-value">{{ place.name }}</span>
 
-<strong>
-  <span class="meta-label">Location:</span>
-  <span class="meta-value">{{ place.name }}</span>
+        <span class="meta-sep">•</span>
 
-  <span class="meta-sep">•</span>
+        <span class="meta-label">Panchanga Method:</span>
+        <span class="meta-value">{{ engine | capitalize }}</span>
 
-  <span class="meta-label">Panchanga Method:</span>
-  <span class="meta-value">{{ engine | capitalize }}</span>
-</strong>
+        <span class="meta-sep">•</span>
 
+        <a id="view-eclipses-link" class="subbar-eclipse-btn" href="/eclipse?year={{ panchanga.result.date_ce[:4] }}">
+          View Eclipses
+        </a>
+      </strong>
     </div>
+
     <a class="subbar-settings" href="/settings">Settings</a>
   </div>
 </div>
@@ -343,6 +348,8 @@ async function loadDate(iso) {
     calViewMonth = parseInt(parts[1], 10) - 1;
     renderCalendar();
 
+    updateEclipseLinkYear(iso);
+
   } catch (e) {
     console.error('Failed to load panchanga for', iso, e);
     alert('Could not load Panchanga for ' + iso);
@@ -403,6 +410,14 @@ function buildLine(name, hm, kind = '') {
   return displayHm ? `${displayName} &nbsp; ${displayHm}` : displayName;
 }
 
+function updateEclipseLinkYear(isoDate) {
+  const eclipseLink = document.getElementById('view-eclipses-link');
+  if (!eclipseLink || !isoDate) return;
+
+  const year = isoDate.split('-')[0];
+  eclipseLink.href = `/eclipse?year=${year}`;
+}
+
 function updateUI(data) {
   const r = data.result;
 
@@ -442,6 +457,7 @@ function updateUI(data) {
 }
 
 initCalendar();
+updateEclipseLinkYear(currentDate);
 updateUI({ result: {{ panchanga.model_dump()["result"] | tojson }} });
 </script>
 

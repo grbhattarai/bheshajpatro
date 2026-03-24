@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Eclipses - {{ year }}</title>
+
+    <style>
+        :root {
+            --bg: #f4efe6;
+            --card: #fffaf1;
+            --header: #8a4318;
+            --header-dark: #733712;
+            --text: #4b2a17;
+            --muted: #8b6a4c;
+            --border: #d3b07a;
+
+            --visible-bg: #e5efe6;
+            --visible-text: #2e6a3f;
+
+            --not-visible-bg: #f3e1df;
+            --not-visible-text: #b23a2b;
+
+            --possible-bg: #efe2c8;
+            --possible-text: #9a6700;
+
+            --modal-overlay: rgba(60, 35, 20, 0.45);
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .header {
+            background: var(--header);
+            color: #f7d992;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .location-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .location-main {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--text);
+        }
+
+        .location-sub {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .back-button {
+            padding: 0.5rem 1rem;
+            background: var(--header);
+            color: #fff5df;
+            text-decoration: none;
+            border-radius: 10px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.75rem 1rem;
+        }
+
+        .row-right {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .year-select {
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 1rem;
+            background: #fffdf8;
+            color: var(--text);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fffdf8;
+        }
+
+        th, td {
+            padding: 0.85rem;
+            border-bottom: 1px solid #e2caa0;
+        }
+
+        th {
+            background: #efe5d4;
+            text-align: left;
+            color: var(--header-dark);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            font-weight: bold;
+        }
+
+        .status-btn {
+            border: none;
+            padding: 0.45rem 0.9rem;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: transform 0.08s ease, box-shadow 0.12s ease;
+        }
+
+        .status-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(80, 50, 20, 0.12);
+        }
+
+        .status-visible {
+            background: var(--visible-bg);
+            color: var(--visible-text);
+        }
+
+        .status-not-visible {
+            background: var(--not-visible-bg);
+            color: var(--not-visible-text);
+        }
+
+        .status-possible {
+            background: var(--possible-bg);
+            color: var(--possible-text);
+        }
+
+        .note {
+            margin-top: 1.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 640px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(50, 30, 15, 0.18);
+            overflow-x: hidden;
+        }
+
+        .modal-header {
+            background: #efe5d4;
+            color: var(--header-dark);
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+        }
+
+        .modal-title {
+            font-size: 1.35rem;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            border: none;
+            background: transparent;
+            color: var(--header-dark);
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .modal-body {
+            padding: 1.2rem;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 0.7rem 1rem;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: var(--header-dark);
+        }
+
+        .detail-value {
+            color: var(--text);
+            word-break: break-word;
+        }
+
+        .calc-pending {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .modal-footnote {
+            margin-top: 1rem;
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 720px) {
+            .row, .location-row {
+                align-items: flex-start;
+            }
+
+            .row-right {
+                justify-content: flex-start;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-title {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Eclipse Report ({{ year }})
+    </div>
+
+    <div class="container">
+
+        <div class="location-row">
+            <div class="location-main">
+                <strong>Location:</strong> {{ place.name }}
+            </div>
+
+            <a href="/" class="back-button">Back to Panchanga</a>
+        </div>
+
+        <div class="location-sub">
+            Latitude: {{ place.latitude }},
+            Longitude: {{ place.longitude }},
+            Elevation: {{ place.elevation }} m
+        </div>
+
+        <div class="card">
+
+            <div class="row">
+                <div class="row-right">
+                    <strong>Change Eclipse Year:</strong>
+
+                    <form method="get" action="/eclipse" style="display:inline;">
+                        <select name="year" class="year-select" onchange="this.form.submit()">
+                            {% for y in range(2001, 2101) %}
+                                <option value="{{ y }}" {% if y == year %}selected{% endif %}>
+                                    {{ y }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            {% if report %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Visibility</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set month_names = {
+                        '01': 'January',
+                        '02': 'February',
+                        '03': 'March',
+                        '04': 'April',
+                        '05': 'May',
+                        '06': 'June',
+                        '07': 'July',
+                        '08': 'August',
+                        '09': 'September',
+                        '10': 'October',
+                        '11': 'November',
+                        '12': 'December'
+                    } %}
+
+                    {% for event in report %}
+                    {% set date_str = event.time_utc[:10] %}
+                    {% set parts = date_str.split('-') %}
+                    {% set yyyy = parts[0] %}
+                    {% set mm = parts[1] %}
+                    {% set dd = parts[2] %}
+                    {% set day_num = dd|int %}
+                    {% set pretty_date = month_names[mm] ~ ' ' ~ day_num ~ ', ' ~ yyyy %}
+
+                    {% if event.visibility_status == "visible" %}
+                        {% set vis_label = "Visible" %}
+                        {% set vis_class = "status-visible" %}
+                    {% elif event.visibility_status == "daylight_possible" %}
+                        {% set vis_label = "Possible" %}
+                        {% set vis_class = "status-possible" %}
+                    {% else %}
+                        {% set vis_label = "Not Visible" %}
+                        {% set vis_class = "status-not-visible" %}
+                    {% endif %}
+
+                    <tr>
+                        <td>{{ pretty_date }}</td>
+                        <td>{{ event.type|title }}</td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="status-btn {{ vis_class }} eclipse-detail-btn"
+                                data-date="{{ pretty_date }}"
+                                data-type="{{ event.type|title }}"
+                                data-visibility="{{ vis_label }}"
+                                data-note="{% if event.visibility_status == 'daylight_possible' %}{{ event.visibility_note.split(';')[0] }}{% else %}{{ event.visibility_note }}{% endif %}"
+                                data-start="{% if event.local_start is defined and event.local_start %}{{ event.local_start }}{% else %}Information is being calculated{% endif %}"
+                                data-max="{% if event.local_max is defined and event.local_max %}{{ event.local_max }}{% else %}Information is being calculated{% endif %}"
+                                data-end="{% if event.local_end is defined and event.local_end %}{{ event.local_end }}{% else %}Information is being calculated{% endif %}"
+                                data-kind="{% if event.kind is defined and event.kind %}{{ event.kind|title }}{% else %}Information is being calculated{% endif %}"
+                                data-sun-alt="{% if event.sun_alt_deg is defined and event.sun_alt_deg is not none %}{{ '%.1f'|format(event.sun_alt_deg) }}°{% else %}Information is being calculated{% endif %}"
+                                data-moon-alt="{% if event.moon_alt_deg is defined and event.moon_alt_deg is not none %}{{ '%.1f'|format(event.moon_alt_deg) }}°{% else %}Information is being calculated{% endif %}"
+                                data-moon-lat="{% if event.moon_latitude is defined and event.moon_latitude is not none %}{{ '%.2f'|format(event.moon_latitude) }}°{% else %}Information is being calculated{% endif %}"
+                            >
+                                {{ vis_label }}
+                            </button>
+                        </td>
+
+                        <td>
+                            {% if event.visibility_status == "daylight_possible" %}
+                                {{ event.visibility_note.split(";")[0] }}
+                            {% else %}
+                                {{ event.visibility_note }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p class="note">
+                <strong>Note:</strong> These are eclipse days in year {{ year }}. An eclipse is a global
+                astronomical event and always occurs somewhere on Earth, even if it is not visible from
+                your selected location.
+                <br><br>
+                Lunar eclipses are marked visible when the Moon is above the horizon at the event time.
+                Solar eclipses marked “Possible” mean the Sun is above the horizon at this location.
+                The actual path of a solar eclipse can be much narrower than the selected Panchanga region.
+                <br><br>
+                Click on the visibility button to view eclipse details.
+            </p>
+
+            {% else %}
+                <p>No eclipse events found for {{ year }}.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div id="eclipseModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <div id="modalTitle" class="modal-title">Eclipse Details</div>
+                <button type="button" id="modalClose" class="modal-close" aria-label="Close">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div class="detail-label">Date</div>
+                    <div class="detail-value" id="modalDate"></div>
+
+                    <div class="detail-label">Type</div>
+                    <div class="detail-value" id="modalType"></div>
+
+                    <div class="detail-label">Visibility</div>
+                    <div class="detail-value" id="modalVisibility"></div>
+
+                    <div class="detail-label">Note</div>
+                    <div class="detail-value" id="modalNote"></div>
+
+                    <div class="detail-label">Eclipse Kind</div>
+                    <div class="detail-value" id="modalKind"></div>
+
+                    <div class="detail-label">Local Start</div>
+                    <div class="detail-value" id="modalStart"></div>
+
+                    <div class="detail-label">Local Maximum</div>
+                    <div class="detail-value" id="modalMax"></div>
+
+                    <div class="detail-label">Local End</div>
+                    <div class="detail-value" id="modalEnd"></div>
+
+                    <div class="detail-label">Sun Altitude</div>
+                    <div class="detail-value" id="modalSunAlt"></div>
+
+                    <div class="detail-label">Moon Altitude</div>
+                    <div class="detail-value" id="modalMoonAlt"></div>
+
+                    <div class="detail-label">Moon Latitude</div>
+                    <div class="detail-value" id="modalMoonLat"></div>
+                </div>
+
+                <div class="modal-footnote">
+                    Timing and geometry fields that are not yet ready for this location are shown as
+                    <em>Information is being calculated</em>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("eclipseModal");
+            const closeBtn = document.getElementById("modalClose");
+
+            const modalDate = document.getElementById("modalDate");
+            const modalType = document.getElementById("modalType");
+            const modalVisibility = document.getElementById("modalVisibility");
+            const modalNote = document.getElementById("modalNote");
+            const modalKind = document.getElementById("modalKind");
+            const modalStart = document.getElementById("modalStart");
+            const modalMax = document.getElementById("modalMax");
+            const modalEnd = document.getElementById("modalEnd");
+            const modalSunAlt = document.getElementById("modalSunAlt");
+            const modalMoonAlt = document.getElementById("modalMoonAlt");
+            const modalMoonLat = document.getElementById("modalMoonLat");
+
+            function setValue(el, value) {
+                const finalValue = (value && value.trim()) ? value : "Information is being calculated";
+                el.textContent = finalValue;
+
+                if (finalValue === "Information is being calculated") {
+                    el.classList.add("calc-pending");
+                } else {
+                    el.classList.remove("calc-pending");
+                }
+            }
+
+            document.querySelectorAll(".eclipse-detail-btn").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    setValue(modalDate, btn.dataset.date);
+                    setValue(modalType, btn.dataset.type);
+                    setValue(modalVisibility, btn.dataset.visibility);
+                    setValue(modalNote, btn.dataset.note);
+                    setValue(modalKind, btn.dataset.kind);
+                    setValue(modalStart, btn.dataset.start);
+                    setValue(modalMax, btn.dataset.max);
+                    setValue(modalEnd, btn.dataset.end);
+                    setValue(modalSunAlt, btn.dataset.sunAlt);
+                    setValue(modalMoonAlt, btn.dataset.moonAlt);
+                    setValue(modalMoonLat, btn.dataset.moonLat);
+
+                    modal.classList.add("show");
+                    modal.setAttribute("aria-hidden", "false");
+                });
+            });
+
+            closeBtn.addEventListener("click", function () {
+                modal.classList.remove("show");
+                modal.setAttribute("aria-hidden", "true");
+            });
+
+            modal.addEventListener("click", function (e) {
+                if (e.target === modal) {
+                    modal.classList.remove("show");
+                    modal.setAttribute("aria-hidden", "true");
+                }
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && modal.classList.contains("show")) {
+                    modal.classList.remove("show");
+                    modal.setAttribute("aria-hidden", "true");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

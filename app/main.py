@@ -23,31 +23,22 @@ from bheshajpatro.app.settings_store import (
     clear_user_settings,
 )
 from bheshajpatro.pbuilder.service import get_panchanga_result
+from bheshajpatro.eclipse.service import get_eclipse_year_report
 
 
-# Base paths
 BASE_DIR = Path(__file__).resolve().parent
-
-# Templates
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
-# App
 app = FastAPI(title=APP_NAME, debug=APP_DEBUG)
 
-# Sessions
 app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY,
     session_cookie=SESSION_COOKIE_NAME,
 )
 
-# Static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
-
-# -----------------------
-# Routes
-# -----------------------
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
@@ -68,6 +59,31 @@ def home(request: Request):
             "engine": engine,
             "place": place,
             "panchanga": payload,
+        },
+    )
+
+
+@app.get("/eclipse", response_class=HTMLResponse)
+def eclipse_page(request: Request):
+    settings = load_user_settings(request)
+    place = settings["place"]
+
+    year = int(request.query_params.get("year", date.today().year))
+
+    report = get_eclipse_year_report(
+        year=year,
+        latitude=place["latitude"],
+        longitude=place["longitude"],
+        elevation_m=place.get("elevation", 0.0),
+    )
+
+    return templates.TemplateResponse(
+        "eclipse.html",
+        {
+            "request": request,
+            "year": year,
+            "report": report,
+            "place": place,
         },
     )
 
