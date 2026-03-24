@@ -198,3 +198,16 @@ def api_cities(country_code: str, state_code: str = ""):
         }
         for c in filtered
     ])
+
+@app.get("/muhurta", response_class=HTMLResponse)
+def muhurta_page(request: Request):
+    settings = load_user_settings(request)
+    place = settings["place"]
+
+    return templates.TemplateResponse(
+        "muhurta.html",
+        {
+            "request": request,
+            "place": place,
+        },
+    )
