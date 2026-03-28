@@ -6,82 +6,288 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --card: #efe6d7;
+      --topbar: #6f250d;
+      --topbar-text: #e0b768;
+      --text-main: #4b2a17;
+      --text-mid: #6a4128;
+      --text-soft: #8b6a4c;
+      --border: #cfa96d;
+      --button-bg: #8a4318;
+      --button-bg-hover: #733712;
+      --button-text: #fff5df;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "EB Garamond", Georgia, serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    .topbar {
+      background: var(--topbar);
+      padding: 0.7rem 1rem 0.9rem;
+    }
+
+    .topbar-title {
+      text-align: center;
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--topbar-text);
+    }
+
+    .page {
+      padding: 2rem 1.25rem 2.5rem;
+    }
+
+    .page-inner {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .location-title {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .location-sub {
+      font-size: 0.98rem;
+      color: var(--text-soft);
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 0.55rem 1rem;
+      background: var(--button-bg);
+      color: var(--button-text);
+      text-decoration: none;
+      border-radius: 10px;
+      white-space: nowrap;
+      font-size: 1rem;
+      line-height: 1.2;
+      transition: background 0.2s ease, transform 0.08s ease;
+    }
+
+    .back-button:hover {
+      background: var(--button-bg-hover);
+      text-decoration: none;
+    }
+
+    .back-button:active {
+      transform: translateY(1px);
+    }
+
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .section-pad {
+      padding: 22px 24px;
+    }
+
+    .day-name-large {
+      font-family: "Cinzel", serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #b56731;
+      margin-bottom: 10px;
+    }
+
+    .lead-text {
+      font-size: 1.12rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+    }
+
+    .summary-table {
+      padding: 4px 24px 8px;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .summary-cell {
+      padding: 18px 0;
+    }
+
+    .summary-cell + .summary-cell {
+      border-left: 1px solid var(--border);
+      padding-left: 24px;
+      margin-left: 24px;
+    }
+
+    .summary-grid-line {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .summary-key {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .summary-values {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text-main);
+    }
+
+    .summary-values div {
+      margin-bottom: 4px;
+    }
+
+    .footer-note {
+      padding: 22px 24px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+
+    .site-footer {
+      margin-top: 16px;
+      font-size: 0.98rem;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 760px) {
+      .summary-row {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-cell + .summary-cell {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        margin-left: 0;
+        padding-top: 20px;
+      }
+
+      .summary-grid-line {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .page {
+        padding: 1.25rem 1rem 2rem;
+      }
+
+      .section-pad,
+      .footer-note,
+      .summary-table {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div style="max-width: 980px; margin: 0 auto;">
-    <div class="topbar-title">Muhurta Finder</div>
-  </div>
-</div>
-
-<div class="page">
-  <div style="max-width: 980px; margin: 0 auto;">
-
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:18px;">
-      <div>
-        <div style="font-size: 1.05rem; color: var(--text-mid); font-weight: 600; margin-bottom: 6px;">
-          Location: {{ place.name if place else 'Raleigh, NC, USA' }}
-        </div>
-        {% if place %}
-        <div style="font-size: 0.98rem; color: var(--text-soft);">
-          Latitude: {{ place.latitude }}, Longitude: {{ place.longitude }}
-        </div>
-        {% endif %}
-      </div>
-
-      <a class="subbar-eclipse-btn" href="/">Back to Panchanga</a>
+  <div class="topbar">
+    <div class="page-inner">
+      <div class="topbar-title">Muhurta Finder</div>
     </div>
+  </div>
 
-    <div class="summary-card">
-      <div style="padding: 22px 24px;">
-        <div class="day-name-large" style="margin-bottom: 10px;">Under Preparation</div>
-        <div style="font-size: 1.12rem; line-height: 1.75; color: var(--text-mid);">
-          This section is being prepared for scanning suitable muhurtas across dates and finding
-          auspicious days for samskaras and major rites such as Upanayana, Chuda Karma, Vivaha,
-          Annaprashana, and other traditional observances.
+  <div class="page">
+    <div class="page-inner">
+
+      <div class="header-row">
+        <div>
+          <div class="location-title">
+            Location: {{ place.name if place else 'Raleigh, NC, USA' }}
+          </div>
+          {% if place %}
+          <div class="location-sub">
+            Latitude: {{ place.latitude }}, Longitude: {{ place.longitude }}
+          </div>
+          {% endif %}
         </div>
+
+        <a class="back-button" href="/">Back to Panchanga</a>
       </div>
 
-      <div class="summary-table">
-        <div class="summary-row">
-          <div class="summary-cell">
-            <div class="summary-grid-line">
-              <div class="summary-key">Planned Scope</div>
-              <div class="summary-values">
-                <div>Nakshatra suitability</div>
-                <div>Weekday suitability</div>
-                <div>Tithi and yoga filtering</div>
-                <div>Combustion checks for Guru and Shukra</div>
-                <div>Special month conditions and exclusions</div>
+      <div class="summary-card">
+        <div class="section-pad">
+          <div class="day-name-large">Under Preparation</div>
+          <div class="lead-text">
+            This section is being prepared for scanning suitable muhurtas across dates and finding
+            auspicious days for samskaras and major rites such as Upanayana, Chuda Karma, Vivaha,
+            Annaprashana, and other traditional observances.
+          </div>
+        </div>
+
+        <div class="summary-table">
+          <div class="summary-row">
+            <div class="summary-cell">
+              <div class="summary-grid-line">
+                <div class="summary-key">Planned Scope</div>
+                <div class="summary-values">
+                  <div>Nakshatra suitability</div>
+                  <div>Weekday suitability</div>
+                  <div>Tithi and yoga filtering</div>
+                  <div>Combustion checks for Guru and Shukra</div>
+                  <div>Special month conditions and exclusions</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="summary-cell">
+              <div class="summary-grid-line">
+                <div class="summary-key">Status</div>
+                <div class="summary-values">
+                  <div>Logic under calculation</div>
+                  <div>Rules to be integrated from Muhurta Chintamani</div>
+                  <div>Search and reporting interface coming later</div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="summary-cell">
-            <div class="summary-grid-line">
-              <div class="summary-key">Status</div>
-              <div class="summary-values">
-                <div>Logic under calculation</div>
-                <div>Rules to be integrated from Muhurta Chintamani</div>
-                <div>Search and reporting interface coming later</div>
-              </div>
-            </div>
-          </div>
+        <div class="footer-note">
+          This Muhurta Finder page is currently a placeholder for the upcoming calculation engine and search interface.
         </div>
       </div>
 
-      <div style="padding: 22px 24px; font-size: 1.05rem; line-height: 1.7; color: var(--text-soft);">
-        This Muhurta Finder page is currently a placeholder for the upcoming calculation engine and search interface.
-      </div>
+      <footer class="site-footer">
+        © 2026 Bheshaj Spiritual Center
+      </footer>
     </div>
-
-    <footer class="site-footer" style="margin-top: 16px;">
-      © 2026 Bheshaj Spiritual Center
-    </footer>
   </div>
-</div>
 
 </body>
 </html>
