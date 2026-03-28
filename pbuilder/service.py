@@ -28,19 +28,24 @@ def get_panchanga_session(
     """
     Build a panchanga session for the given engine.
 
-    Expected place keys:
+    Supported place keys:
       - latitude
       - longitude
-      - standard
-      - tz
+      - std_meridian or standard
+      - tz_name or tz
       - elevation (optional)
     """
     eng = _normalize_engine(engine)
 
     lat = float(place["latitude"])
     lon = float(place["longitude"])
-    std = float(place["standard"])
-    tz = place.get("tz") or None
+
+    std_value = place.get("std_meridian", place.get("standard"))
+    if std_value is None:
+        raise KeyError("std_meridian")
+
+    std = float(std_value)
+    tz = place.get("tz_name") or place.get("tz") or None
     elevation = float(place.get("elevation", 0.0))
 
     engine_sessions = build_engine_sessions_for_date(

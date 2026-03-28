@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
@@ -40,6 +41,11 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
 
+def get_place_today(place: dict) -> date:
+    tz_name = place.get("tz_name") or place.get("tz") or "UTC"
+    return datetime.now(ZoneInfo(tz_name)).date()
+
+
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     settings = load_user_settings(request)
@@ -47,7 +53,7 @@ def home(request: Request):
     place = settings["place"]
 
     payload = get_panchanga_result(
-        date_ce=date.today(),
+        date_ce=get_place_today(place),
         place=place,
         engine=engine,
     )
@@ -68,7 +74,7 @@ def eclipse_page(request: Request):
     settings = load_user_settings(request)
     place = settings["place"]
 
-    year = int(request.query_params.get("year", date.today().year))
+    year = int(request.query_params.get("year", get_place_today(place).year))
 
     report = get_eclipse_year_report(
         year=year,
@@ -118,8 +124,8 @@ def settings_save(
         "name": name.strip(),
         "latitude": latitude,
         "longitude": longitude,
-        "standard": standard,
-        "tz": tz.strip(),
+        "std_meridian": standard,
+        "tz_name": tz.strip(),
         "elevation": elevation,
     }
 
@@ -198,6 +204,7 @@ def api_cities(country_code: str, state_code: str = ""):
         }
         for c in filtered
     ])
+
 
 @app.get("/muhurta", response_class=HTMLResponse)
 def muhurta_page(request: Request):

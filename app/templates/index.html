@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}?v=2">
 </head>
 <body>
 
@@ -19,29 +19,38 @@
 </div>
 
 <div class="subbar">
-  <div class="subbar-inner" style="max-width: 980px; margin: 0 auto;">
-    <div class="subbar-text">
-      <strong>
-        <span class="meta-label">Location:</span>
-        <span class="meta-value">{{ place.name }}</span>
-
-        <span class="meta-sep">•</span>
-
-        <span class="meta-label">Panchanga Method:</span>
-        <span class="meta-value">{{ engine | capitalize }}</span>
-
-        <span class="meta-sep">•</span>
-
-        <a id="view-eclipses-link" class="subbar-eclipse-btn" href="/eclipse?year={{ panchanga.result.date_ce[:4] }}">
-          View Eclipses
-        </a>
-          <a class="subbar-eclipse-btn" href="/muhurta">
-          Find Muhurtas
-        </a>
-      </strong>
+  <div class="subbar-inner">
+    <div class="subbar-row subbar-row-top">
+      <div class="subbar-text">
+        <strong>
+          Current Panchanga
+          <span class="meta-sep">—</span>
+          <span class="meta-label">Location:</span>
+          <span class="meta-value">{{ place.name }}</span>
+          <span class="meta-sep">•</span>
+          <span class="meta-label">Method:</span>
+          <span class="meta-value">{{ engine | capitalize }} (Modern)</span>
+        </strong>
+      </div>
     </div>
 
-    <a class="subbar-settings" href="/settings">Settings</a>
+    <div class="subbar-row subbar-row-actions">
+      <a id="view-eclipses-link" class="subbar-btn" href="/eclipse?year={{ panchanga.result.date_ce[:4] }}">
+        View Eclipses
+      </a>
+
+      <a class="subbar-btn" href="/muhurta">
+        Find Muhurtas
+      </a>
+
+      <a class="subbar-btn" href="/settings">
+        Settings
+      </a>
+
+      <a class="subbar-btn" href="/bheshaj">
+        About Bheshaj
+      </a>
+    </div>
   </div>
 </div>
 
@@ -416,8 +425,9 @@ function renderCalendar() {
 
     const isoDate = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
-    if (isoDate === todayIso) el.classList.add('today');
-    if (calViewYear === selYear && calViewMonth === selMonth && d === selDay) el.classList.add('selected');
+if (calViewYear === selYear && calViewMonth === selMonth && d === selDay) {
+  el.classList.add('selected');
+}
 
     const dateObj = new Date(calViewYear, calViewMonth, d);
     const minDate = new Date(PANCH_MIN_YEAR, 0, 1);
