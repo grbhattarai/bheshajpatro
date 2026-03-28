@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>About Bheshaj</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --content-width: 980px;
+      --bg: #faf5ec;
+      --bg-card: #f4ead8;
+      --accent: #b85c2a;
+      --accent-dark: #5a2410;
+      --text: #271508;
+      --text-mid: #5a3018;
+      --text-soft: #7d5a3a;
+      --border: #c9a870;
+      --border-light: #e2cfa8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.46;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .topbar {
+      background: var(--accent-dark);
+      text-align: center;
+      padding: 16px 20px 12px;
+      position: relative;
+      z-index: 2;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    .topbar-title {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #f2d7a0;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+    }
+
+    .navband {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    .navband-inner {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn,
+    .nav-btn:visited {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: #9a4f1b;
+      color: #fff3cc;
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-dark);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .page {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 22px 22px 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .section + .section {
+      margin-top: 26px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-mid);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #4c2d16;
+    }
+
+    p + p {
+      margin-top: 16px;
+    }
+
+    .developer-bottom {
+      display: grid;
+      grid-template-columns: 126px 1fr;
+      gap: 22px;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .developer-photo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .developer-photo {
+      width: 118px;
+      height: 118px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--border-light);
+      background: #fffaf1;
+    }
+
+    .developer-credentials {
+      color: #4c2d16;
+      font-size: 1rem;
+      line-height: 1.56;
+      margin-top: 2px;
+      padding-left: 20px;
+    }
+
+    .developer-credentials li {
+      margin-bottom: 4px;
+    }
+
+    .developer-credentials li::marker {
+      color: var(--text-soft);
+    }
+
+    .developer-meta {
+      margin-top: 14px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: var(--text-soft);
+      padding-left: 8px;
+    }
+
+    .developer-meta a,
+    .developer-meta a:visited {
+      color: var(--text-soft);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(125, 90, 58, 0.35);
+    }
+
+    .developer-meta a:hover {
+      color: var(--text-mid);
+      border-bottom-color: var(--text-mid);
+    }
+
+    .site-footer {
+      margin-top: 14px;
+      text-align: left;
+      font-size: 17px;
+      color: var(--text-soft);
+      padding-left: 4px;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        font-size: 17px;
+        line-height: 1.42;
+      }
+
+      .topbar-title {
+        font-size: 27px;
+      }
+
+      .page {
+        padding: 18px 14px 24px;
+      }
+
+      .content-block {
+        padding: 18px 16px;
+      }
+
+      .navband-inner {
+        justify-content: center;
+      }
+
+      .nav-btn {
+        width: 100%;
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
+      .developer-bottom {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .developer-photo-wrap {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-title">About Bheshaj</div>
+  </div>
+
+  <div class="navband">
+    <div class="navband-inner">
+      <a class="nav-btn" href="/">Back to Panchanga</a>
+      <a class="nav-btn" href="#developer">Developer</a>
+      <a class="nav-btn" href="https://astro.bheshaj.com" target="_blank">Bheshaj Astrology</a>
+    </div>
+  </div>
+
+  <main class="page">
+    <section class="content-block">
+
+      <div class="section" id="what-is-bheshaj">
+        <div class="section-title">What is Bheshaj</div>
+        <p>
+          Bheshaj is a small personal effort rooted in Sanatana Dharma and Vedic traditions. It is not an institution or a public platform. It is a quiet space from which a few things are built and shared carefully, with Bheshaj Panchanga as the main public resource. The name reflects the idea of something that restores — slowly, through right understanding and right practice — and what is shared here reflects long-term study and lived practice, not instruction or performance.
+        </p>
+      </div>
+
+      <div class="section" id="bheshaj-panchanga">
+        <div class="section-title">Bheshaj Panchanga</div>
+        <p>
+          Bheshaj Panchanga is a traditional luni-solar calendar created to support everyday awareness of tithi, nakshatra, yoga, karana, sunrise, sunset, eclipses, and related observances. It is freely available as a public reference, without registration or payment. The Panchanga is intended as a practical reference, not as a media platform or teaching program. The aim is to make traditional calendar knowledge accessible in a form that is careful, usable, and quietly maintained over time.
+        </p>
+        <p>
+          Ongoing development and maintenance of Bheshaj Panchanga is supported through Bheshaj Astrology, a related area of practice offering traditional Vedic Jyotish consultations. That work helps sustain the time and effort required to keep public resources available and well maintained.
+          Bheshaj is meant to grow slowly and remain grounded. The intention is not to build a large platform, but to continue offering work that is useful, thoughtful, and aligned with long-term service to community.
+        </p>
+      </div>
+
+      <div class="section" id="developer">
+        <div class="section-title">About the Developer</div>
+        <p>
+          Bheshaj was built and is maintained by Dr. Gandhi R. Bhattarai — an economist by profession and a student of Vedic Jyotish and Sanatana Dharma for over fifteen years. His work reflects a long engagement with both analytical thought and traditional study, approached with patience, discipline, and care.
+        </p>
+        <p>
+          As a cancer survivor, his experience brought unusual clarity to what truly matters. Bheshaj reflects a personal commitment to practice and community, along with a quiet intention to dedicate more time, learning, and resources to this path as the years ahead allow.
+        </p>
+
+        <div class="developer-bottom">
+          <div class="developer-photo-wrap">
+            <img class="developer-photo" src="/static/p2photo.png" alt="Dr. Gandhi R. Bhattarai">
+          </div>
+
+          <div>
+            <ul class="developer-credentials">
+              <li>Jyotish Praveena (ICAS, India)</li>
+              <li>M.A. Vedic Jyotish (India)</li>
+              <li>Ph.D. Economics (USA)</li>
+            </ul>
+
+            <div class="developer-meta">
+              Morrisville, North Carolina, USA<br>
+              Contact: <a href="mailto:info@bheshaj.org">info@bheshaj.org</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="site-footer">
+      © 2026 Bheshaj
+    </footer>
+  </main>
+
+</body>
+</html>

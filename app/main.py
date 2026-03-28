@@ -218,3 +218,12 @@ def muhurta_page(request: Request):
             "place": place,
         },
     )
+
+@app.get("/bheshaj", response_class=HTMLResponse)
+def bheshaj_page(request: Request):
+    return templates.TemplateResponse(
+        "bheshaj.html",
+        {
+            "request": request,
+        },
+    )
