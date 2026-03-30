@@ -264,6 +264,14 @@
 </div>
 
 <script>
+  function getLocalTodayIso() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 const todayIso = new Date().toISOString().slice(0, 10);
 let currentDate = "{{ panchanga.result.date_ce }}";
 let calViewYear, calViewMonth;
@@ -344,35 +352,57 @@ function handleYearMonthChange() {
   const monthSelect = document.getElementById('month-select');
   if (!yearSelect || !monthSelect) return;
 
-  calViewYear = parseInt(yearSelect.value, 10);
-  calViewMonth = parseInt(monthSelect.value, 10);
-  renderCalendar();
+  const targetYear = parseInt(yearSelect.value, 10);
+  const targetMonth = parseInt(monthSelect.value, 10);
+
+  const currentParts = currentDate.split('-');
+  const currentDay = parseInt(currentParts[2], 10);
+
+  const daysInTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+  const clampedDay = Math.min(currentDay, daysInTargetMonth);
+
+  const isoDate = `${targetYear}-${String(targetMonth + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
+
+  calViewYear = targetYear;
+  calViewMonth = targetMonth;
+  loadDate(isoDate, true);
 }
 
 function changeMonth(delta) {
-  calViewMonth += delta;
+  const currentParts = currentDate.split('-');
+  let year = parseInt(currentParts[0], 10);
+  let month = parseInt(currentParts[1], 10) - 1;
+  let day = parseInt(currentParts[2], 10);
 
-  if (calViewMonth < 0) {
-    calViewMonth = 11;
-    calViewYear -= 1;
-  } else if (calViewMonth > 11) {
-    calViewMonth = 0;
-    calViewYear += 1;
+  month += delta;
+
+  if (month < 0) {
+    month = 11;
+    year -= 1;
+  } else if (month > 11) {
+    month = 0;
+    year += 1;
   }
 
-  if (calViewYear < PANCH_MIN_YEAR) {
-    calViewYear = PANCH_MIN_YEAR;
-    calViewMonth = 0;
+  if (year < PANCH_MIN_YEAR) {
+    year = PANCH_MIN_YEAR;
+    month = 0;
   }
-  if (calViewYear > PANCH_MAX_YEAR) {
-    calViewYear = PANCH_MAX_YEAR;
-    calViewMonth = 11;
+  if (year > PANCH_MAX_YEAR) {
+    year = PANCH_MAX_YEAR;
+    month = 11;
   }
 
+  const daysInTargetMonth = new Date(year, month + 1, 0).getDate();
+  const clampedDay = Math.min(day, daysInTargetMonth);
+
+  const isoDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
+
+  calViewYear = year;
+  calViewMonth = month;
   syncYearMonthSelectors();
-  renderCalendar();
+  loadDate(isoDate, true);
 }
-
 function initCalendar() {
   const parts = currentDate.split('-');
   calViewYear = parseInt(parts[0], 10);
@@ -454,11 +484,12 @@ if (calViewYear === selYear && calViewMonth === selMonth && d === selDay) {
 }
 
 function goToday() {
-  loadDate(todayIso);
+  const todayIso = getLocalTodayIso();
+  loadDate(todayIso, true);
 }
 
-async function loadDate(iso) {
-  if (iso === currentDate) return;
+async function loadDate(iso, force = false) {
+  if (!force && iso === currentDate) return;
 
   const overlay = document.getElementById('loading-overlay');
   overlay.classList.add('active');
@@ -477,7 +508,6 @@ async function loadDate(iso) {
     renderCalendar();
 
     updateEclipseLinkYear(iso);
-
   } catch (e) {
     console.error('Failed to load panchanga for', iso, e);
     alert('Could not load Panchanga for ' + iso);
