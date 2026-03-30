@@ -2,28 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>About Bheshaj</title>
+  <title>About — Bheshaj Spiritual Center</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --content-width: 980px;
+
       --bg: #faf5ec;
-      --bg-card: #f4ead8;
-      --accent: #b85c2a;
-      --accent-dark: #5a2410;
-      --text: #271508;
-      --text-mid: #5a3018;
-      --text-soft: #7d5a3a;
-      --border: #c9a870;
-      --border-light: #e2cfa8;
+      --bg-card: #f3eadb;
+      --bg-soft: #f8f1e5;
+
+      --accent: #b4632b;
+      --accent-hover: #9f531f;
+      --accent-dark: #5d250f;
+
+      --text: #2f190b;
+      --text-mid: #60351b;
+      --text-soft: #7a5a3f;
+
+      --border: #d4bd95;
+      --border-light: #e4d5bb;
+
+      --shadow-soft: 0 6px 18px rgba(70, 38, 18, 0.05);
+      --shadow-btn: 0 2px 8px rgba(80, 37, 15, 0.16);
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
@@ -31,11 +42,15 @@
     }
 
     body {
+      margin: 0;
       background: var(--bg);
       color: var(--text);
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.46;
+      font-size: 20px;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      position: relative;
     }
 
     body::before {
@@ -43,44 +58,45 @@
       position: fixed;
       inset: 0;
       background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 0;
     }
 
     .topbar {
-      background: var(--accent-dark);
-      text-align: center;
-      padding: 16px 20px 12px;
       position: relative;
       z-index: 2;
-      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+      background: var(--accent-dark);
+      text-align: center;
+      padding: 18px 20px 14px;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16);
     }
 
     .topbar-title {
       font-family: 'Cinzel', serif;
-      font-size: 32px;
+      font-size: 34px;
       font-weight: 700;
-      color: #f2d7a0;
-      line-height: 1.15;
-      letter-spacing: 0.02em;
+      line-height: 1.12;
+      letter-spacing: 0.03em;
+      color: #f3d79e;
+      text-transform: uppercase;
     }
 
     .navband {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
       position: relative;
       z-index: 2;
+      background: #e8dfd0;
+      border-bottom: 1px solid var(--border);
     }
 
     .navband-inner {
       max-width: var(--content-width);
       margin: 0 auto;
-      padding: 12px 20px;
+      padding: 14px 22px;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
@@ -89,147 +105,318 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 0;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 999px;
-      background: #9a4f1b;
-      color: #fff3cc;
+      background: var(--accent);
+      color: #fff2ca;
       text-decoration: none;
       font-family: 'Cinzel', serif;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.06em;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      transition: all 0.2s ease;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(77, 34, 12, 0.14);
+      box-shadow: var(--shadow-btn);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
       white-space: nowrap;
     }
 
-    .nav-btn:hover {
-      background: var(--accent-dark);
+    .nav-btn:hover,
+    .nav-btn:focus-visible {
+      background: var(--accent-hover);
       color: #ffffff;
       transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(80, 37, 15, 0.20);
+      outline: none;
     }
 
     .page {
-      max-width: var(--content-width);
-      margin: 0 auto;
-      padding: 22px 22px 28px;
       position: relative;
       z-index: 1;
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 28px 24px 34px;
     }
 
     .content-block {
       background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 24px 28px;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 34px 36px 30px;
+      box-shadow: var(--shadow-soft);
     }
 
     .section + .section {
-      margin-top: 26px;
+      margin-top: 42px;
+      padding-top: 6px;
     }
 
     .section-title {
       font-family: 'Cinzel', serif;
-      font-size: 22px;
+      font-size: 23px;
       font-weight: 600;
-      color: var(--text-mid);
       line-height: 1.2;
-      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+      color: var(--text-mid);
+      margin: 0 0 8px;
+      text-transform: uppercase;
+    }
+
+    .section-divider {
+      width: 96px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(96, 53, 27, 0.65), rgba(96, 53, 27, 0.12));
+      margin: 0 0 18px;
     }
 
     p {
-      color: #4c2d16;
+      margin: 0;
+      color: #4f2f19;
+      font-size: 1em;
     }
 
     p + p {
       margin-top: 16px;
     }
 
-    .developer-bottom {
-      display: grid;
-      grid-template-columns: 126px 1fr;
-      gap: 22px;
-      align-items: start;
+    .lead-note {
       margin-top: 18px;
+      padding: 16px 18px;
+      border-left: 3px solid #c18a4f;
+      background: rgba(255, 250, 242, 0.46);
+      border-radius: 8px;
+      font-size: 1.03em;
+      color: #56331a;
     }
 
-    .developer-photo-wrap {
+    .lead-note em {
+      font-style: italic;
+      color: var(--text-mid);
+    }
+
+    .founder-intro {
+      max-width: 900px;
+    }
+
+    .founder-card {
+      position: relative;
+      margin-top: 30px;
+      background: rgba(255, 251, 245, 0.36);
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 34px 26px 28px;
+      overflow: hidden;
+    }
+
+    .founder-motto-overlay {
+      position: absolute;
+      top: 18px;
+      left: 63%;
+      transform: translateX(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: rgba(96, 53, 27, 0.55);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .founder-top {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .founder-profile {
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
     }
 
     .developer-photo {
-      width: 118px;
-      height: 118px;
+      width: 160px;
+      height: 160px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid var(--border-light);
+      border: 3px solid #e7d7bb;
       background: #fffaf1;
+      box-shadow: 0 0 0 4px rgba(193, 138, 79, 0.18);
     }
 
-    .developer-credentials {
-      color: #4c2d16;
-      font-size: 1rem;
-      line-height: 1.56;
-      margin-top: 2px;
-      padding-left: 20px;
-    }
-
-    .developer-credentials li {
-      margin-bottom: 4px;
-    }
-
-    .developer-credentials li::marker {
-      color: var(--text-soft);
-    }
-
-    .developer-meta {
-      margin-top: 14px;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      color: var(--text-soft);
-      padding-left: 8px;
-    }
-
-    .developer-meta a,
-    .developer-meta a:visited {
-      color: var(--text-soft);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(125, 90, 58, 0.35);
-    }
-
-    .developer-meta a:hover {
+    .founder-name {
+      font-family: 'Cinzel', serif;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
       color: var(--text-mid);
-      border-bottom-color: var(--text-mid);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .founder-right {
+      min-width: 0;
+      padding-top: 34px;
+    }
+
+    .founder-meta {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+      gap: 48px;
+      align-items: start;
+      padding-left: 22px;
+    }
+
+    .meta-block {
+      padding-top: 4px;
+    }
+
+    .meta-label {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .founder-credentials {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #5a3820;
+    }
+
+    .founder-credentials li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 2px;
+    }
+
+    .founder-credentials li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #9b6b3c;
+    }
+
+    .founder-contact {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-soft);
+    }
+
+    .founder-contact a,
+    .founder-contact a:visited {
+      color: var(--text-mid);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(96, 53, 27, 0.28);
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .founder-contact a:hover,
+    .founder-contact a:focus-visible {
+      color: var(--accent-dark);
+      border-bottom-color: var(--accent-dark);
+      outline: none;
+    }
+
+    .page-cta {
+      margin-top: 34px;
+      padding: 22px 24px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .page-cta-text {
+      margin: 0 0 14px;
+      color: #5a3820;
+      font-size: 1.02em;
+    }
+
+    .page-cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .site-footer {
-      margin-top: 14px;
-      text-align: left;
-      font-size: 17px;
+      margin-top: 16px;
+      padding-left: 6px;
       color: var(--text-soft);
-      padding-left: 4px;
+      font-size: 18px;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        font-size: 19px;
+        line-height: 1.58;
+      }
+
+      .content-block {
+        padding: 28px 22px 24px;
+      }
+
+      .founder-top {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .founder-right {
+        padding-top: 0;
+      }
+
+      .founder-meta {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding-left: 0;
+      }
+
+      .founder-profile {
+        align-items: center;
+      }
+
+      .founder-name {
+        white-space: normal;
+      }
+
+      .founder-motto-overlay {
+        position: static;
+        transform: none;
+        display: block;
+        margin: 0 0 18px;
+        text-align: center;
+        font-size: 22px;
+        white-space: normal;
+      }
     }
 
     @media (max-width: 720px) {
       body {
-        font-size: 17px;
-        line-height: 1.42;
+        font-size: 18px;
+        line-height: 1.54;
       }
 
       .topbar-title {
-        font-size: 27px;
+        font-size: 28px;
       }
 
       .page {
         padding: 18px 14px 24px;
-      }
-
-      .content-block {
-        padding: 18px 16px;
       }
 
       .navband-inner {
@@ -240,89 +427,174 @@
         width: 100%;
       }
 
+      .content-block {
+        padding: 22px 16px 20px;
+        border-radius: 18px;
+      }
+
+      .section + .section {
+        margin-top: 34px;
+      }
+
       .section-title {
-        font-size: 20px;
+        font-size: 21px;
       }
 
-      .developer-bottom {
-        grid-template-columns: 1fr;
-        gap: 18px;
+      .founder-card {
+        padding: 22px 16px 20px;
       }
 
-      .developer-photo-wrap {
-        justify-content: flex-start;
+      .developer-photo {
+        width: 138px;
+        height: 138px;
+      }
+
+      .page-cta {
+        padding: 18px 16px;
+      }
+
+      .page-cta-actions {
+        flex-direction: column;
+      }
+
+      .page-cta-actions .nav-btn {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="topbar-title">About Bheshaj</div>
-  </div>
+  <header class="topbar">
+    <div class="topbar-title">Bheshaj Spiritual Center</div>
+  </header>
 
   <div class="navband">
     <div class="navband-inner">
       <a class="nav-btn" href="/">Back to Panchanga</a>
-      <a class="nav-btn" href="#developer">Developer</a>
-      <a class="nav-btn" href="https://astro.bheshaj.com" target="_blank">Bheshaj Astrology</a>
     </div>
   </div>
 
   <main class="page">
     <section class="content-block">
 
-      <div class="section" id="what-is-bheshaj">
-        <div class="section-title">What is Bheshaj</div>
-        <p>
-          Bheshaj is a small personal effort rooted in Sanatana Dharma and Vedic traditions. It is not an institution or a public platform. It is a quiet space from which a few things are built and shared carefully, with Bheshaj Panchanga as the main public resource. The name reflects the idea of something that restores — slowly, through right understanding and right practice — and what is shared here reflects long-term study and lived practice, not instruction or performance.
-        </p>
-      </div>
+      <section class="section" id="spiritual-center">
+        <h1 class="section-title">Bheshaj Spiritual Center</h1>
+        <div class="section-divider"></div>
 
-      <div class="section" id="bheshaj-panchanga">
-        <div class="section-title">Bheshaj Panchanga</div>
         <p>
-          Bheshaj Panchanga is a traditional luni-solar calendar created to support everyday awareness of tithi, nakshatra, yoga, karana, sunrise, sunset, eclipses, and related observances. It is freely available as a public reference, without registration or payment. The Panchanga is intended as a practical reference, not as a media platform or teaching program. The aim is to make traditional calendar knowledge accessible in a form that is careful, usable, and quietly maintained over time.
-        </p>
-        <p>
-          Ongoing development and maintenance of Bheshaj Panchanga is supported through Bheshaj Astrology, a related area of practice offering traditional Vedic Jyotish consultations. That work helps sustain the time and effort required to keep public resources available and well maintained.
-          Bheshaj is meant to grow slowly and remain grounded. The intention is not to build a large platform, but to continue offering work that is useful, thoughtful, and aligned with long-term service to community.
-        </p>
-      </div>
-
-      <div class="section" id="developer">
-        <div class="section-title">About the Developer</div>
-        <p>
-          Bheshaj was built and is maintained by Dr. Gandhi R. Bhattarai — an economist by profession and a student of Vedic Jyotish and Sanatana Dharma for over fifteen years. His work reflects a long engagement with both analytical thought and traditional study, approached with patience, discipline, and care.
-        </p>
-        <p>
-          As a cancer survivor, his experience brought unusual clarity to what truly matters. Bheshaj reflects a personal commitment to practice and community, along with a quiet intention to dedicate more time, learning, and resources to this path as the years ahead allow.
+          Bheshaj Spiritual Center is a small personal effort rooted in Sanatana Dharma and Vedic traditions.
         </p>
 
-        <div class="developer-bottom">
-          <div class="developer-photo-wrap">
-            <img class="developer-photo" src="/static/p2photo.png" alt="Dr. Gandhi R. Bhattarai">
-          </div>
+        <p>
+          It is not an institution or a public teaching platform. It is a quiet space from which a few things are built and shared carefully with the community.
+        </p>
 
-          <div>
-            <ul class="developer-credentials">
-              <li>Jyotish Praveena (ICAS, India)</li>
-              <li>M.A. Vedic Jyotish (India)</li>
-              <li>Ph.D. Economics (USA)</li>
-            </ul>
+        <p>
+          The name reflects the idea of something that restores: slowly, through right understanding and right practice.
+        </p>
 
-            <div class="developer-meta">
-              Morrisville, North Carolina, USA<br>
-              Contact: <a href="mailto:info@bheshaj.org">info@bheshaj.org</a>
+        <div class="lead-note">
+          <em>What is offered here reflects long-term study and lived practice, not instruction or performance.</em>
+        </div>
+
+        <p>
+          Bheshaj Panchanga is the Center’s primary public offering. Everything else remains private.
+        </p>
+
+        <p>
+          The intention is to grow slowly, stay grounded, and remain genuinely useful to those who find their way here.
+        </p>
+      </section>
+
+      <section class="section" id="panchanga">
+        <h2 class="section-title">Bheshaj Panchanga</h2>
+        <div class="section-divider"></div>
+
+        <p>
+          Bheshaj Panchanga is a traditional luni-solar calendar built to support everyday awareness of tithi, nakshatra, yoga, karana, sunrise, sunset, eclipses, and related observances.
+        </p>
+
+        <p>
+          It is freely available as a public reference — no registration, no payment. The aim is to make traditional calendar knowledge accessible in a form that is careful, usable, and quietly maintained over time.
+        </p>
+
+        <p>
+          The Panchanga is a practical reference, not a media platform or teaching program.
+        </p>
+
+        <p>
+          Its ongoing development and maintenance is supported in part through Bheshaj Astrology, a separate Vedic Jyotish consulting practice. That work helps sustain the time and effort required to keep this public resource available and well maintained.
+        </p>
+      </section>
+
+      <section class="section" id="founder">
+        <h2 class="section-title">Founder</h2>
+        <div class="section-divider"></div>
+
+        <div class="founder-intro">
+          <p>
+            Bheshaj Spiritual Center was founded and is maintained by Dr. Gandhi R. Bhattarai — an economist by profession and a student of Vedic Jyotish and Sanatana Dharma for over fifteen years.
+          </p>
+
+          <p>
+            His work reflects a long engagement with both analytical thought and traditional study, approached with patience, discipline, and care.
+          </p>
+
+          <p>
+            As a cancer survivor, his experience brought unusual clarity to what truly matters. Bheshaj reflects a personal commitment to practice and community, along with a quiet intention to dedicate more time, learning, and resources to this path in the years ahead.
+          </p>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-motto-overlay">Study. Practice. Service.</div>
+
+          <div class="founder-top">
+            <div class="founder-profile">
+              <img class="developer-photo" src="/static/p2photo.png" alt="Dr. Gandhi Bhattarai">
+              <div class="founder-name">Dr. Gandhi R. Bhattarai</div>
+            </div>
+
+            <div class="founder-right">
+              <div class="founder-meta">
+                <div class="meta-block">
+                  <div class="meta-label">Credentials</div>
+                  <ul class="founder-credentials">
+                    <li>Jyotish Praveena (ICAS)</li>
+                    <li>M.A. Vedic Jyotish (India)</li>
+                    <li>M.S. Data Science (USA)</li>
+                    <li>Ph.D. Economics (USA)</li>
+                  </ul>
+                </div>
+
+                <div class="meta-block">
+                  <div class="meta-label">Contact</div>
+                  <div class="founder-contact">
+                    Morrisville<br>
+                    North Carolina, USA<br><br>
+                    <a href="mailto:info@bheshaj.org">info@bheshaj.org</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <div class="page-cta">
+        <p class="page-cta-text">
+          Bheshaj Panchanga remains the primary public offering of the Center.
+        </p>
+        <div class="page-cta-actions">
+          <a class="nav-btn" href="/">Return to Panchanga</a>
+          <a class="nav-btn" href="https://astro.bheshaj.com" target="_blank" rel="noopener noreferrer">Visit Bheshaj Astrology</a>
         </div>
       </div>
 
     </section>
 
     <footer class="site-footer">
-      © 2026 Bheshaj
+      © 2026 Bheshaj Spiritual Center
     </footer>
   </main>
 

@@ -31,6 +31,7 @@
             font-family: Georgia, "Times New Roman", serif;
             background: var(--bg);
             color: var(--text);
+            min-height: 100vh;
         }
 
         .header {
@@ -44,7 +45,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 980px;
             margin: 2rem auto;
             padding: 0 1.5rem;
         }
@@ -176,6 +177,19 @@
         .note {
             margin-top: 1.5rem;
             color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .site-footer-wrap {
+            max-width: 980px;
+            margin: 0 auto 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .site-footer {
+            margin-top: 1.5rem;
+            color: var(--muted);
+            font-size: 0.9rem;
             line-height: 1.6;
         }
 
@@ -416,6 +430,12 @@
             {% endif %}
 
         </div>
+    </div>
+
+    <div class="site-footer-wrap">
+        <footer class="site-footer">
+            © 2026 Bheshaj Spiritual Center
+        </footer>
     </div>
 
     <div id="eclipseModal" class="modal-overlay" aria-hidden="true">
