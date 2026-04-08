@@ -92,23 +92,19 @@ body::before {
   color: var(--text);
 }
 
-.subbar-meta-desktop {
-  display: block;
+.subbar-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   text-align: center;
   font-size: 17px;
   line-height: 1.3;
-  white-space: nowrap;
 }
 
-.subbar-meta-mobile {
-  display: none;
+.subbar-meta-item {
+  display: inline;
 }
-
-.subbar-meta-line {
-  text-align: center;
-  line-height: 1.25;
-}
-
 .subbar-row-actions {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -751,19 +747,22 @@ body::before {
     margin-bottom: 8px;
   }
 
-  .subbar-meta-desktop {
-    display: none;
-  }
+.subbar-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 15px;
+  line-height: 1.2;
+}
 
-  .subbar-meta-mobile {
-    display: block;
-    font-size: 15px;
-    line-height: 1.2;
-  }
+.subbar-meta-item {
+  display: block;
+}
 
-  .subbar-meta-line + .subbar-meta-line {
-    margin-top: 1px;
-  }
+.meta-sep {
+  display: none;
+}
 
   .subbar-row-actions {
     gap: 8px;
@@ -961,7 +960,7 @@ body::before {
     letter-spacing: 0.015em;
   }
 
-  .subbar-meta-mobile {
+  .subbar-meta {
     font-size: 15px;
   }
 
@@ -1001,6 +1000,24 @@ body::before {
     min-height: 32px;
     font-size: 14px;
   }
+
+@media (max-width: 680px) {
+  .subbar-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .subbar-meta-item {
+    display: block;
+    width: 100%;
+  }
+
+  .meta-sep {
+    display: none;
+  }
+}
 
   /* tighter daily panchanga header for very narrow screens */
 

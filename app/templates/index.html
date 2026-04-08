@@ -20,31 +20,17 @@
   <div class="subbar-inner">
     <div class="subbar-row subbar-row-top">
       <div class="subbar-text">
-
-        <!-- Desktop / tablet: single line -->
-        <div class="subbar-meta-desktop">
-          <strong>Current Panchanga</strong>
-          <span class="meta-sep">—</span>
-          <span class="meta-label">Location:</span>
-          <span class="meta-value">{{ place.name }}</span>
-          <span class="meta-sep">•</span>
-          <span class="meta-label">Method:</span>
-          <span class="meta-value">{{ engine | capitalize }} (Modern)</span>
-        </div>
-
-        <!-- Mobile: 3 lines -->
-        <div class="subbar-meta-mobile">
-          <div class="subbar-meta-line"><strong>Current Panchanga</strong></div>
-          <div class="subbar-meta-line">
+        <div class="subbar-meta">
+          <span class="subbar-meta-item">
             <span class="meta-label">Location:</span>
             <span class="meta-value">{{ place.name }}</span>
-          </div>
-          <div class="subbar-meta-line">
+          </span>
+          <span class="meta-sep">•</span>
+          <span class="subbar-meta-item">
             <span class="meta-label">Method:</span>
             <span class="meta-value">{{ engine | capitalize }} (Modern)</span>
-          </div>
+          </span>
         </div>
-
       </div>
     </div>
 
