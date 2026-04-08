@@ -4,57 +4,129 @@
   <meta charset="utf-8">
   <title>BheshajPatro — Muhurta Finder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===================================================== -->
+  <!-- Fonts                                                  -->
+  <!-- ===================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Merriweather+Sans:wght@700;800&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
     :root {
-      --bg: #f4efe6;
-      --card: #efe6d7;
-      --topbar: #6f250d;
-      --topbar-text: #e0b768;
-      --text-main: #4b2a17;
-      --text-mid: #6a4128;
-      --text-soft: #8b6a4c;
-      --border: #cfa96d;
-      --button-bg: #8a4318;
-      --button-bg-hover: #733712;
-      --button-text: #fff5df;
+      --content-width: 980px;
+
+      --bg: #faf5ec;
+      --bg-card: #f3eadb;
+      --bg-soft: #f8f1e5;
+
+      --accent: #b4632b;
+      --accent-hover: #9f531f;
+      --accent-dark: #5d250f;
+
+      --text: #2f190b;
+      --text-mid: #60351b;
+      --text-soft: #7a5a3f;
+
+      --border: #d4bd95;
+      --border-light: #e4d5bb;
+
+      --shadow-soft: 0 6px 18px rgba(70, 38, 18, 0.05);
+      --shadow-btn: 0 2px 8px rgba(80, 37, 15, 0.16);
+
+      --header-gold: #e0b65b;
+      --header-gold-soft: #f3d79e;
+      --header-cream: #fff2ca;
+
+      --font-main: 'Lora', Georgia, serif;
+      --font-brand: 'Merriweather Sans', Arial, sans-serif;
     }
 
-    * {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      font-family: "EB Garamond", Georgia, serif;
       background: var(--bg);
-      color: var(--text-main);
+      color: var(--text);
+      font-family: var(--font-main);
+      font-size: 18px;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      position: relative;
     }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ===================================================== */
+    /* Top bar                                                */
+    /* ===================================================== */
     .topbar {
-      background: var(--topbar);
-      padding: 0.7rem 1rem 0.9rem;
-    }
-
-    .topbar-title {
+      position: relative;
+      z-index: 2;
+      background: var(--accent-dark);
       text-align: center;
-      font-family: "Cinzel", serif;
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--topbar-text);
-    }
-
-    .page {
-      padding: 2rem 1.25rem 2.5rem;
+      padding: 18px 20px 14px;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16);
+      display: flex;
+      justify-content: center;
     }
 
     .page-inner {
-      max-width: 980px;
+      width: 100%;
+      max-width: var(--content-width);
       margin: 0 auto;
+    }
+
+    .topbar-title {
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-brand);
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+      color: var(--header-gold);
+      text-transform: none;
+      opacity: 1;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    /* ===================================================== */
+    /* Page wrapper                                           */
+    /* ===================================================== */
+    .page {
+      position: relative;
+      z-index: 1;
+      padding: 28px 24px 34px;
     }
 
     .header-row {
@@ -67,68 +139,103 @@
     }
 
     .location-title {
-      font-size: 1.05rem;
+      font-family: var(--font-main);
+      font-size: 1.02rem;
       color: var(--text-mid);
       font-weight: 600;
       margin-bottom: 6px;
+      text-transform: none;
     }
 
     .location-sub {
-      font-size: 0.98rem;
+      font-family: var(--font-main);
+      font-size: 0.96rem;
       color: var(--text-soft);
+      text-transform: none;
     }
 
-    .back-button {
-      display: inline-block;
-      padding: 0.55rem 1rem;
-      background: var(--button-bg);
-      color: var(--button-text);
+    /* ===================================================== */
+    /* Top button                                             */
+    /* ===================================================== */
+    .back-button,
+    .back-button:visited {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      min-width: 220px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--header-cream);
       text-decoration: none;
-      border-radius: 10px;
+      font-family: var(--font-brand);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      border: 1px solid rgba(77, 34, 12, 0.14);
+      box-shadow: var(--shadow-btn);
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
       white-space: nowrap;
-      font-size: 1rem;
+      text-transform: none;
       line-height: 1.2;
-      transition: background 0.2s ease, transform 0.08s ease;
     }
 
-    .back-button:hover {
-      background: var(--button-bg-hover);
+    .back-button:hover,
+    .back-button:focus-visible {
+      background: var(--accent-hover);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(80, 37, 15, 0.20);
+      outline: none;
       text-decoration: none;
     }
 
     .back-button:active {
-      transform: translateY(1px);
+      transform: translateY(0);
     }
 
+    /* ===================================================== */
+    /* Placeholder card                                       */
+    /* ===================================================== */
     .summary-card {
-      background: var(--card);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 22px;
       overflow: hidden;
+      box-shadow: var(--shadow-soft);
     }
 
     .section-pad {
-      padding: 22px 24px;
+      padding: 28px 30px 22px;
     }
 
     .day-name-large {
-      font-family: "Cinzel", serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #b56731;
+      font-family: var(--font-main);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--text-mid);
       margin-bottom: 10px;
     }
 
     .lead-text {
-      font-size: 1.12rem;
+      font-family: var(--font-main);
+      font-size: 1.05rem;
       line-height: 1.75;
       color: var(--text-mid);
+      text-transform: none;
+      max-width: 900px;
     }
 
     .summary-table {
-      padding: 4px 24px 8px;
+      padding: 4px 30px 8px;
     }
 
     .summary-row {
@@ -149,21 +256,25 @@
 
     .summary-grid-line {
       display: grid;
-      grid-template-columns: 140px 1fr;
+      grid-template-columns: 150px 1fr;
       gap: 14px;
       align-items: start;
     }
 
     .summary-key {
+      font-family: var(--font-main);
       font-size: 1rem;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--text-main);
+      text-transform: none;
     }
 
     .summary-values {
+      font-family: var(--font-main);
       font-size: 1rem;
-      line-height: 1.55;
+      line-height: 1.6;
       color: var(--text-main);
+      text-transform: none;
     }
 
     .summary-values div {
@@ -171,16 +282,47 @@
     }
 
     .footer-note {
-      padding: 22px 24px;
-      font-size: 1.05rem;
+      padding: 22px 30px 26px;
+      font-family: var(--font-main);
+      font-size: 1.02rem;
       line-height: 1.7;
       color: var(--text-soft);
+      text-transform: none;
+      background: rgba(255, 250, 242, 0.28);
+      border-top: 1px solid rgba(212, 189, 149, 0.55);
     }
 
     .site-footer {
-      margin-top: 16px;
-      font-size: 0.98rem;
+      max-width: var(--content-width);
+      margin: 18px auto 24px auto;
+      padding: 0 4px;
+      text-align: left;
       color: var(--text-soft);
+      font-size: 17px;
+      font-family: var(--font-main);
+      text-transform: none;
+    }
+
+    /* ===================================================== */
+    /* Responsive                                             */
+    /* ===================================================== */
+    @media (max-width: 860px) {
+      body {
+        font-size: 17px;
+        line-height: 1.58;
+      }
+
+      .section-pad {
+        padding: 24px 22px 18px;
+      }
+
+      .summary-table {
+        padding: 4px 22px 8px;
+      }
+
+      .footer-note {
+        padding: 20px 22px 22px;
+      }
     }
 
     @media (max-width: 760px) {
@@ -202,14 +344,68 @@
       }
 
       .page {
-        padding: 1.25rem 1rem 2rem;
+        padding: 18px 12px 22px;
       }
 
-      .section-pad,
-      .footer-note,
+      .header-row {
+        align-items: stretch;
+      }
+
+      .back-button,
+      .back-button:visited {
+        min-width: 220px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body {
+        font-size: 16px;
+        line-height: 1.54;
+      }
+
+      .topbar {
+        padding: 14px 12px 12px;
+      }
+
+      .topbar-title {
+        font-size: clamp(24px, 6.5vw, 30px);
+        line-height: 1.08;
+      }
+
+      .section-pad {
+        padding: 22px 16px 18px;
+      }
+
       .summary-table {
-        padding-left: 18px;
-        padding-right: 18px;
+        padding: 4px 16px 8px;
+      }
+
+      .footer-note {
+        padding: 18px 16px 20px;
+      }
+
+      .day-name-large {
+        font-size: 22px;
+      }
+
+      .site-footer {
+        padding: 0 2px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .topbar-title {
+        font-size: 22px;
+      }
+
+      .day-name-large {
+        font-size: 21px;
+      }
+
+      .back-button,
+      .back-button:visited {
+        min-width: 190px;
       }
     }
   </style>
@@ -230,6 +426,7 @@
           <div class="location-title">
             Location: {{ place.name if place else 'Raleigh, NC, USA' }}
           </div>
+
           {% if place %}
           <div class="location-sub">
             Latitude: {{ place.latitude }}, Longitude: {{ place.longitude }}
@@ -243,6 +440,7 @@
       <div class="summary-card">
         <div class="section-pad">
           <div class="day-name-large">Under Preparation</div>
+
           <div class="lead-text">
             This section is being prepared for scanning suitable muhurtas across dates and finding
             auspicious days for samskaras and major rites such as Upanayana, Chuda Karma, Vivaha,
@@ -252,9 +450,11 @@
 
         <div class="summary-table">
           <div class="summary-row">
+
             <div class="summary-cell">
               <div class="summary-grid-line">
                 <div class="summary-key">Planned Scope</div>
+
                 <div class="summary-values">
                   <div>Nakshatra suitability</div>
                   <div>Weekday suitability</div>
@@ -268,6 +468,7 @@
             <div class="summary-cell">
               <div class="summary-grid-line">
                 <div class="summary-key">Status</div>
+
                 <div class="summary-values">
                   <div>Logic under calculation</div>
                   <div>Rules to be integrated from Muhurta Chintamani</div>
@@ -275,6 +476,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 

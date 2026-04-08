@@ -1,18 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Eclipses - {{ year }}</title>
+    <title>Eclipses in {{ year }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Merriweather+Sans:wght@700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
         :root {
-            --bg: #f4efe6;
-            --card: #fffaf1;
-            --header: #8a4318;
+            --content-width: 980px;
+
+            --bg: #faf5ec;
+            --card: #f3eadb;
+            --card-soft: #fffaf1;
+            --header: #5d250f;
             --header-dark: #733712;
-            --text: #4b2a17;
-            --muted: #8b6a4c;
-            --border: #d3b07a;
+
+            --text: #2f190b;
+            --text-mid: #60351b;
+            --muted: #7a5a3f;
+
+            --border: #d4bd95;
+            --border-light: #e4d5bb;
+
+            --button-bg: #b4632b;
+            --button-bg-hover: #9f531f;
+            --button-text: #fff2ca;
 
             --visible-bg: #e5efe6;
             --visible-text: #2e6a3f;
@@ -24,30 +43,90 @@
             --possible-text: #9a6700;
 
             --modal-overlay: rgba(60, 35, 20, 0.45);
+
+            --shadow-soft: 0 6px 18px rgba(70, 38, 18, 0.05);
+            --shadow-btn: 0 2px 8px rgba(80, 37, 15, 0.16);
+
+            --header-gold: #e0b65b;
+            --header-cream: #fff2ca;
+
+            --font-main: 'Lora', Georgia, serif;
+            --font-brand: 'Merriweather Sans', Arial, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-main);
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            font-size: 18px;
+            line-height: 1.62;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            position: relative;
         }
 
-        .header {
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .topbar {
+            position: relative;
+            z-index: 2;
             background: var(--header);
-            color: #f7d992;
-            padding: 1.2rem;
             text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            letter-spacing: 0.04em;
+            padding: 18px 20px 14px;
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16);
+            display: flex;
+            justify-content: center;
+        }
+
+        .topbar-inner {
+            width: 100%;
+            max-width: var(--content-width);
+            margin: 0 auto;
+        }
+
+        .topbar-title {
+            text-align: center;
+            font-family: var(--font-brand);
+            font-size: 34px;
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: 0.01em;
+            text-transform: none;
+            color: var(--header-gold);
+            opacity: 1;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
         }
 
         .container {
-            max-width: 980px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 28px 24px 34px;
         }
 
         .location-row {
@@ -56,36 +135,71 @@
             align-items: flex-start;
             flex-wrap: wrap;
             gap: 0.75rem 1rem;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
         }
 
         .location-main {
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: var(--text);
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--text-mid);
+            text-transform: none;
         }
 
         .location-sub {
-            font-size: 0.9rem;
+            font-size: 0.96rem;
             color: var(--muted);
             margin-bottom: 1rem;
+            text-transform: none;
         }
 
-        .back-button {
-            padding: 0.5rem 1rem;
-            background: var(--header);
-            color: #fff5df;
+        .back-button,
+        .back-button:visited {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            min-width: 220px;
+            padding: 12px 24px;
+            background: var(--button-bg);
+            color: var(--button-text);
             text-decoration: none;
-            border-radius: 10px;
-            display: inline-block;
+            border-radius: 999px;
             white-space: nowrap;
+            font-size: 14px;
+            line-height: 1.2;
+            font-family: var(--font-brand);
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            border: 1px solid rgba(77, 34, 12, 0.14);
+            box-shadow: var(--shadow-btn);
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                background 0.18s ease,
+                color 0.18s ease;
+            text-transform: none;
+        }
+
+        .back-button:hover,
+        .back-button:focus-visible {
+            background: var(--button-bg-hover);
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px rgba(80, 37, 15, 0.20);
+            outline: none;
+        }
+
+        .back-button:active {
+            transform: translateY(0);
         }
 
         .card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
+            border-radius: 22px;
+            padding: 24px 24px 18px;
+            box-shadow: var(--shadow-soft);
         }
 
         .row {
@@ -102,13 +216,19 @@
             align-items: center;
             gap: 0.6rem;
             flex-wrap: wrap;
+            font-family: var(--font-main);
+        }
+
+        .row-right strong {
+            font-weight: 600;
+            color: var(--text-mid);
         }
 
         .year-select {
-            padding: 0.5rem 0.8rem;
+            padding: 0.55rem 0.8rem;
             border-radius: 8px;
             border: 1px solid var(--border);
-            font-family: inherit;
+            font-family: var(--font-main);
             font-size: 1rem;
             background: #fffdf8;
             color: var(--text);
@@ -124,15 +244,20 @@
             background: #fffdf8;
         }
 
-        th, td {
+        th,
+        td {
             padding: 0.85rem;
             border-bottom: 1px solid #e2caa0;
+            vertical-align: top;
         }
 
         th {
             background: #efe5d4;
             text-align: left;
             color: var(--header-dark);
+            font-family: var(--font-main);
+            font-weight: 600;
+            text-transform: none;
         }
 
         tr:last-child td {
@@ -140,17 +265,17 @@
         }
 
         td:first-child {
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .status-btn {
             border: none;
-            padding: 0.45rem 0.9rem;
+            padding: 0.5rem 0.95rem;
             border-radius: 10px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
+            font-family: var(--font-main);
+            font-size: 0.98rem;
             transition: transform 0.08s ease, box-shadow 0.12s ease;
         }
 
@@ -177,20 +302,22 @@
         .note {
             margin-top: 1.5rem;
             color: var(--muted);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
         .site-footer-wrap {
-            max-width: 980px;
+            max-width: var(--content-width);
             margin: 0 auto 2rem auto;
-            padding: 0 1.5rem;
+            padding: 0 24px;
         }
 
         .site-footer {
-            margin-top: 1.5rem;
+            margin-top: 1.25rem;
             color: var(--muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.6;
+            font-family: var(--font-main);
         }
 
         .modal-overlay {
@@ -213,7 +340,7 @@
             max-width: 640px;
             max-height: 90vh;
             overflow-y: auto;
-            background: var(--card);
+            background: var(--card-soft);
             border: 1px solid var(--border);
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(50, 30, 15, 0.18);
@@ -232,8 +359,10 @@
         }
 
         .modal-title {
-            font-size: 1.35rem;
-            font-weight: bold;
+            font-size: 1.25rem;
+            font-weight: 600;
+            font-family: var(--font-main);
+            text-transform: none;
         }
 
         .modal-close {
@@ -257,7 +386,7 @@
         }
 
         .detail-label {
-            font-weight: bold;
+            font-weight: 600;
             color: var(--header-dark);
         }
 
@@ -278,8 +407,16 @@
             font-size: 0.95rem;
         }
 
+        @media (max-width: 860px) {
+            body {
+                font-size: 17px;
+                line-height: 1.58;
+            }
+        }
+
         @media (max-width: 720px) {
-            .row, .location-row {
+            .row,
+            .location-row {
                 align-items: flex-start;
             }
 
@@ -294,36 +431,69 @@
             .modal-title {
                 font-size: 1.15rem;
             }
+
+            .topbar {
+                padding: 14px 12px 12px;
+            }
+
+            .topbar-title {
+                font-size: clamp(24px, 6.5vw, 30px);
+                line-height: 1.08;
+            }
+
+            .container {
+                padding: 18px 12px 22px;
+            }
+
+            .card {
+                padding: 18px 16px 14px;
+                border-radius: 18px;
+            }
+
+            .site-footer-wrap {
+                padding: 0 12px;
+            }
+
+            .back-button,
+            .back-button:visited {
+                min-width: 200px;
+                padding: 10px 18px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="header">
-        Eclipse Report ({{ year }})
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="topbar-title">Eclipses in {{ year }}</div>
+        </div>
     </div>
 
     <div class="container">
 
-        <div class="location-row">
-            <div class="location-main">
-                <strong>Location:</strong> {{ place.name }}
-            </div>
-
-            <a href="/" class="back-button">Back to Panchanga</a>
+<div class="location-row">
+    <div class="location-block">
+        <div class="location-main">
+            Location: {{ place.name }}
         </div>
 
         <div class="location-sub">
             Latitude: {{ place.latitude }},
             Longitude: {{ place.longitude }}
         </div>
+    </div>
+
+    <a href="/" class="back-button">Back to Panchanga</a>
+</div>
 
         <div class="card">
 
             <div class="row">
                 <div class="row-right">
-                    <strong>Change Eclipse Year:</strong>
+                    <strong>Change eclipse year:</strong>
 
                     <form method="get" action="/eclipse" style="display:inline;">
                         <select name="year" id="eclipse-year-select" class="year-select" onchange="this.form.submit()"></select>
@@ -373,7 +543,7 @@
                         {% set vis_label = "Possible" %}
                         {% set vis_class = "status-possible" %}
                     {% else %}
-                        {% set vis_label = "Not Visible" %}
+                        {% set vis_label = "Not visible" %}
                         {% set vis_class = "status-not-visible" %}
                     {% endif %}
 
@@ -441,7 +611,7 @@
     <div id="eclipseModal" class="modal-overlay" aria-hidden="true">
         <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <div class="modal-header">
-                <div id="modalTitle" class="modal-title">Eclipse Details</div>
+                <div id="modalTitle" class="modal-title">Eclipse details</div>
                 <button type="button" id="modalClose" class="modal-close" aria-label="Close">&times;</button>
             </div>
 
@@ -459,25 +629,25 @@
                     <div class="detail-label">Note</div>
                     <div class="detail-value" id="modalNote"></div>
 
-                    <div class="detail-label">Eclipse Kind</div>
+                    <div class="detail-label">Eclipse kind</div>
                     <div class="detail-value" id="modalKind"></div>
 
-                    <div class="detail-label">Local Start</div>
+                    <div class="detail-label">Local start</div>
                     <div class="detail-value" id="modalStart"></div>
 
-                    <div class="detail-label">Local Maximum</div>
+                    <div class="detail-label">Local maximum</div>
                     <div class="detail-value" id="modalMax"></div>
 
-                    <div class="detail-label">Local End</div>
+                    <div class="detail-label">Local end</div>
                     <div class="detail-value" id="modalEnd"></div>
 
-                    <div class="detail-label">Sun Altitude</div>
+                    <div class="detail-label">Sun altitude</div>
                     <div class="detail-value" id="modalSunAlt"></div>
 
-                    <div class="detail-label">Moon Altitude</div>
+                    <div class="detail-label">Moon altitude</div>
                     <div class="detail-value" id="modalMoonAlt"></div>
 
-                    <div class="detail-label">Moon Latitude</div>
+                    <div class="detail-label">Moon latitude</div>
                     <div class="detail-value" id="modalMoonLat"></div>
                 </div>
 

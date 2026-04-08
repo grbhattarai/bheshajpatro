@@ -2,13 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>About — Bheshaj Spiritual Center</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <title>About — Bheshaj Spiritual Center</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <!-- ===================================================== -->
+  <!-- Fonts                                                  -->
+  <!-- ===================================================== -->
+  <!--
+    Lora:
+      - body text
+      - section titles
+      - founder name
+      - labels
+      - credentials
+      - contact
+      - footer
+
+    Merriweather Sans:
+      - top header only
+      - pill buttons only
+  -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Merriweather+Sans:wght@700;800&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+    /* ===================================================== */
+    /* Root variables                                         */
+    /* ===================================================== */
     :root {
       --content-width: 980px;
 
@@ -29,8 +67,18 @@
 
       --shadow-soft: 0 6px 18px rgba(70, 38, 18, 0.05);
       --shadow-btn: 0 2px 8px rgba(80, 37, 15, 0.16);
+
+      --header-gold: #e0b65b;
+      --header-gold-soft: #f3d79e;
+      --header-cream: #fff2ca;
+
+      --font-main: 'Lora', Georgia, serif;
+      --font-brand: 'Merriweather Sans', Arial, sans-serif;
     }
 
+    /* ===================================================== */
+    /* Reset                                                  */
+    /* ===================================================== */
     *,
     *::before,
     *::after {
@@ -45,8 +93,8 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 20px;
+      font-family: var(--font-main);
+      font-size: 18px;
       line-height: 1.62;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -63,6 +111,18 @@
       z-index: 0;
     }
 
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ===================================================== */
+    /* Top bar                                                */
+    /* ===================================================== */
     .topbar {
       position: relative;
       z-index: 2;
@@ -70,31 +130,44 @@
       text-align: center;
       padding: 18px 20px 14px;
       box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16);
+      display: flex;
+      justify-content: center;
     }
 
     .topbar-title {
-      font-family: 'Cinzel', serif;
+      max-width: var(--content-width);
+      width: 100%;
+      font-family: var(--font-brand);
       font-size: 34px;
-      font-weight: 700;
-      line-height: 1.12;
-      letter-spacing: 0.03em;
-      color: #f3d79e;
-      text-transform: uppercase;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+      color: var(--header-gold);
+      text-transform: none;
+      opacity: 1;
+      text-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.18);
     }
 
+    /* ===================================================== */
+    /* Navigation band                                        */
+    /* ===================================================== */
     .navband {
       position: relative;
       z-index: 2;
       background: #e8dfd0;
       border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
     }
 
     .navband-inner {
+      width: 100%;
       max-width: var(--content-width);
       margin: 0 auto;
       padding: 14px 22px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
@@ -105,19 +178,26 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: auto;
+      min-width: 220px;
       padding: 12px 24px;
       border-radius: 999px;
       background: var(--accent);
       color: #fff2ca;
       text-decoration: none;
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-brand);
       font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.055em;
+      font-weight: 700;
+      letter-spacing: 0.01em;
       border: 1px solid rgba(77, 34, 12, 0.14);
       box-shadow: var(--shadow-btn);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
       white-space: nowrap;
+      text-transform: none;
     }
 
     .nav-btn:hover,
@@ -129,6 +209,9 @@
       outline: none;
     }
 
+    /* ===================================================== */
+    /* Page wrapper                                           */
+    /* ===================================================== */
     .page {
       position: relative;
       z-index: 1;
@@ -150,28 +233,41 @@
       padding-top: 6px;
     }
 
+    /* ===================================================== */
+    /* Section titles                                         */
+    /* ===================================================== */
     .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 23px;
+      font-family: var(--font-main);
+      font-size: 24px;
       font-weight: 600;
       line-height: 1.2;
-      letter-spacing: 0.02em;
+      letter-spacing: 0;
       color: var(--text-mid);
       margin: 0 0 8px;
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     .section-divider {
       width: 96px;
       height: 1px;
-      background: linear-gradient(to right, rgba(96, 53, 27, 0.65), rgba(96, 53, 27, 0.12));
+      background: linear-gradient(
+        to right,
+        rgba(96, 53, 27, 0.65),
+        rgba(96, 53, 27, 0.12)
+      );
       margin: 0 0 18px;
     }
 
+    /* ===================================================== */
+    /* Paragraphs                                             */
+    /* ===================================================== */
     p {
       margin: 0;
       color: #4f2f19;
       font-size: 1em;
+      font-family: var(--font-main);
+      font-weight: 400;
+      text-transform: none;
     }
 
     p + p {
@@ -186,6 +282,8 @@
       border-radius: 8px;
       font-size: 1.03em;
       color: #56331a;
+      font-family: var(--font-main);
+      text-transform: none;
     }
 
     .lead-note em {
@@ -193,6 +291,9 @@
       color: var(--text-mid);
     }
 
+    /* ===================================================== */
+    /* Founder section                                        */
+    /* ===================================================== */
     .founder-intro {
       max-width: 900px;
     }
@@ -212,22 +313,23 @@
       top: 18px;
       left: 63%;
       transform: translateX(-50%);
-      font-family: 'Cinzel', serif;
-      font-size: 26px;
+      font-family: var(--font-main);
+      font-size: 24px;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       color: rgba(96, 53, 27, 0.55);
       white-space: nowrap;
       pointer-events: none;
       z-index: 0;
+      text-transform: none;
     }
 
     .founder-top {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 250px minmax(0, 1fr);
-      gap: 42px;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 36px;
       align-items: center;
     }
 
@@ -250,13 +352,13 @@
     }
 
     .founder-name {
-      font-family: 'Cinzel', serif;
-      font-size: 17px;
+      font-family: var(--font-main);
+      font-size: 18px;
       font-weight: 600;
       line-height: 1.2;
-      letter-spacing: 0.02em;
+      letter-spacing: 0;
       color: var(--text-mid);
-      text-transform: uppercase;
+      text-transform: none;
       white-space: nowrap;
     }
 
@@ -278,10 +380,11 @@
     }
 
     .meta-label {
-      font-family: 'Cinzel', serif;
-      font-size: 14px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
+      font-family: var(--font-main);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
       color: var(--text-soft);
       margin-bottom: 10px;
     }
@@ -290,10 +393,11 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      font-family: 'Lora', Georgia, serif;
+      font-family: var(--font-main);
       font-size: 17px;
       line-height: 1.7;
       color: #5a3820;
+      text-transform: none;
     }
 
     .founder-credentials li {
@@ -311,10 +415,11 @@
     }
 
     .founder-contact {
-      font-family: 'Lora', Georgia, serif;
+      font-family: var(--font-main);
       font-size: 17px;
       line-height: 1.8;
       color: var(--text-soft);
+      text-transform: none;
     }
 
     .founder-contact a,
@@ -322,7 +427,9 @@
       color: var(--text-mid);
       text-decoration: none;
       border-bottom: 1px solid rgba(96, 53, 27, 0.28);
-      transition: border-color 0.18s ease, color 0.18s ease;
+      transition:
+        border-color 0.18s ease,
+        color 0.18s ease;
     }
 
     .founder-contact a:hover,
@@ -332,6 +439,9 @@
       outline: none;
     }
 
+    /* ===================================================== */
+    /* CTA                                                    */
+    /* ===================================================== */
     .page-cta {
       margin-top: 34px;
       padding: 22px 24px;
@@ -345,6 +455,8 @@
       margin: 0 0 14px;
       color: #5a3820;
       font-size: 1.02em;
+      font-family: var(--font-main);
+      text-transform: none;
     }
 
     .page-cta-actions {
@@ -354,16 +466,26 @@
       flex-wrap: wrap;
     }
 
+    /* ===================================================== */
+    /* Footer                                                 */
+    /* ===================================================== */
     .site-footer {
-      margin-top: 16px;
-      padding-left: 6px;
+      max-width: var(--content-width);
+      margin: 18px auto 24px auto;
+      padding: 0 16px;
+      text-align: left;
       color: var(--text-soft);
-      font-size: 18px;
+      font-size: 17px;
+      font-family: var(--font-main);
+      text-transform: none;
     }
 
+    /* ===================================================== */
+    /* Responsive                                             */
+    /* ===================================================== */
     @media (max-width: 860px) {
       body {
-        font-size: 19px;
+        font-size: 17px;
         line-height: 1.58;
       }
 
@@ -407,24 +529,34 @@
 
     @media (max-width: 720px) {
       body {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 1.54;
       }
 
-      .topbar-title {
-        font-size: 28px;
+      .topbar {
+        padding: 14px 12px 12px;
       }
 
-      .page {
-        padding: 18px 14px 24px;
+      .topbar-title {
+        font-size: clamp(24px, 6.5vw, 30px);
+        line-height: 1.08;
       }
 
       .navband-inner {
+        padding: 10px 12px;
         justify-content: center;
       }
 
-      .nav-btn {
-        width: 100%;
+      .nav-btn,
+      .nav-btn:visited {
+        width: auto;
+        min-width: 200px;
+        padding: 10px 18px;
+        font-size: 13px;
+      }
+
+      .page {
+        padding: 16px 12px 22px;
       }
 
       .content-block {
@@ -437,7 +569,7 @@
       }
 
       .section-title {
-        font-size: 21px;
+        font-size: 22px;
       }
 
       .founder-card {
@@ -455,31 +587,72 @@
 
       .page-cta-actions {
         flex-direction: column;
+        align-items: center;
       }
 
-      .page-cta-actions .nav-btn {
-        width: 100%;
+      .page-cta-actions .nav-btn,
+      .page-cta-actions .nav-btn:visited {
+        width: auto;
+        min-width: 220px;
+      }
+
+      .site-footer {
+        padding: 0 12px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .topbar-title {
+        font-size: 22px;
+      }
+
+      .section-title {
+        font-size: 21px;
+      }
+
+      .founder-motto-overlay {
+        font-size: 20px;
+      }
+
+      .nav-btn,
+      .nav-btn:visited {
+        min-width: 180px;
       }
     }
   </style>
 </head>
+
 <body>
 
+  <!-- ===================================================== -->
+  <!-- Header                                                 -->
+  <!-- ===================================================== -->
   <header class="topbar">
     <div class="topbar-title">Bheshaj Spiritual Center</div>
   </header>
 
+  <!-- ===================================================== -->
+  <!-- Navigation                                             -->
+  <!-- ===================================================== -->
   <div class="navband">
     <div class="navband-inner">
       <a class="nav-btn" href="/">Back to Panchanga</a>
     </div>
   </div>
 
+  <!-- ===================================================== -->
+  <!-- Main                                                   -->
+  <!-- ===================================================== -->
   <main class="page">
     <section class="content-block">
 
+      <!-- ================================================= -->
+      <!-- Spiritual Center                                  -->
+      <!-- ================================================= -->
       <section class="section" id="spiritual-center">
         <h1 class="section-title">Bheshaj Spiritual Center</h1>
+
         <div class="section-divider"></div>
 
         <p>
@@ -507,8 +680,12 @@
         </p>
       </section>
 
+      <!-- ================================================= -->
+      <!-- Panchanga                                          -->
+      <!-- ================================================= -->
       <section class="section" id="panchanga">
         <h2 class="section-title">Bheshaj Panchanga</h2>
+
         <div class="section-divider"></div>
 
         <p>
@@ -528,8 +705,12 @@
         </p>
       </section>
 
+      <!-- ================================================= -->
+      <!-- Founder                                            -->
+      <!-- ================================================= -->
       <section class="section" id="founder">
         <h2 class="section-title">Founder</h2>
+
         <div class="section-divider"></div>
 
         <div class="founder-intro">
@@ -551,7 +732,12 @@
 
           <div class="founder-top">
             <div class="founder-profile">
-              <img class="developer-photo" src="/static/p2photo.png" alt="Dr. Gandhi Bhattarai">
+              <img
+                class="developer-photo"
+                src="/static/p2photo.png"
+                alt="Dr. Gandhi Bhattarai"
+              >
+
               <div class="founder-name">Dr. Gandhi R. Bhattarai</div>
             </div>
 
@@ -559,6 +745,7 @@
               <div class="founder-meta">
                 <div class="meta-block">
                   <div class="meta-label">Credentials</div>
+
                   <ul class="founder-credentials">
                     <li>Jyotish Praveena (ICAS)</li>
                     <li>M.A. Vedic Jyotish (India)</li>
@@ -569,6 +756,7 @@
 
                 <div class="meta-block">
                   <div class="meta-label">Contact</div>
+
                   <div class="founder-contact">
                     Morrisville<br>
                     North Carolina, USA<br><br>
@@ -581,18 +769,33 @@
         </div>
       </section>
 
+      <!-- ================================================= -->
+      <!-- CTA                                                -->
+      <!-- ================================================= -->
       <div class="page-cta">
         <p class="page-cta-text">
           Bheshaj Panchanga remains the primary public offering of the Center.
         </p>
+
         <div class="page-cta-actions">
           <a class="nav-btn" href="/">Return to Panchanga</a>
-          <a class="nav-btn" href="https://astro.bheshaj.com" target="_blank" rel="noopener noreferrer">Visit Bheshaj Astrology</a>
+
+          <a
+            class="nav-btn"
+            href="https://astro.bheshaj.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Bheshaj Astrology
+          </a>
         </div>
       </div>
 
     </section>
 
+    <!-- =================================================== -->
+    <!-- Footer                                               -->
+    <!-- =================================================== -->
     <footer class="site-footer">
       © 2026 Bheshaj Spiritual Center
     </footer>

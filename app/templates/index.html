@@ -11,7 +11,7 @@
 <body>
 
 <div class="topbar">
-  <div style="max-width: 980px; margin: 0 auto;">
+  <div class="topbar-inner">
     <div class="topbar-title">Bheshaj Panchanga</div>
   </div>
 </div>
@@ -20,25 +20,41 @@
   <div class="subbar-inner">
     <div class="subbar-row subbar-row-top">
       <div class="subbar-text">
-        <strong>
-          Current Panchanga
+
+        <!-- Desktop / tablet: single line -->
+        <div class="subbar-meta-desktop">
+          <strong>Current Panchanga</strong>
           <span class="meta-sep">—</span>
           <span class="meta-label">Location:</span>
           <span class="meta-value">{{ place.name }}</span>
           <span class="meta-sep">•</span>
           <span class="meta-label">Method:</span>
           <span class="meta-value">{{ engine | capitalize }} (Modern)</span>
-        </strong>
+        </div>
+
+        <!-- Mobile: 3 lines -->
+        <div class="subbar-meta-mobile">
+          <div class="subbar-meta-line"><strong>Current Panchanga</strong></div>
+          <div class="subbar-meta-line">
+            <span class="meta-label">Location:</span>
+            <span class="meta-value">{{ place.name }}</span>
+          </div>
+          <div class="subbar-meta-line">
+            <span class="meta-label">Method:</span>
+            <span class="meta-value">{{ engine | capitalize }} (Modern)</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <div class="subbar-row subbar-row-actions">
       <a id="view-eclipses-link" class="subbar-btn" href="/eclipse?year={{ panchanga.result.date_ce[:4] }}">
-        View Eclipses
+        Eclipses
       </a>
 
       <a class="subbar-btn" href="/muhurta">
-        Find Muhurtas
+        Muhurtas
       </a>
 
       <a class="subbar-btn" href="/settings">
@@ -46,7 +62,7 @@
       </a>
 
       <a class="subbar-btn" href="/bheshaj">
-        About Bheshaj
+        About
       </a>
     </div>
   </div>
@@ -265,379 +281,380 @@
 
 <script>
   function getLocalTodayIso() {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, '0');
-  const d = String(now.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
-const todayIso = new Date().toISOString().slice(0, 10);
-let currentDate = "{{ panchanga.result.date_ce }}";
-let calViewYear, calViewMonth;
-
-const GREGORIAN_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const LUNAR_MONTHS = ["Vaishakha","Jyeshtha","Ashadha","Shrawana","Bhadrapada","Ashwin","Kartik","Mangsir","Poush","Magha","Phalguna","Chaitra"];
-const DAYS_SHORT = ["Su","Mo","Tu","We","Th","Fr","Sa"];
-
-const PANCH_MIN_YEAR = new Date().getFullYear() - 3;
-const PANCH_MAX_YEAR = new Date().getFullYear() + 5;
-
-function toTitleCaseWords(text) {
-  if (!text) return '';
-  return String(text)
-    .toLowerCase()
-    .replace(/\b\w/g, c => c.toUpperCase());
-}
-
-function formatGregorianDate(isoDate) {
-  if (!isoDate) return '';
-  const m = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!m) return isoDate;
-
-  const year = parseInt(m[1], 10);
-  const month = parseInt(m[2], 10);
-  const day = parseInt(m[3], 10);
-
-  return `${day} ${GREGORIAN_MONTHS[month - 1]} ${year}`;
-}
-
-function formatBsDate(bsDate) {
-  if (!bsDate) return '';
-  const m = String(bsDate).match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-  if (!m) return bsDate;
-
-  const day = parseInt(m[1], 10);
-  const month = parseInt(m[2], 10);
-  const year = parseInt(m[3], 10);
-  const monthName = LUNAR_MONTHS[month - 1] || month;
-
-  return `${day} ${monthName} ${year}`;
-}
-
-function populateYearMonthSelectors() {
-  const yearSelect = document.getElementById('year-select');
-  const monthSelect = document.getElementById('month-select');
-
-  if (!yearSelect || !monthSelect) return;
-
-  yearSelect.innerHTML = '';
-  for (let y = PANCH_MIN_YEAR; y <= PANCH_MAX_YEAR; y++) {
-    const opt = document.createElement('option');
-    opt.value = y;
-    opt.textContent = y;
-    yearSelect.appendChild(opt);
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 
-  monthSelect.innerHTML = '';
-  GREGORIAN_MONTHS.forEach((monthName, idx) => {
-    const opt = document.createElement('option');
-    opt.value = idx;
-    opt.textContent = monthName;
-    monthSelect.appendChild(opt);
-  });
-}
+  const todayIso = new Date().toISOString().slice(0, 10);
+  let currentDate = "{{ panchanga.result.date_ce }}";
+  let calViewYear, calViewMonth;
 
-function syncYearMonthSelectors() {
-  const yearSelect = document.getElementById('year-select');
-  const monthSelect = document.getElementById('month-select');
-  if (!yearSelect || !monthSelect) return;
+  const GREGORIAN_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const LUNAR_MONTHS = ["Vaishakha","Jyeshtha","Ashadha","Shrawana","Bhadrapada","Ashwin","Kartik","Mangsir","Poush","Magha","Phalguna","Chaitra"];
+  const DAYS_SHORT = ["Su","Mo","Tu","We","Th","Fr","Sa"];
 
-  yearSelect.value = String(calViewYear);
-  monthSelect.value = String(calViewMonth);
-}
+  const PANCH_MIN_YEAR = new Date().getFullYear() - 3;
+  const PANCH_MAX_YEAR = new Date().getFullYear() + 5;
 
-function handleYearMonthChange() {
-  const yearSelect = document.getElementById('year-select');
-  const monthSelect = document.getElementById('month-select');
-  if (!yearSelect || !monthSelect) return;
-
-  const targetYear = parseInt(yearSelect.value, 10);
-  const targetMonth = parseInt(monthSelect.value, 10);
-
-  const currentParts = currentDate.split('-');
-  const currentDay = parseInt(currentParts[2], 10);
-
-  const daysInTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
-  const clampedDay = Math.min(currentDay, daysInTargetMonth);
-
-  const isoDate = `${targetYear}-${String(targetMonth + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
-
-  calViewYear = targetYear;
-  calViewMonth = targetMonth;
-  loadDate(isoDate, true);
-}
-
-function changeMonth(delta) {
-  const currentParts = currentDate.split('-');
-  let year = parseInt(currentParts[0], 10);
-  let month = parseInt(currentParts[1], 10) - 1;
-  let day = parseInt(currentParts[2], 10);
-
-  month += delta;
-
-  if (month < 0) {
-    month = 11;
-    year -= 1;
-  } else if (month > 11) {
-    month = 0;
-    year += 1;
+  function toTitleCaseWords(text) {
+    if (!text) return '';
+    return String(text)
+      .toLowerCase()
+      .replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  if (year < PANCH_MIN_YEAR) {
-    year = PANCH_MIN_YEAR;
-    month = 0;
-  }
-  if (year > PANCH_MAX_YEAR) {
-    year = PANCH_MAX_YEAR;
-    month = 11;
-  }
+  function formatGregorianDate(isoDate) {
+    if (!isoDate) return '';
+    const m = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return isoDate;
 
-  const daysInTargetMonth = new Date(year, month + 1, 0).getDate();
-  const clampedDay = Math.min(day, daysInTargetMonth);
+    const year = parseInt(m[1], 10);
+    const month = parseInt(m[2], 10);
+    const day = parseInt(m[3], 10);
 
-  const isoDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
-
-  calViewYear = year;
-  calViewMonth = month;
-  syncYearMonthSelectors();
-  loadDate(isoDate, true);
-}
-function initCalendar() {
-  const parts = currentDate.split('-');
-  calViewYear = parseInt(parts[0], 10);
-  calViewMonth = parseInt(parts[1], 10) - 1;
-
-  populateYearMonthSelectors();
-  syncYearMonthSelectors();
-  renderCalendar();
-}
-
-function renderCalendar() {
-  syncYearMonthSelectors();
-
-  const monthTitle = document.getElementById('month-title');
-  if (monthTitle) {
-    monthTitle.textContent = `${GREGORIAN_MONTHS[calViewMonth]} ${calViewYear}`;
+    return `${day} ${GREGORIAN_MONTHS[month - 1]} ${year}`;
   }
 
-  const grid = document.getElementById('cal-grid');
-  grid.innerHTML = '';
+  function formatBsDate(bsDate) {
+    if (!bsDate) return '';
+    const m = String(bsDate).match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+    if (!m) return bsDate;
 
-  DAYS_SHORT.forEach(d => {
-    const el = document.createElement('div');
-    el.className = 'mini-cal-day-header';
-    el.textContent = d;
-    grid.appendChild(el);
-  });
+    const day = parseInt(m[1], 10);
+    const month = parseInt(m[2], 10);
+    const year = parseInt(m[3], 10);
+    const monthName = LUNAR_MONTHS[month - 1] || month;
 
-  const firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
-  const daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
-  const prevDays = new Date(calViewYear, calViewMonth, 0).getDate();
-
-  for (let i = firstDay - 1; i >= 0; i--) {
-    const el = document.createElement('div');
-    el.className = 'mini-cal-day other-month';
-    el.textContent = prevDays - i;
-    grid.appendChild(el);
+    return `${day} ${monthName} ${year}`;
   }
 
-  const selParts = currentDate.split('-');
-  const selYear = parseInt(selParts[0], 10);
-  const selMonth = parseInt(selParts[1], 10) - 1;
-  const selDay = parseInt(selParts[2], 10);
+  function populateYearMonthSelectors() {
+    const yearSelect = document.getElementById('year-select');
+    const monthSelect = document.getElementById('month-select');
 
-  for (let d = 1; d <= daysInMonth; d++) {
-    const el = document.createElement('div');
-    el.className = 'mini-cal-day';
+    if (!yearSelect || !monthSelect) return;
 
-    const isoDate = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-
-if (calViewYear === selYear && calViewMonth === selMonth && d === selDay) {
-  el.classList.add('selected');
-}
-
-    const dateObj = new Date(calViewYear, calViewMonth, d);
-    const minDate = new Date(PANCH_MIN_YEAR, 0, 1);
-    const maxDate = new Date(PANCH_MAX_YEAR, 11, 31);
-
-    if (dateObj >= minDate && dateObj <= maxDate) {
-      el.textContent = d;
-      el.onclick = () => loadDate(isoDate);
-    } else {
-      el.textContent = d;
-      el.style.opacity = '0.2';
-      el.style.cursor = 'default';
+    yearSelect.innerHTML = '';
+    for (let y = PANCH_MIN_YEAR; y <= PANCH_MAX_YEAR; y++) {
+      const opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      yearSelect.appendChild(opt);
     }
-    grid.appendChild(el);
+
+    monthSelect.innerHTML = '';
+    GREGORIAN_MONTHS.forEach((monthName, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = monthName;
+      monthSelect.appendChild(opt);
+    });
   }
 
-  const total = firstDay + daysInMonth;
-  const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+  function syncYearMonthSelectors() {
+    const yearSelect = document.getElementById('year-select');
+    const monthSelect = document.getElementById('month-select');
+    if (!yearSelect || !monthSelect) return;
 
-  for (let d = 1; d <= remaining; d++) {
-    const el = document.createElement('div');
-    el.className = 'mini-cal-day other-month';
-    el.textContent = d;
-    grid.appendChild(el);
+    yearSelect.value = String(calViewYear);
+    monthSelect.value = String(calViewMonth);
   }
-}
 
-function goToday() {
-  const todayIso = getLocalTodayIso();
-  loadDate(todayIso, true);
-}
+  function handleYearMonthChange() {
+    const yearSelect = document.getElementById('year-select');
+    const monthSelect = document.getElementById('month-select');
+    if (!yearSelect || !monthSelect) return;
 
-async function loadDate(iso, force = false) {
-  if (!force && iso === currentDate) return;
+    const targetYear = parseInt(yearSelect.value, 10);
+    const targetMonth = parseInt(monthSelect.value, 10);
 
-  const overlay = document.getElementById('loading-overlay');
-  overlay.classList.add('active');
+    const currentParts = currentDate.split('-');
+    const currentDay = parseInt(currentParts[2], 10);
 
-  try {
-    const resp = await fetch(`/api/panchanga/day?date_str=${iso}`);
-    if (!resp.ok) throw new Error('API error');
+    const daysInTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+    const clampedDay = Math.min(currentDay, daysInTargetMonth);
 
-    const data = await resp.json();
-    updateUI(data);
-    currentDate = iso;
+    const isoDate = `${targetYear}-${String(targetMonth + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
 
-    const parts = iso.split('-');
+    calViewYear = targetYear;
+    calViewMonth = targetMonth;
+    loadDate(isoDate, true);
+  }
+
+  function changeMonth(delta) {
+    const currentParts = currentDate.split('-');
+    let year = parseInt(currentParts[0], 10);
+    let month = parseInt(currentParts[1], 10) - 1;
+    let day = parseInt(currentParts[2], 10);
+
+    month += delta;
+
+    if (month < 0) {
+      month = 11;
+      year -= 1;
+    } else if (month > 11) {
+      month = 0;
+      year += 1;
+    }
+
+    if (year < PANCH_MIN_YEAR) {
+      year = PANCH_MIN_YEAR;
+      month = 0;
+    }
+    if (year > PANCH_MAX_YEAR) {
+      year = PANCH_MAX_YEAR;
+      month = 11;
+    }
+
+    const daysInTargetMonth = new Date(year, month + 1, 0).getDate();
+    const clampedDay = Math.min(day, daysInTargetMonth);
+
+    const isoDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
+
+    calViewYear = year;
+    calViewMonth = month;
+    syncYearMonthSelectors();
+    loadDate(isoDate, true);
+  }
+
+  function initCalendar() {
+    const parts = currentDate.split('-');
     calViewYear = parseInt(parts[0], 10);
     calViewMonth = parseInt(parts[1], 10) - 1;
+
+    populateYearMonthSelectors();
+    syncYearMonthSelectors();
     renderCalendar();
-
-    updateEclipseLinkYear(iso);
-  } catch (e) {
-    console.error('Failed to load panchanga for', iso, e);
-    alert('Could not load Panchanga for ' + iso);
-  } finally {
-    overlay.classList.remove('active');
-  }
-}
-
-function setText(id, val) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = val || '';
-}
-
-function setLine(id, val) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.innerHTML = val || '';
-  el.style.display = val ? '' : 'none';
-}
-
-function cleanTithiName(name) {
-  if (!name) return '';
-  return name
-    .replace(/^Shukla\s+/i, '')
-    .replace(/^Krishna\s+/i, '')
-    .trim();
-}
-
-function formatDisplayTime(hm) {
-  if (!hm) return '';
-
-  const m = hm.match(/^(\d{1,2}):(\d{2})$/);
-  if (!m) return hm;
-
-  let hour = parseInt(m[1], 10);
-  const minute = m[2];
-
-  if (hour >= 24) {
-    hour -= 24;
   }
 
-  const suffix = hour >= 12 ? 'PM' : 'AM';
-  let hour12 = hour % 12;
-  if (hour12 === 0) hour12 = 12;
+  function renderCalendar() {
+    syncYearMonthSelectors();
 
-  return `${hour12}:${minute} ${suffix}`;
-}
+    const monthTitle = document.getElementById('month-title');
+    if (monthTitle) {
+      monthTitle.textContent = `${GREGORIAN_MONTHS[calViewMonth]} ${calViewYear}`;
+    }
 
-function buildLine(name, hm, kind = '') {
-  if (!name) return '';
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
 
-  let displayName = name;
-  if (kind === 'tithi') {
-    displayName = cleanTithiName(name);
+    DAYS_SHORT.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'mini-cal-day-header';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
+    const daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+    const prevDays = new Date(calViewYear, calViewMonth, 0).getDate();
+
+    for (let i = firstDay - 1; i >= 0; i--) {
+      const el = document.createElement('div');
+      el.className = 'mini-cal-day other-month';
+      el.textContent = prevDays - i;
+      grid.appendChild(el);
+    }
+
+    const selParts = currentDate.split('-');
+    const selYear = parseInt(selParts[0], 10);
+    const selMonth = parseInt(selParts[1], 10) - 1;
+    const selDay = parseInt(selParts[2], 10);
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const el = document.createElement('div');
+      el.className = 'mini-cal-day';
+
+      const isoDate = `${calViewYear}-${String(calViewMonth + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+      if (calViewYear === selYear && calViewMonth === selMonth && d === selDay) {
+        el.classList.add('selected');
+      }
+
+      const dateObj = new Date(calViewYear, calViewMonth, d);
+      const minDate = new Date(PANCH_MIN_YEAR, 0, 1);
+      const maxDate = new Date(PANCH_MAX_YEAR, 11, 31);
+
+      if (dateObj >= minDate && dateObj <= maxDate) {
+        el.textContent = d;
+        el.onclick = () => loadDate(isoDate);
+      } else {
+        el.textContent = d;
+        el.style.opacity = '0.2';
+        el.style.cursor = 'default';
+      }
+      grid.appendChild(el);
+    }
+
+    const total = firstDay + daysInMonth;
+    const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+
+    for (let d = 1; d <= remaining; d++) {
+      const el = document.createElement('div');
+      el.className = 'mini-cal-day other-month';
+      el.textContent = d;
+      grid.appendChild(el);
+    }
   }
 
-  const displayHm = formatDisplayTime(hm);
-  return displayHm ? `${displayName} &nbsp; ${displayHm}` : displayName;
-}
-
-function formatMoonRashiLines(rashi1, rashi2, hm) {
-  const first = (rashi1 || '').trim();
-  const second = (rashi2 || '').trim();
-  const time = formatDisplayTime(hm || '');
-
-  if (!second || second === first) {
-    return { line1: first, line2: '' };
+  function goToday() {
+    const todayIso = getLocalTodayIso();
+    loadDate(todayIso, true);
   }
 
-  return {
-    line1: time ? `${first} ${time}` : first,
-    line2: second
-  };
-}
+  async function loadDate(iso, force = false) {
+    if (!force && iso === currentDate) return;
 
-function updateEclipseLinkYear(isoDate) {
-  const eclipseLink = document.getElementById('view-eclipses-link');
-  if (!eclipseLink || !isoDate) return;
+    const overlay = document.getElementById('loading-overlay');
+    overlay.classList.add('active');
 
-  const year = isoDate.split('-')[0];
-  eclipseLink.href = `/eclipse?year=${year}`;
-}
+    try {
+      const resp = await fetch(`/api/panchanga/day?date_str=${iso}`);
+      if (!resp.ok) throw new Error('API error');
 
-function updateUI(data) {
-  const r = data.result;
+      const data = await resp.json();
+      updateUI(data);
+      currentDate = iso;
 
-  setText('day-name', (r.day_name || '').toUpperCase());
-  setText('date-ce-large', formatGregorianDate(r.date_ce));
-  setText('date-bs-large', formatBsDate(r.date_bs));
+      const parts = iso.split('-');
+      calViewYear = parseInt(parts[0], 10);
+      calViewMonth = parseInt(parts[1], 10) - 1;
+      renderCalendar();
 
-  const pb = document.getElementById('paksha-badge');
-  if (pb) {
-    pb.textContent = toTitleCaseWords(r.paksha || '') + ' Paksha';
-    pb.className = 'paksha-badge paksha-' + (r.paksha || 'shukla');
+      updateEclipseLinkYear(iso);
+    } catch (e) {
+      console.error('Failed to load panchanga for', iso, e);
+      alert('Could not load Panchanga for ' + iso);
+    } finally {
+      overlay.classList.remove('active');
+    }
   }
 
-  setText('sunrise-hm', r.sunrise_hm);
-  setText('sunset-hm', r.sunset_hm);
-  setText('dinamana-hm', r.dinamana_hm);
-
-  setLine('tithi-line-1', buildLine(r.tithi1_name, r.tithi1_hm, 'tithi'));
-  setLine('tithi-line-2', buildLine(r.tithi2_name, r.tithi2_hm, 'tithi'));
-  setLine('tithi-line-3', buildLine(r.tithi3_name, r.tithi3_hm, 'tithi'));
-
-  setLine('nakshatra-line-1', buildLine(r.nakshatra1_name, r.nakshatra1_hm));
-  setLine('nakshatra-line-2', buildLine(r.nakshatra2_name, r.nakshatra2_hm));
-
-  setLine('karana-line-1', buildLine(r.karana1_name, r.karana1_hm));
-  setLine('karana-line-2', buildLine(r.karana2_name, r.karana2_hm));
-  setLine('karana-line-3', buildLine(r.karana3_name, r.karana3_hm));
-  setLine('karana-line-4', buildLine(r.karana4_name, r.karana4_hm));
-
-  setLine('yoga-line-1', buildLine(r.yoga1_name, r.yoga1_hm));
-  setLine('yoga-line-2', buildLine(r.yoga2_name, r.yoga2_hm));
-
-  setText('sun-line-1', r.sun_rashi1_name || '');
-
-  const moonLines = formatMoonRashiLines(r.moon_rashi1_name, r.moon_rashi2_name, r.moon_rashi1_hm);
-  setText('moon-rashi-line-1', moonLines.line1);
-
-  const moonLine2 = document.getElementById('moon-rashi-line-2');
-  if (moonLine2) {
-    moonLine2.textContent = moonLines.line2 || '';
-    moonLine2.style.display = moonLines.line2 ? '' : 'none';
+  function setText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val || '';
   }
-}
 
-initCalendar();
-updateEclipseLinkYear(currentDate);
-updateUI({ result: {{ panchanga.model_dump()["result"] | tojson }} });
+  function setLine(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = val || '';
+    el.style.display = val ? '' : 'none';
+  }
+
+  function cleanTithiName(name) {
+    if (!name) return '';
+    return name
+      .replace(/^Shukla\s+/i, '')
+      .replace(/^Krishna\s+/i, '')
+      .trim();
+  }
+
+  function formatDisplayTime(hm) {
+    if (!hm) return '';
+
+    const m = hm.match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) return hm;
+
+    let hour = parseInt(m[1], 10);
+    const minute = m[2];
+
+    if (hour >= 24) {
+      hour -= 24;
+    }
+
+    const suffix = hour >= 12 ? 'PM' : 'AM';
+    let hour12 = hour % 12;
+    if (hour12 === 0) hour12 = 12;
+
+    return `${hour12}:${minute} ${suffix}`;
+  }
+
+  function buildLine(name, hm, kind = '') {
+    if (!name) return '';
+
+    let displayName = name;
+    if (kind === 'tithi') {
+      displayName = cleanTithiName(name);
+    }
+
+    const displayHm = formatDisplayTime(hm);
+    return displayHm ? `${displayName} &nbsp; ${displayHm}` : displayName;
+  }
+
+  function formatMoonRashiLines(rashi1, rashi2, hm) {
+    const first = (rashi1 || '').trim();
+    const second = (rashi2 || '').trim();
+    const time = formatDisplayTime(hm || '');
+
+    if (!second || second === first) {
+      return { line1: first, line2: '' };
+    }
+
+    return {
+      line1: time ? `${first} ${time}` : first,
+      line2: second
+    };
+  }
+
+  function updateEclipseLinkYear(isoDate) {
+    const eclipseLink = document.getElementById('view-eclipses-link');
+    if (!eclipseLink || !isoDate) return;
+
+    const year = isoDate.split('-')[0];
+    eclipseLink.href = `/eclipse?year=${year}`;
+  }
+
+  function updateUI(data) {
+    const r = data.result;
+
+    setText('day-name', (r.day_name || '').toUpperCase());
+    setText('date-ce-large', formatGregorianDate(r.date_ce));
+    setText('date-bs-large', formatBsDate(r.date_bs));
+
+    const pb = document.getElementById('paksha-badge');
+    if (pb) {
+      pb.textContent = toTitleCaseWords(r.paksha || '') + ' Paksha';
+      pb.className = 'paksha-badge paksha-' + (r.paksha || 'shukla');
+    }
+
+    setText('sunrise-hm', r.sunrise_hm);
+    setText('sunset-hm', r.sunset_hm);
+    setText('dinamana-hm', r.dinamana_hm);
+
+    setLine('tithi-line-1', buildLine(r.tithi1_name, r.tithi1_hm, 'tithi'));
+    setLine('tithi-line-2', buildLine(r.tithi2_name, r.tithi2_hm, 'tithi'));
+    setLine('tithi-line-3', buildLine(r.tithi3_name, r.tithi3_hm, 'tithi'));
+
+    setLine('nakshatra-line-1', buildLine(r.nakshatra1_name, r.nakshatra1_hm));
+    setLine('nakshatra-line-2', buildLine(r.nakshatra2_name, r.nakshatra2_hm));
+
+    setLine('karana-line-1', buildLine(r.karana1_name, r.karana1_hm));
+    setLine('karana-line-2', buildLine(r.karana2_name, r.karana2_hm));
+    setLine('karana-line-3', buildLine(r.karana3_name, r.karana3_hm));
+    setLine('karana-line-4', buildLine(r.karana4_name, r.karana4_hm));
+
+    setLine('yoga-line-1', buildLine(r.yoga1_name, r.yoga1_hm));
+    setLine('yoga-line-2', buildLine(r.yoga2_name, r.yoga2_hm));
+
+    setText('sun-line-1', r.sun_rashi1_name || '');
+
+    const moonLines = formatMoonRashiLines(r.moon_rashi1_name, r.moon_rashi2_name, r.moon_rashi1_hm);
+    setText('moon-rashi-line-1', moonLines.line1);
+
+    const moonLine2 = document.getElementById('moon-rashi-line-2');
+    if (moonLine2) {
+      moonLine2.textContent = moonLines.line2 || '';
+      moonLine2.style.display = moonLines.line2 ? '' : 'none';
+    }
+  }
+
+  initCalendar();
+  updateEclipseLinkYear(currentDate);
+  updateUI({ result: {{ panchanga.model_dump()["result"] | tojson }} });
 </script>
 
 </body>
