@@ -1,24 +1,34 @@
 :root {
-  --bg:             #faf5ec;
-  --bg-card:        #f4ead8;
-  --bg-deep:        #ede0c8;
-  --accent:         #b85c2a;
-  --accent-dark:    #7a3a18;
-  --accent-light:   #e8a068;
-  --gold:           #c9922a;
-  --gold-light:     #e8c97a;
-  --text:           #271508;
-  --text-mid:       #5a3018;
-  --text-soft:      #8a6040;
-  --border:         #c9a870;
-  --border-light:   #e2cfa8;
-  --shukla-bg:      #f8f2e4;
-  --krishna-bg:     #2a1a0a;
-  --krishna-text:   #f0e0c0;
+  --bg: #faf5ec;
+  --bg-card: #f4ead8;
+  --bg-deep: #ede0c8;
+  --accent: #b85c2a;
+  --accent-dark: #7a3a18;
+  --accent-light: #e8a068;
+  --gold: #c9922a;
+  --gold-light: #e8c97a;
+  --text: #271508;
+  --text-mid: #5a3018;
+  --text-soft: #8a6040;
+  --border: #c9a870;
+  --border-light: #e2cfa8;
+  --shukla-bg: #f8f2e4;
+  --krishna-bg: #2a1a0a;
+  --krishna-text: #f0e0c0;
+
+  --font-main: 'Lora', Georgia, serif;
+  --font-brand: 'Source Sans 3', system-ui, sans-serif;
+  --font-title: 'Cinzel', serif;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -26,9 +36,10 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 17px;
-  line-height: 1.65;
+  font-family: var(--font-main);
+  font-size: 18.5px;
+  line-height: 1.72;
+  font-weight: 500;
 }
 
 body::before {
@@ -40,6 +51,10 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
+
+/* =========================
+   TOP
+   ========================= */
 
 .topbar {
   background: #5a2410;
@@ -56,12 +71,12 @@ body::before {
 }
 
 .topbar-title {
-  font-family: 'Cinzel', serif;
-  font-size: 42px;
+  font-family: var(--font-title);
+  font-size: clamp(44px, 5vw, 72px);
   font-weight: 700;
   color: var(--gold-light);
-  line-height: 1.05;
-  letter-spacing: 0.03em;
+  line-height: 1.04;
+  letter-spacing: 0.015em;
   text-wrap: balance;
 }
 
@@ -76,7 +91,6 @@ body::before {
   max-width: 980px;
   margin: 0 auto;
   padding: 10px 20px 12px;
-  display: block;
 }
 
 .subbar-row {
@@ -98,12 +112,28 @@ body::before {
   align-items: center;
   flex-wrap: wrap;
   text-align: center;
-  font-size: 17px;
-  line-height: 1.3;
+  font-size: 19px;
+  line-height: 1.35;
 }
 
 .subbar-meta-item {
   display: inline;
+}
+
+.meta-label {
+  font-size: 0.98em;
+  color: #8a6a45;
+  margin-right: 4px;
+}
+
+.meta-value {
+  color: #5a3f23;
+  font-weight: 600;
+}
+
+.meta-sep {
+  margin: 0 8px;
+  color: #c2a98a;
 }
 
 .subbar-row-actions {
@@ -126,12 +156,12 @@ body::before {
   border-radius: 999px;
   background: var(--accent);
   color: #fff3cc !important;
-  font-weight: 600;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   text-decoration: none !important;
-  font-family: 'Cinzel', serif;
-  font-size: 12px;
-  letter-spacing: 0.07em;
+  font-family: var(--font-brand);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   line-height: 1;
   white-space: nowrap;
   transition: all 0.2s ease;
@@ -147,21 +177,9 @@ body::before {
   transform: translateY(0);
 }
 
-.meta-label {
-  font-size: 0.98em;
-  color: #8a6a45;
-  margin-right: 4px;
-}
-
-.meta-value {
-  color: #5a3f23;
-  font-weight: 500;
-}
-
-.meta-sep {
-  margin: 0 8px;
-  color: #c2a98a;
-}
+/* =========================
+   PAGE
+   ========================= */
 
 .page {
   max-width: 980px;
@@ -186,10 +204,21 @@ body::before {
   max-width: 100%;
 }
 
+.panchanga-content {
+  min-width: 0;
+  width: 667px;
+  max-width: 100%;
+  position: relative;
+}
+
+/* =========================
+   LEFT PANEL
+   ========================= */
+
 .date-nav-header {
   background: var(--accent);
   border-radius: 10px 10px 0 0;
-  padding: 14px 14px 12px;
+  padding: 14px 20px 12px;
 }
 
 .date-nav-arrows {
@@ -197,46 +226,49 @@ body::before {
   align-items: flex-start;
 }
 
-.date-display {
+.date-display.date-display-stacked {
   width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 10px;
-  min-width: 0;
-  justify-content: center;
-}
-
-.date-select-block {
-  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  align-items: center;
+  gap: 14px;
 }
 
-.date-display label {
+.date-select-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 12px;
+}
+
+.date-display.date-display-stacked .date-select-block {
+  display: contents;
+}
+
+.date-display.date-display-stacked .date-select-block label {
   display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  font-weight: 600;
+  margin: 0;
+  font-family: var(--font-brand);
+  font-size: 13px;
+  font-weight: 700;
   color: #f2d7af;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0;
+  text-align: left;
 }
 
-.date-display select {
-  width: auto;
-  min-width: 140px;
+.date-display.date-display-stacked .date-select-block select {
+  width: 100%;
+  min-width: 0;
   max-width: 100%;
   height: 40px;
   padding: 5px 38px 5px 14px;
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
   background-color: #fffaf2;
   color: var(--text);
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 19px;
+  font-family: var(--font-main);
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.2;
   appearance: none;
@@ -244,11 +276,11 @@ body::before {
   -moz-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a3a18' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 10px center;
+  background-position: right 12px center;
   cursor: pointer;
 }
 
-.date-display select:focus {
+.date-display.date-display-stacked .date-select-block select:focus {
   outline: none;
   border-color: var(--gold-light);
   box-shadow: 0 0 0 2px rgba(232, 201, 122, 0.18);
@@ -262,77 +294,98 @@ body::before {
   padding: 14px 14px 16px;
 }
 
-.mini-cal-monthbar {
+.mini-cal-monthbar,
+.mini-cal-daybar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
-  margin: 2px 0 12px;
-}
-
-#month-title {
-  text-align: center;
-  font-family: 'Cinzel', serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.mini-cal-month-actions {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
   flex-wrap: nowrap;
+  gap: 16px;
+  width: 100%;
 }
 
-.month-advance-btn {
+.mini-cal-monthbar {
+  margin: 2px 0 14px;
+}
+
+.mini-cal-daybar {
+  margin-top: 14px;
+}
+
+.nav-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: auto;
-  min-width: 140px;
+  min-width: 0;
   flex: 0 0 auto;
-  height: 40px;
-  padding: 8px 24px;
+  height: 38px;
+  padding: 0 20px;
+  border: 2px solid var(--accent);
   border-radius: 999px;
   background: transparent;
   color: var(--accent);
-  border: 1.5px solid var(--accent);
-  font-family: 'Cinzel', serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-family: var(--font-brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.month-advance-btn:hover {
+.nav-pill:hover {
   background: var(--accent);
   color: #fff3cc;
   transform: translateY(-1px);
 }
 
-.month-advance-btn:active {
+.nav-pill:active {
   transform: translateY(0);
-  opacity: 0.9;
+}
+
+.nav-pill-side,
+.nav-pill-center {
+  flex: 0 0 auto;
+}
+
+#month-title {
+  display: inline-block;
+  width: auto;
+  text-align: center;
+  font-family: var(--font-brand);
+  font-size: 12px;
+  font-weight: 700;
+  color: inherit;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav-pill-day {
+  height: 34px;
+  padding: 0 18px;
+  font-size: 10.5px;
 }
 
 .mini-cal-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 6px 4px;
+  width: 100%;
 }
 
 .mini-cal-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
   text-align: center;
-  font-size: 12px;
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
+  font-size: 11px;
+  font-family: var(--font-brand);
+  font-weight: 700;
   color: var(--text-soft);
   padding: 4px 0 6px;
   letter-spacing: 0.05em;
@@ -345,9 +398,9 @@ body::before {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: 'EB Garamond', Georgia, serif;
+  font-family: var(--font-main);
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   padding: 6px 4px;
   cursor: pointer;
@@ -361,12 +414,6 @@ body::before {
   color: var(--accent);
 }
 
-.mini-cal-day.today {
-  background: var(--accent-light);
-  color: white;
-  font-weight: 700;
-}
-
 .mini-cal-day.selected {
   background: var(--accent);
   color: var(--gold-light);
@@ -377,35 +424,9 @@ body::before {
   opacity: 0.35;
 }
 
-.btn-today {
-  display: block;
-  width: auto;
-  min-width: 180px;
-  margin: 16px auto 0;
-  padding: 10px 28px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 7px;
-  font-family: 'Cinzel', serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-today:hover {
-  background: var(--accent-dark);
-}
-
-.panchanga-content {
-  min-width: 0;
-  width: 667px;
-  max-width: 100%;
-  position: relative;
-}
+/* =========================
+   RIGHT PANEL
+   ========================= */
 
 .day-header {
   background: var(--bg-card);
@@ -453,8 +474,8 @@ body::before {
 }
 
 .day-name-large {
-  font-family: 'Cinzel', serif;
-  font-size: 18px;
+  font-family: var(--font-brand);
+  font-size: 17px;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 0.08em;
@@ -463,30 +484,29 @@ body::before {
   white-space: nowrap;
 }
 
-.date-ce-large {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 30px;
+.date-ce-large,
+.date-bs-large {
+  font-family: var(--font-main);
+  font-size: 28px;
   font-weight: 700;
-  color: var(--text-mid);
-  line-height: 1.12;
+  line-height: 1.06;
   white-space: nowrap;
+}
+
+.date-ce-large {
+  color: var(--text-mid);
 }
 
 .date-bs-large {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 30px;
-  font-weight: 700;
   color: #9a6c45;
   opacity: 0.95;
-  line-height: 1.1;
-  white-space: nowrap;
 }
 
 .paksha-badge {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-brand);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   padding: 6px 14px;
   border-radius: 20px;
   text-transform: uppercase;
@@ -539,16 +559,17 @@ body::before {
 }
 
 .sun-label {
-  font-size: 12px;
+  font-size: 10px;
   color: var(--text-soft);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-brand);
+  font-weight: 600;
   letter-spacing: 0.05em;
   white-space: nowrap;
 }
 
 .sun-time {
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text);
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -596,16 +617,16 @@ body::before {
 
 .info-label {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text);
   line-height: 1.5;
   white-space: nowrap;
 }
 
 .info-values {
-  font-size: 17px;
+  font-size: 15px;
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .info-values > div:empty {
@@ -659,20 +680,24 @@ body::before {
 }
 
 .summary-values {
-  font-size: 17px;
+  font-size: 15px;
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .summary-values > div:empty {
   display: none;
 }
 
+/* =========================
+   LOADING / FOOTER
+   ========================= */
+
 .loading-overlay {
   display: none;
   position: absolute;
   inset: 0;
-  background: rgba(250,245,236,0.8);
+  background: rgba(250, 245, 236, 0.8);
   border-radius: 10px;
   align-items: center;
   justify-content: center;
@@ -693,7 +718,9 @@ body::before {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .dev-note {
@@ -701,8 +728,9 @@ body::before {
   padding: 12px 16px;
   max-width: 980px;
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 15px;
   color: #7a5a36;
+  line-height: 1.6;
   background-color: #f7f1e8;
   border-top: 1px solid #e6d8c5;
   border-radius: 6px;
@@ -713,11 +741,16 @@ body::before {
   margin: 6px auto 18px auto;
   padding-left: 6px;
   text-align: left;
-  font-size: 0.95rem;
+  font-size: 15px;
   color: #8a6a45;
-  font-family: 'EB Garamond', serif;
+  font-family: var(--font-main);
+  line-height: 1.6;
   letter-spacing: 0.4px;
 }
+
+/* =========================
+   RESPONSIVE
+   ========================= */
 
 @media (max-width: 900px) {
   .main-layout {
@@ -733,17 +766,29 @@ body::before {
   .panchanga-content {
     width: 100%;
   }
+
+  .topbar-title {
+    font-size: clamp(34px, 6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: 0.012em;
+  }
 }
 
 @media (max-width: 680px) {
+  body {
+    font-size: 16.8px;
+  }
+
   .topbar {
     padding: 12px 10px 10px;
   }
 
   .topbar-title {
-    font-size: clamp(24px, 6.8vw, 34px);
+    font-size: clamp(24px, 7vw, 40px);
     line-height: 1.06;
-    letter-spacing: 0.015em;
+    letter-spacing: 0.008em;
+    white-space: normal;
+    text-wrap: balance;
   }
 
   .subbar-inner {
@@ -759,7 +804,7 @@ body::before {
     flex-direction: column;
     align-items: center;
     gap: 2px;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.2;
   }
 
@@ -771,9 +816,7 @@ body::before {
     display: none;
   }
 
-  /* 4 nav buttons on one line */
   .subbar-row-actions {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 6px;
   }
@@ -781,7 +824,7 @@ body::before {
   .subbar-btn,
   .subbar-btn:visited {
     min-height: 30px;
-    font-size: 9px;
+    font-size: 11px;
     padding: 5px 2px;
     letter-spacing: 0.01em;
   }
@@ -791,70 +834,55 @@ body::before {
   }
 
   .date-nav-header {
-    padding: 10px 10px 8px;
+    padding: 10px 12px 10px;
   }
 
-  /* year/month controls compact, side by side, not full width */
-  .date-display {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 10px;
-    flex-wrap: nowrap;
+  .date-display.date-display-stacked {
+    gap: 12px;
   }
 
-  .date-select-block {
-    width: auto;
-    min-width: 0;
-    align-items: flex-start;
+  .date-select-row {
+    grid-template-columns: 74px minmax(0, 1fr);
+    column-gap: 10px;
   }
 
-  .date-display label {
-    font-size: 9px;
-    margin-bottom: 1px;
+  .date-display.date-display-stacked .date-select-block label {
+    font-size: 11px;
   }
 
-  .date-display select {
-    width: auto;
-    min-width: 120px;
-    max-width: 140px;
-    height: 36px;
-    font-size: 16px;
-    padding: 4px 34px 4px 12px;
-    background-position: right 8px center;
+  .date-display.date-display-stacked .date-select-block select {
+    height: 38px;
+    font-size: 15px;
   }
 
   .mini-cal {
     padding: 10px 10px 12px;
   }
 
-  .mini-cal-monthbar {
-    gap: 6px;
-    margin: 0 0 8px;
+  .mini-cal-monthbar,
+  .mini-cal-daybar {
+    gap: 10px;
+  }
+
+  .nav-pill {
+    height: 40px;
+    font-size: 12px;
+    padding: 0 16px;
+  }
+
+  .nav-pill-side,
+  .nav-pill-center {
+    flex: 0 0 auto;
   }
 
   #month-title {
-    font-size: 13px;
-    letter-spacing: 0.04em;
+    font-size: 12px;
   }
 
-  /* previous / next always on same line */
-  .mini-cal-month-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-  }
-
-  .month-advance-btn {
-    min-width: 124px;
-    height: 34px;
-    padding: 5px 12px;
+  .nav-pill-day {
+    height: 36px;
     font-size: 11px;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    flex: 0 0 auto;
+    padding: 0 16px;
   }
 
   .mini-cal-grid {
@@ -868,19 +896,11 @@ body::before {
 
   .mini-cal-day {
     min-height: 28px;
-    font-size: 13px;
+    font-size: 16px;
     padding: 2px;
     border-radius: 5px;
   }
 
-  .btn-today {
-    min-width: 160px;
-    margin-top: 10px;
-    padding: 8px 22px;
-    font-size: 12px;
-  }
-
-  /* keep desktop-like day header layout, scaled down */
   .day-header {
     padding: 12px 12px 10px;
     margin-bottom: 16px;
@@ -906,26 +926,21 @@ body::before {
   }
 
   .day-name-large {
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     line-height: 1.05;
     white-space: nowrap;
   }
 
-  .date-ce-large {
-    font-size: clamp(18px, 5.5vw, 26px);
-    line-height: 1.05;
-    white-space: nowrap;
-  }
-
+  .date-ce-large,
   .date-bs-large {
-    font-size: clamp(18px, 5.3vw, 26px);
+    font-size: 24px;
     line-height: 1.05;
     white-space: nowrap;
   }
 
   .paksha-badge {
-    font-size: 9px;
+    font-size: 10px;
     padding: 5px 10px;
     letter-spacing: 0.08em;
     white-space: nowrap;
@@ -957,7 +972,7 @@ body::before {
   }
 
   .sun-time {
-    font-size: clamp(10px, 3.5vw, 14px);
+    font-size: 15px;
     line-height: 1.05;
     white-space: nowrap;
   }
@@ -989,8 +1004,9 @@ body::before {
 
 @media (max-width: 420px) {
   .topbar-title {
-    font-size: clamp(24px, 8vw, 32px);
-    letter-spacing: 0.015em;
+    font-size: clamp(22px, 6.8vw, 32px);
+    line-height: 1.08;
+    letter-spacing: 0.005em;
   }
 
   .subbar-meta {
@@ -1009,41 +1025,34 @@ body::before {
     letter-spacing: 0.01em;
   }
 
-  .date-display {
-    gap: 8px;
+  .date-select-row {
+    grid-template-columns: 66px minmax(0, 1fr);
+    column-gap: 8px;
   }
 
-  .date-display label {
-    font-size: 8.5px;
+  .date-display.date-display-stacked .date-select-block label {
+    font-size: 10px;
   }
 
-  .date-display select {
-    min-width: 112px;
-    max-width: 128px;
-    height: 34px;
-    font-size: 15px;
-  }
-
-  #month-title {
+  .date-display.date-display-stacked .date-select-block select {
+    height: 36px;
     font-size: 14px;
   }
 
-  .mini-cal-month-actions {
-    gap: 8px;
-  }
-
-  .month-advance-btn {
-    min-width: 112px;
-    height: 34px;
-    font-size: 10px;
-    padding: 5px 10px;
-    letter-spacing: 0.01em;
-  }
-
-  .btn-today {
-    min-width: 150px;
+  #month-title {
     font-size: 11px;
-    padding: 8px 18px;
+  }
+
+  .nav-pill {
+    height: 36px;
+    font-size: 10px;
+    padding: 0 12px;
+  }
+
+  .nav-pill-day {
+    height: 32px;
+    font-size: 9.5px;
+    padding: 0 12px;
   }
 
   .mini-cal-day {
@@ -1065,12 +1074,9 @@ body::before {
     letter-spacing: 0.05em;
   }
 
-  .date-ce-large {
-    font-size: clamp(17px, 6vw, 22px);
-  }
-
+  .date-ce-large,
   .date-bs-large {
-    font-size: clamp(17px, 5.7vw, 22px);
+    font-size: 22px;
   }
 
   .paksha-badge {
@@ -1094,722 +1100,6 @@ body::before {
   }
 
   .sun-time {
-    font-size: clamp(10px, 3.4vw, 13px);
-  }
-}
-
-/* =========================
-   TYPOGRAPHY UPGRADE
-   ========================= */
-
-/* 1. Slight global size increase */
-body {
-  font-size: 18px; /* was 17px */
-  line-height: 1.7;
-}
-
-/* 2. Headings more balanced */
-.topbar-title {
-  font-size: clamp(34px, 4.5vw, 46px);
-  letter-spacing: 0.04em;
-}
-
-.day-name-large {
-  font-size: 19px;
-}
-
-.date-ce-large,
-.date-bs-large {
-  font-size: 32px;
-}
-
-/* 3. Improve readability of content blocks */
-.info-label,
-.summary-key {
-  font-size: 17px;
-}
-
-.info-values,
-.summary-values {
-  font-size: 18px;
-}
-
-/* 4. Calendar + controls slightly refined */
-.date-display select {
-  font-size: 18px;
-}
-
-.month-advance-btn {
-  font-size: 15px;
-}
-
-.btn-today {
-  font-size: 15px;
-}
-
-/* 5. Navigation buttons (more readable but still compact) */
-.subbar-btn {
-  font-size: 11px;
-  letter-spacing: 0.04em;
-}
-
-/* =========================================
-   STRONGER TYPOGRAPHY OVERRIDE
-   Put this at the VERY END of the CSS file
-   ========================================= */
-
-body {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 19px;
-  line-height: 1.72;
-  font-weight: 500;
-}
-
-/* Top title */
-.topbar-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(38px, 5vw, 52px);
-  font-weight: 700;
-  letter-spacing: 0.045em;
-  line-height: 1.04;
-}
-
-/* Meta line under title */
-.subbar-meta {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 20px;
-  line-height: 1.35;
-}
-
-.meta-label {
-  font-size: 0.95em;
-}
-
-.meta-value {
-  font-size: 1.05em;
-  font-weight: 600;
-}
-
-/* Nav buttons */
-.subbar-btn,
-.subbar-btn:visited {
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.045em;
-}
-
-/* Month card labels */
-.date-display label {
-  font-family: 'Cinzel', serif;
-  font-size: 12px;
-  letter-spacing: 0.09em;
-}
-
-/* Dropdowns */
-.date-display select {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 21px;
-  font-weight: 600;
-}
-
-/* Month title */
-#month-title {
-  font-family: 'Cinzel', serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-
-/* Previous / Next / Today */
-.month-advance-btn {
-  font-family: 'Cinzel', serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.btn-today {
-  font-family: 'Cinzel', serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-
-/* Calendar grid */
-.mini-cal-day-header {
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.mini-cal-day {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 19px;
-  font-weight: 600;
-}
-
-/* Panchanga day header */
-.day-name-large {
-  font-family: 'Cinzel', serif;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.date-ce-large {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.08;
-}
-
-.date-bs-large {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.08;
-}
-
-.paksha-badge {
-  font-family: 'Cinzel', serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-/* Sunrise / sunset / dinamana strip */
-.sun-label {
-  font-family: 'Cinzel', serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-}
-
-.sun-time {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-/* Table content */
-.info-label,
-.summary-key {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 19px;
-  font-weight: 600;
-}
-
-.info-values,
-.summary-values {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.65;
-}
-
-/* Mobile */
-@media (max-width: 680px) {
-  body {
-    font-size: 17px;
-  }
-
-  .topbar-title {
-    font-size: clamp(30px, 7.6vw, 40px);
-  }
-
-  .subbar-meta {
-    font-size: 17px;
-  }
-
-  .subbar-btn,
-  .subbar-btn:visited {
-    font-size: 10px;
-  }
-
-  .date-display select {
-    font-size: 18px;
-  }
-
-  #month-title {
-    font-size: 16px;
-  }
-
-  .month-advance-btn {
     font-size: 13px;
-  }
-
-  .btn-today {
-    font-size: 14px;
-  }
-
-  .mini-cal-day {
-    font-size: 17px;
-  }
-
-  .day-name-large {
-    font-size: 16px;
-  }
-
-  .date-ce-large,
-  .date-bs-large {
-    font-size: clamp(24px, 6vw, 30px);
-  }
-
-  .paksha-badge {
-    font-size: 10px;
-  }
-
-  .sun-label {
-    font-size: 10px;
-  }
-
-  .sun-time {
-    font-size: 17px;
-  }
-
-  .info-label,
-  .summary-key {
-    font-size: 17px;
-  }
-
-  .info-values,
-  .summary-values {
-    font-size: 18px;
-  }
-}
-
-/* =========================================
-   FONT SYSTEM (LORA + MERRIWEATHER SANS)
-   ========================================= */
-
-:root {
-  --font-main: 'Lora', Georgia, serif;
-  --font-brand: 'Source Sans 3', system-ui, sans-serif;
-}
-
-/* Base */
-body {
-  font-family: var(--font-main);
-  font-size: 18.5px;
-  line-height: 1.72;
-  font-weight: 500;
-}
-
-/* ===== BRAND / STRUCTURE ===== */
-
-.topbar-title {
-  font-family: var(--font-brand);
-  font-size: clamp(36px, 4.8vw, 50px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.subbar-meta {
-  font-family: var(--font-main);
-  font-size: 19px;
-}
-
-/* Nav buttons */
-.subbar-btn,
-.subbar-btn:visited {
-  font-family: var(--font-brand);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-/* ===== MONTH CARD ===== */
-
-.date-display label {
-  font-family: var(--font-brand);
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-}
-
-.date-display select {
-  font-family: var(--font-main);
-  font-size: 20px;
-  font-weight: 600;
-}
-
-#month-title {
-  font-family: var(--font-brand);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
-/* Buttons */
-.month-advance-btn {
-  font-family: var(--font-brand);
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.btn-today {
-  font-family: var(--font-brand);
-  font-size: 15px;
-  font-weight: 700;
-}
-
-/* Calendar */
-.mini-cal-day-header {
-  font-family: var(--font-brand);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.mini-cal-day {
-  font-family: var(--font-main);
-  font-size: 18.5px;
-  font-weight: 600;
-}
-
-/* ===== PANCHANGA HEADER ===== */
-
-.day-name-large {
-  font-family: var(--font-brand);
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-
-.date-ce-large {
-  font-family: var(--font-main);
-  font-size: 34px;
-  font-weight: 700;
-}
-
-.date-bs-large {
-  font-family: var(--font-main);
-  font-size: 34px;
-  font-weight: 700;
-}
-
-.paksha-badge {
-  font-family: var(--font-brand);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-/* Sun strip */
-.sun-label {
-  font-family: var(--font-brand);
-  font-size: 11px;
-}
-
-.sun-time {
-  font-family: var(--font-main);
-  font-size: 19px;
-  font-weight: 700;
-}
-
-/* ===== CONTENT TABLE ===== */
-
-.info-label,
-.summary-key {
-  font-family: var(--font-main);
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.info-values,
-.summary-values {
-  font-family: var(--font-main);
-  font-size: 19px;
-  font-weight: 500;
-}
-
-/* =========================================
-   MOBILE TUNING
-   ========================================= */
-
-@media (max-width: 680px) {
-
-  body {
-    font-size: 16.8px;
-  }
-
-  .topbar-title {
-    font-size: clamp(28px, 7.2vw, 36px);
-  }
-
-  .subbar-meta {
-    font-size: 16px;
-  }
-
-  .subbar-btn {
-    font-size: 10px;
-  }
-
-  .date-display select {
-    font-size: 17px;
-  }
-
-  #month-title {
-    font-size: 15px;
-  }
-
-  .month-advance-btn {
-    font-size: 12px;
-  }
-
-  .btn-today {
-    font-size: 13px;
-  }
-
-  .mini-cal-day {
-    font-size: 16px;
-  }
-
-  .day-name-large {
-    font-size: 14px;
-  }
-
-  .date-ce-large,
-  .date-bs-large {
-    font-size: clamp(22px, 5.8vw, 28px);
-  }
-
-  .sun-time {
-    font-size: 16px;
-  }
-
-  .info-values,
-  .summary-values {
-    font-size: 17px;
-  }
-}
-
-/* Sharper UI contrast */
-
-.topbar-title {
-  font-family: var(--font-brand);
-  font-weight: 700;
-  letter-spacing: 0.015em; /* tighter = more modern */
-}
-
-.subbar-btn {
-  font-family: var(--font-brand);
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-
-#month-title,
-.day-name-large {
-  font-family: var(--font-brand);
-  font-weight: 700;
-}
-
-/* Keep content classical */
-.info-values,
-.summary-values,
-.date-ce-large,
-.date-bs-large {
-  font-family: var(--font-main);
-}
-
-/* Make labels slightly crisper */
-.info-label,
-.summary-key {
-  font-family: var(--font-main);
-  font-weight: 600;
-}
-
-/* =========================================
-   TYPOGRAPHY REBALANCE AFTER FONT CHANGE
-   Put this at the VERY END of the CSS file
-   ========================================= */
-
-/* Keep main title large */
-.topbar-title {
-  font-size: clamp(52px, 5.6vw, 72px);
-  line-height: 1.02;
-}
-
-/* Nav buttons: slightly bigger */
-.subbar-btn,
-.subbar-btn:visited {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-/* Year / Month labels: bigger */
-.date-display label {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-/* Dropdown text: smaller than before */
-.date-display select {
-  font-size: 17px;
-  font-weight: 600;
-}
-
-/* Month title and nav buttons in month card */
-#month-title {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.month-advance-btn {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.btn-today {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-/* Right header block: scale down because Lora looks larger */
-.day-name-large {
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.date-ce-large {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.06;
-}
-
-.date-bs-large {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.06;
-}
-
-.paksha-badge {
-  font-size: 11px;
-  font-weight: 700;
-}
-
-/* Sunrise / sunset strip: slightly reduced */
-.sun-label {
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.sun-time {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-/* Table/body content: bring down to the size you pointed out */
-.info-label,
-.summary-key {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.info-values,
-.summary-values {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.6;
-}
-
-/* Footer note / evolving app message */
-.dev-note,
-.site-footer {
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* Optional: calendar numbers slightly calmer */
-.mini-cal-day {
-  font-size: 17px;
-}
-
-.mini-cal-day-header {
-  font-size: 11px;
-}
-
-/* Mobile balance */
-@media (max-width: 680px) {
-  .subbar-btn,
-  .subbar-btn:visited {
-    font-size: 11px;
-  }
-
-  .date-display label {
-    font-size: 11px;
-  }
-
-  .date-display select {
-    font-size: 15px;
-  }
-
-  .day-name-large {
-    font-size: 14px;
-  }
-
-  .date-ce-large,
-  .date-bs-large {
-    font-size: 24px;
-  }
-
-  .sun-time {
-    font-size: 15px;
-  }
-
-  .info-label,
-  .summary-key {
-    font-size: 15px;
-  }
-
-  .info-values,
-  .summary-values {
-    font-size: 14px;
-  }
-}
-
-/* =========================================
-   MOBILE HEADER FIX
-   keep desktop large, scale down proportionally on mobile
-   ========================================= */
-
-/* desktop stays strong */
-.topbar-title {
-  font-size: clamp(44px, 5vw, 72px);
-  line-height: 1.04;
-  letter-spacing: 0.015em;
-  text-wrap: balance;
-}
-
-/* tablet */
-@media (max-width: 900px) {
-  .topbar-title {
-    font-size: clamp(34px, 6vw, 52px);
-    line-height: 1.05;
-    letter-spacing: 0.012em;
-  }
-}
-
-/* mobile */
-@media (max-width: 680px) {
-  .topbar {
-    padding: 12px 10px 10px;
-  }
-
-  .topbar-title {
-    font-size: clamp(24px, 7vw, 40px);
-    line-height: 1.06;
-    letter-spacing: 0.008em;
-    white-space: normal;
-    text-wrap: balance;
-  }
-}
-
-/* very small phones */
-@media (max-width: 420px) {
-  .topbar-title {
-    font-size: clamp(22px, 6.8vw, 32px);
-    line-height: 1.08;
-    letter-spacing: 0.005em;
   }
 }

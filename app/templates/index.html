@@ -61,37 +61,83 @@
 <div class="page">
   <div class="main-layout">
 
-    <aside class="date-nav">
-      <div class="date-nav-header">
-        <div class="date-nav-arrows">
-          <div class="date-display">
-            <div class="date-select-block">
-              <label for="year-select">Year</label>
-              <select id="year-select" onchange="handleYearMonthChange()"></select>
-            </div>
-
-            <div class="date-select-block">
-              <label for="month-select">Month</label>
-              <select id="month-select" onchange="handleYearMonthChange()"></select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mini-cal">
-        <div class="mini-cal-monthbar">
-          <div id="month-title"></div>
-          <div class="mini-cal-month-actions">
-            <button type="button" class="month-advance-btn" onclick="changeMonth(-1)" title="Previous month">Previous</button>
-            <button type="button" class="month-advance-btn" onclick="changeMonth(1)" title="Next month">Next</button>
+<aside class="date-nav">
+  <div class="date-nav-header">
+    <div class="date-nav-arrows">
+      <div class="date-display date-display-stacked">
+        <div class="date-select-row">
+          <div class="date-select-block">
+            <label for="year-select">Year</label>
+            <select id="year-select" onchange="handleYearMonthChange()"></select>
           </div>
         </div>
 
-        <div class="mini-cal-grid" id="cal-grid"></div>
-        <button class="btn-today" onclick="goToday()">Today</button>
+        <div class="date-select-row">
+          <div class="date-select-block">
+            <label for="month-select">Month</label>
+            <select id="month-select" onchange="handleYearMonthChange()"></select>
+          </div>
+        </div>
       </div>
-    </aside>
+    </div>
+  </div>
 
+  <div class="mini-cal">
+    <div class="mini-cal-monthbar">
+      <button
+        type="button"
+        class="nav-pill nav-pill-side"
+        onclick="changeMonth(-1)"
+        title="Previous month">
+        Last
+      </button>
+
+      <button
+        type="button"
+        class="nav-pill nav-pill-center"
+        onclick="openMonthPicker()"
+        title="Current month">
+        <span id="month-title"></span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-pill nav-pill-side"
+        onclick="changeMonth(1)"
+        title="Next month">
+        Next
+      </button>
+    </div>
+
+    <div class="mini-cal-grid" id="cal-grid"></div>
+
+    <div class="mini-cal-daybar">
+      <button
+        type="button"
+        class="nav-pill nav-pill-side nav-pill-day"
+        onclick="changeDay(-1)"
+        title="Previous day">
+        Last
+      </button>
+
+      <button
+        type="button"
+        class="nav-pill nav-pill-center nav-pill-day"
+        onclick="goToday()"
+        title="Go to today">
+        Today
+      </button>
+
+      <button
+        type="button"
+        class="nav-pill nav-pill-side nav-pill-day"
+        onclick="changeDay(1)"
+        title="Next day">
+        Next
+      </button>
+    </div>
+  </div>
+</aside>
     <main class="panchanga-content" id="panchanga-panel">
 
       <div class="loading-overlay" id="loading-overlay">
@@ -374,6 +420,7 @@
     loadDate(isoDate, true);
   }
 
+
   function changeMonth(delta) {
     const currentParts = currentDate.split('-');
     let year = parseInt(currentParts[0], 10);
@@ -410,6 +457,34 @@
     loadDate(isoDate, true);
   }
 
+  function changeDay(delta) {
+    const parts = currentDate.split('-');
+    const baseDate = new Date(
+      parseInt(parts[0], 10),
+      parseInt(parts[1], 10) - 1,
+      parseInt(parts[2], 10)
+    );
+
+    baseDate.setDate(baseDate.getDate() + delta);
+
+    const minDate = new Date(PANCH_MIN_YEAR, 0, 1);
+    const maxDate = new Date(PANCH_MAX_YEAR, 11, 31);
+
+    if (baseDate < minDate || baseDate > maxDate) return;
+
+    const isoDate =
+      `${baseDate.getFullYear()}-` +
+      `${String(baseDate.getMonth() + 1).padStart(2, '0')}-` +
+      `${String(baseDate.getDate()).padStart(2, '0')}`;
+
+    loadDate(isoDate, true);
+  }
+
+  function openMonthPicker() {
+    const monthSelect = document.getElementById('month-select');
+    if (monthSelect) monthSelect.focus();
+  }
+
   function initCalendar() {
     const parts = currentDate.split('-');
     calViewYear = parseInt(parts[0], 10);
@@ -425,7 +500,7 @@
 
     const monthTitle = document.getElementById('month-title');
     if (monthTitle) {
-      monthTitle.textContent = `${GREGORIAN_MONTHS[calViewMonth]} ${calViewYear}`;
+      monthTitle.textContent = GREGORIAN_MONTHS[calViewMonth];
     }
 
     const grid = document.getElementById('cal-grid');
