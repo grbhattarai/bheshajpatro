@@ -13,20 +13,6 @@
   <!-- ===================================================== -->
   <!-- Fonts                                                  -->
   <!-- ===================================================== -->
-  <!--
-    Lora:
-      - body text
-      - section titles
-      - founder name
-      - labels
-      - credentials
-      - contact
-      - footer
-
-    Merriweather Sans:
-      - top header only
-      - pill buttons only
-  -->
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -69,7 +55,6 @@
       --shadow-btn: 0 2px 8px rgba(80, 37, 15, 0.16);
 
       --header-gold: #e0b65b;
-      --header-gold-soft: #f3d79e;
       --header-cream: #fff2ca;
 
       --font-main: 'Lora', Georgia, serif;
@@ -143,10 +128,7 @@
       line-height: 1.08;
       letter-spacing: 0.01em;
       color: var(--header-gold);
-      text-transform: none;
-      opacity: 1;
-      text-shadow:
-        0 1px 0 rgba(0, 0, 0, 0.18);
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
     }
 
     /* ===================================================== */
@@ -183,7 +165,7 @@
       padding: 12px 24px;
       border-radius: 999px;
       background: var(--accent);
-      color: #fff2ca;
+      color: var(--header-cream);
       text-decoration: none;
       font-family: var(--font-brand);
       font-size: 14px;
@@ -197,7 +179,6 @@
         background 0.18s ease,
         color 0.18s ease;
       white-space: nowrap;
-      text-transform: none;
     }
 
     .nav-btn:hover,
@@ -241,10 +222,8 @@
       font-size: 24px;
       font-weight: 600;
       line-height: 1.2;
-      letter-spacing: 0;
       color: var(--text-mid);
       margin: 0 0 8px;
-      text-transform: none;
     }
 
     .section-divider {
@@ -267,28 +246,10 @@
       font-size: 1em;
       font-family: var(--font-main);
       font-weight: 400;
-      text-transform: none;
     }
 
     p + p {
       margin-top: 16px;
-    }
-
-    .lead-note {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border-left: 3px solid #c18a4f;
-      background: rgba(255, 250, 242, 0.46);
-      border-radius: 8px;
-      font-size: 1.03em;
-      color: #56331a;
-      font-family: var(--font-main);
-      text-transform: none;
-    }
-
-    .lead-note em {
-      font-style: italic;
-      color: var(--text-mid);
     }
 
     /* ===================================================== */
@@ -304,32 +265,30 @@
       background: rgba(255, 251, 245, 0.36);
       border: 1px solid var(--border-light);
       border-radius: 18px;
-      padding: 34px 26px 28px;
+      padding: 34px 34px 28px;
       overflow: hidden;
     }
 
     .founder-motto-overlay {
       position: absolute;
       top: 18px;
-      left: 63%;
+      left: 61%;
       transform: translateX(-50%);
       font-family: var(--font-main);
       font-size: 24px;
       font-weight: 600;
-      letter-spacing: 0;
       color: rgba(96, 53, 27, 0.55);
       white-space: nowrap;
       pointer-events: none;
       z-index: 0;
-      text-transform: none;
     }
 
     .founder-top {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      gap: 36px;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 34px;
       align-items: center;
     }
 
@@ -356,23 +315,24 @@
       font-size: 18px;
       font-weight: 600;
       line-height: 1.2;
-      letter-spacing: 0;
       color: var(--text-mid);
-      text-transform: none;
       white-space: nowrap;
     }
 
     .founder-right {
       min-width: 0;
       padding-top: 34px;
+      display: flex;
+      justify-content: center;
     }
 
     .founder-meta {
+      width: min(100%, 600px);
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+      grid-template-columns: minmax(300px, 1fr) 205px;
       gap: 48px;
       align-items: start;
-      padding-left: 22px;
+      padding-left: 0;
     }
 
     .meta-block {
@@ -383,8 +343,6 @@
       font-family: var(--font-main);
       font-size: 17px;
       font-weight: 600;
-      letter-spacing: 0;
-      text-transform: none;
       color: var(--text-soft);
       margin-bottom: 10px;
     }
@@ -397,13 +355,13 @@
       font-size: 17px;
       line-height: 1.7;
       color: #5a3820;
-      text-transform: none;
     }
 
     .founder-credentials li {
       position: relative;
-      padding-left: 16px;
+      padding-left: 18px;
       margin-bottom: 2px;
+      white-space: nowrap;
     }
 
     .founder-credentials li::before {
@@ -419,7 +377,7 @@
       font-size: 17px;
       line-height: 1.8;
       color: var(--text-soft);
-      text-transform: none;
+      white-space: nowrap;
     }
 
     .founder-contact a,
@@ -456,7 +414,6 @@
       color: #5a3820;
       font-size: 1.02em;
       font-family: var(--font-main);
-      text-transform: none;
     }
 
     .page-cta-actions {
@@ -477,7 +434,6 @@
       color: var(--text-soft);
       font-size: 17px;
       font-family: var(--font-main);
-      text-transform: none;
     }
 
     /* ===================================================== */
@@ -493,6 +449,20 @@
         padding: 28px 22px 24px;
       }
 
+      .founder-card {
+        padding: 28px 22px 24px;
+      }
+
+      .founder-motto-overlay {
+        position: static;
+        transform: none;
+        display: block;
+        margin: 0 0 18px;
+        text-align: center;
+        font-size: 22px;
+        white-space: normal;
+      }
+
       .founder-top {
         grid-template-columns: 1fr;
         gap: 22px;
@@ -500,12 +470,13 @@
 
       .founder-right {
         padding-top: 0;
+        display: block;
       }
 
       .founder-meta {
+        width: 100%;
         grid-template-columns: 1fr;
         gap: 20px;
-        padding-left: 0;
       }
 
       .founder-profile {
@@ -516,13 +487,11 @@
         white-space: normal;
       }
 
-      .founder-motto-overlay {
-        position: static;
-        transform: none;
-        display: block;
-        margin: 0 0 18px;
-        text-align: center;
-        font-size: 22px;
+      .founder-credentials li {
+        white-space: normal;
+      }
+
+      .founder-contact {
         white-space: normal;
       }
     }
@@ -667,9 +636,9 @@
           The name reflects the idea of something that restores: slowly, through right understanding and right practice.
         </p>
 
-        <div class="lead-note">
-          <em>What is offered here reflects long-term study and lived practice, not instruction or performance.</em>
-        </div>
+        <p>
+          What is offered here reflects long-term study and lived practice, not instruction or performance.
+        </p>
 
         <p>
           Bheshaj Panchanga is the Center’s primary public offering. Everything else remains private.
@@ -715,7 +684,7 @@
 
         <div class="founder-intro">
           <p>
-            Bheshaj Spiritual Center was founded and is maintained by Dr. Gandhi R. Bhattarai — an economist by profession and a student of Vedic Jyotish and Sanatana Dharma for over fifteen years.
+            Bheshaj Spiritual Center was founded and is maintained by Dr. Gandhi R. Bhattarai — an applied economist by profession and a student of Vedic Jyotish and Sanatana Dharma for over fifteen years.
           </p>
 
           <p>
@@ -723,7 +692,7 @@
           </p>
 
           <p>
-            As a cancer survivor, his experience brought unusual clarity to what truly matters. Bheshaj reflects a personal commitment to practice and community, along with a quiet intention to dedicate more time, learning, and resources to this path in the years ahead.
+            Certain life experiences have brought him deeper clarity about what truly matters. Bheshaj reflects a personal commitment to practice and community, along with a quiet intention to dedicate more time, learning, and resources to this path in the years ahead.
           </p>
         </div>
 
@@ -750,7 +719,7 @@
                     <li>Jyotish Praveena (ICAS)</li>
                     <li>M.A. Vedic Jyotish (India)</li>
                     <li>M.S. Data Science (USA)</li>
-                    <li>Ph.D. Economics (USA)</li>
+                    <li>Ph.D. Applied Economics (USA)</li>
                   </ul>
                 </div>
 
