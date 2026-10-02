@@ -1,0 +1,47 @@
+/* Shared Bheshaj presentation layer. No calculation or interaction changes. */
+:root{
+ --bg:#fbfaf6;--bg-card:#f2efe7;--bg-deep:#e8e4da;--bg-soft:#f7f5ee;
+ --card:#f2efe7;--card-soft:#fffdfa;
+ --accent:#233b59;--accent-dark:#192d46;--accent-hover:#344f70;--accent-light:#d8e1eb;
+ --gold:#b79a60;--gold-light:#f5f0e4;--header-gold:#23334b;--header-gold-soft:#23334b;--header-cream:#fff;
+ --header:#fbfaf6;--header-dark:#233b59;
+ --text:#23334b;--text-mid:#33475c;--text-soft:#626d76;--muted:#626d76;
+ --border:#d6d0c2;--border-light:#e3dfd4;
+ --button-bg:#233b59;--button-bg-hover:#344f70;--button-text:#fff;
+ --shukla-bg:#f7f4eb;--krishna-bg:#233b59;--krishna-text:#fff;
+ --possible-bg:#f1e8d2;--possible-text:#725415;
+ --not-visible-bg:#f3e4e1;--not-visible-text:#94392f;
+ --visible-bg:#e5eee5;--visible-text:#30633c;
+ --shadow-soft:0 4px 14px rgba(35,51,75,.04);--shadow-btn:none;
+ --modal-overlay:rgba(25,45,70,.45);
+ --font-main:Georgia,serif;--font-brand:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-title:Georgia,serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-main);font-weight:400}
+body::before{background-image:none}
+.topbar{background:var(--bg);color:var(--text);border-bottom:1px solid var(--border-light);box-shadow:none;padding:22px 20px}
+.topbar .topbar-title{color:var(--text);font-family:Georgia,serif;font-weight:400;font-size:clamp(28px,3.5vw,42px);line-height:1.2;letter-spacing:0}
+.subbar,.navband{background:var(--bg-soft);border-color:var(--border-light)}
+.meta-label,.meta-sep,.date-bs-large,.site-footer{color:var(--text-soft)}
+.meta-value{color:var(--text-mid)}
+.subbar-btn,.subbar-btn:visited{color:#fff!important;border-radius:7px;letter-spacing:0}
+.subbar-btn:hover{color:#fff!important}
+.back-button,.back-button:visited,.nav-btn,.nav-btn:visited,.btn-primary{background:var(--accent);color:#fff;border-radius:7px;border-color:var(--accent);box-shadow:none}
+.back-button:hover,.nav-btn:hover,.btn-primary:hover{background:var(--accent-hover);color:#fff;box-shadow:none}
+.btn-secondary,.btn-back{border-radius:7px}
+.nav-pill{border-width:1px;border-radius:7px}
+.nav-pill:hover,.mini-cal-day.selected{color:#fff}
+.date-display.date-display-stacked .date-select-block label{color:#fff}
+.date-display.date-display-stacked .date-select-block select{background-color:#fffdfa}
+.mini-cal-day.other-month{opacity:.55}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #b79a60;outline-offset:3px}
+.card,.content-card,.mini-cal,.day-header{box-shadow:none}
+.dev-note{color:var(--text-soft);background:var(--bg-soft);border-color:var(--border-light)}
+.loading-overlay{background:rgba(251,250,246,.85)}
+th,.modal-header{background:#e8e4da;color:var(--text-mid)}
+th,td{border-bottom-color:var(--border-light)}
+table,.year-select{background:#fffdfa}
+p,.page-cta-text{color:var(--text-mid)}
+.section-divider{background:linear-gradient(to right,#b79a60,transparent)}
+.footer-note{background:var(--bg-soft);border-color:var(--border-light)}
+@media(max-width:650px){.topbar{padding:18px 16px}.topbar .topbar-title{font-size:28px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
